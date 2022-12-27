@@ -1,13 +1,17 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 
-public class GridBuildingSystem : MonoBehaviour
+public class GridBuildingSystem : MonoSingleton<GridBuildingSystem>
 {
-    public static GridBuildingSystem current;
+    public static Action<Building> OnBuild;
+    public UnityEvent Builded;
+
+    public UnityEvent Canceled;
+
 
     public GridLayout gridLayout;
     public Tilemap MainTilemap;
@@ -18,13 +22,8 @@ public class GridBuildingSystem : MonoBehaviour
     private Building temp;
     private Vector3 prevPos;
     private BoundsInt prevArea;
-    
-    #region Unity Methods
 
-    private void Awake()
-    {
-        current = this;
-    }
+    #region Unity Methods
 
     private void Start()
     {
@@ -33,6 +32,8 @@ public class GridBuildingSystem : MonoBehaviour
         tileBases.Add(TileType.White, Resources.Load<TileBase>(tilePath + "white"));
         tileBases.Add(TileType.Green, Resources.Load<TileBase>(tilePath + "green"));
         tileBases.Add(TileType.Red, Resources.Load<TileBase>(tilePath + "red"));
+
+        TileMapColorAlphaSetter(MainTilemap,0f);
     }
 
     private void Update()
@@ -42,60 +43,73 @@ public class GridBuildingSystem : MonoBehaviour
             return;
         }
 
-        if (Input.GetMouseButtonDown(0))
+
+        if (EventSystem.current.IsPointerOverGameObject(0))
         {
-            if (EventSystem.current.IsPointerOverGameObject(0))
-            {
-                return;
-            }
+            return;
+        }
 
-            if (!temp.Placed)
-            {
-                Vector2 touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                Vector3Int cellPos = gridLayout.LocalToCell(touchPos);
+        if (!temp.Placed)
+        {
+            Vector2 touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3Int cellPos = gridLayout.LocalToCell(touchPos);
 
-                if (prevPos != cellPos)
-                {
-                    temp.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos
-                        + new Vector3(.5f, .5f, 0f));
-                    prevPos = cellPos;
-                    FollowBuilding();
-                }
+            if (prevPos != cellPos)
+            {
+                temp.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos
+                    + new Vector3(.5f, .5f, 0f));
+                prevPos = cellPos;
+                FollowBuilding();
             }
         }
-        else if (Input.GetKeyDown(KeyCode.Space))
+
+        if (Input.GetMouseButtonDown(0) && temp.CanBePlaced())
         {
-            if (temp.CanBePlaced())
-            {
-                temp.Place();
-            }
+            temp.Place();
+            OnBuild?.Invoke(temp);
+            Builded?.Invoke();
+            temp = null;
+
+            TileMapColorAlphaSetter(MainTilemap, 0f);
         }
-        else if (Input.GetKeyDown(KeyCode.Escape))
+        else if (Input.GetMouseButtonDown(1))
         {
             ClearArea();
+            Canceled?.Invoke();
             Destroy(temp.gameObject);
+
+            TileMapColorAlphaSetter(MainTilemap, 0f);
         }
     }
 
     #endregion
 
     #region Tilemap management
-    
+
+    private void TileMapColorAlphaSetter(Tilemap tilemap, float alphaValue)
+    {
+        Color tilemapNewColor = tilemap.color;
+
+        tilemapNewColor.a = alphaValue;
+
+        tilemap.color = tilemapNewColor;
+    }
+
     private static TileBase[] GetTilesBlock(BoundsInt area, Tilemap tilemap)
     {
         TileBase[] array = new TileBase[area.size.x * area.size.y * area.size.z];
         int counter = 0;
-        
+
         foreach (var v in area.allPositionsWithin)
         {
             Vector3Int pos = new Vector3Int(v.x, v.y, 0);
             array[counter] = tilemap.GetTile(pos);
             counter++;
         }
-        
+
         return array;
     }
-    
+
     private static void SetTilesBlock(BoundsInt area, TileType type, Tilemap tilemap)
     {
         int size = area.size.x * area.size.y * area.size.z;
@@ -103,7 +117,7 @@ public class GridBuildingSystem : MonoBehaviour
         FillTiles(tileArray, type);
         tilemap.SetTilesBlock(area, tileArray);
     }
-    
+
     private static void FillTiles(TileBase[] arr, TileType type)
     {
         for (int i = 0; i < arr.Length; i++)
@@ -111,15 +125,20 @@ public class GridBuildingSystem : MonoBehaviour
             arr[i] = tileBases[type];
         }
     }
-    
+
     #endregion
 
     #region Building Placement
 
     public void InitializeWithBuilding(GameObject building)
     {
-        temp = Instantiate(building, Vector3.zero, Quaternion.identity).GetComponent<Building>();
-        FollowBuilding();
+        if (temp == null)
+        {
+            temp = Instantiate(building, Vector3.zero, Quaternion.identity).GetComponent<Building>();
+            FollowBuilding();
+
+            TileMapColorAlphaSetter(MainTilemap, 0.5f);
+        }
     }
 
     private void ClearArea()
@@ -153,7 +172,7 @@ public class GridBuildingSystem : MonoBehaviour
                 break;
             }
         }
-        
+
         TempTilemap.SetTilesBlock(buildingArea, tileArray);
         prevArea = buildingArea;
     }
@@ -178,14 +197,14 @@ public class GridBuildingSystem : MonoBehaviour
         SetTilesBlock(area, TileType.Empty, TempTilemap);
         SetTilesBlock(area, TileType.Green, MainTilemap);
     }
-    
+
     #endregion
 }
 
 public enum TileType
 {
-    Empty, 
+    Empty,
     White,
-    Green, 
+    Green,
     Red
 }
