@@ -2373,9 +2373,9 @@ MonoBehaviour:
         m_MethodName: InitializeWithBuilding
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 5249543589208906696, guid: 65a96a185d9850f43ae4bbcf3e4cfe9a,
-            type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 11400000, guid: e4851c752ddf36f4da93a3942998f9a9,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: BuildingData, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2469,6 +2469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2b8a45b62ea76e41861ef90554df27c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentBuilding: {fileID: 0}
 --- !u!1 &301625362
 GameObject:
   m_ObjectHideFlags: 0
@@ -2683,9 +2684,9 @@ MonoBehaviour:
         m_MethodName: InitializeWithBuilding
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 5249543589208906696, guid: 65a96a185d9850f43ae4bbcf3e4cfe9a,
-            type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 11400000, guid: e4851c752ddf36f4da93a3942998f9a9,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: BuildingData, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2975,9 +2976,9 @@ MonoBehaviour:
         m_MethodName: InitializeWithBuilding
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 5249543589208906696, guid: 65a96a185d9850f43ae4bbcf3e4cfe9a,
-            type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 11400000, guid: e4851c752ddf36f4da93a3942998f9a9,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: BuildingData, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -8904,9 +8905,9 @@ MonoBehaviour:
         m_MethodName: InitializeWithBuilding
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 5249543589208906696, guid: 65a96a185d9850f43ae4bbcf3e4cfe9a,
-            type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 11400000, guid: e4851c752ddf36f4da93a3942998f9a9,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: BuildingData, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

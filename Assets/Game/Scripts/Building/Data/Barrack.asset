@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a5c6aa97e7c25145bc5f42bad010792, type: 3}
   m_Name: Barrack
   m_EditorClassIdentifier: 
-  BuildingPrefab: {fileID: 7947911505737750455, guid: 91afc0649ae41a64c860a5d49f05ff40,
+  BuildingPrefab: {fileID: 5249543589208906696, guid: 65a96a185d9850f43ae4bbcf3e4cfe9a,
     type: 3}

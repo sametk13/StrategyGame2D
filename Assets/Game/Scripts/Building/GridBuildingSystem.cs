@@ -8,8 +8,8 @@ using UnityEngine.Tilemaps;
 public class GridBuildingSystem : MonoSingleton<GridBuildingSystem>
 {
     public static Action<Building> OnBuild;
-    public UnityEvent Builded;
 
+    public UnityEvent Builded;
     public UnityEvent Canceled;
 
 
@@ -130,11 +130,11 @@ public class GridBuildingSystem : MonoSingleton<GridBuildingSystem>
 
     #region Building Placement
 
-    public void InitializeWithBuilding(GameObject building)
+    public void InitializeWithBuilding(BuildingData buildingData)
     {
         if (temp == null)
         {
-            temp = Instantiate(building, Vector3.zero, Quaternion.identity).GetComponent<Building>();
+            temp = Instantiate(buildingData.BuildingPrefab, Vector3.zero, Quaternion.identity).GetComponent<Building>();
             FollowBuilding();
 
             TileMapColorAlphaSetter(MainTilemap, 0.5f);
