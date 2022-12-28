@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
 public class GridBuildingSystem : MonoSingleton<GridBuildingSystem>
@@ -27,6 +28,7 @@ public class GridBuildingSystem : MonoSingleton<GridBuildingSystem>
     private Vector3 prevPos;
     private BoundsInt prevArea;
 
+    [SerializeField]InputActionReference mousePositionReference;
     #region Unity Methods
 
     private void OnEnable()
@@ -64,7 +66,7 @@ public class GridBuildingSystem : MonoSingleton<GridBuildingSystem>
 
         if (!temp.Placed)
         {
-            Vector2 touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 touchPos = Camera.main.ScreenToWorldPoint(mousePositionReference.action.ReadValue<Vector2>());
             Vector3Int cellPos = gridLayout.LocalToCell(touchPos);
 
             if (prevPos != cellPos)

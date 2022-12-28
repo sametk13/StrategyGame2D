@@ -2666,7 +2666,7 @@ Camera:
   m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
+  m_FocalLength: 6.928203
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -2676,8 +2676,8 @@ Camera:
   near clip plane: 0.001
   far clip plane: 5000
   field of view: 120
-  orthographic: 0
-  orthographic size: 10
+  orthographic: 1
+  orthographic size: 15
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2700,7 +2700,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.087155744, w: 0.9961947}
   m_LocalPosition: {x: 0, y: 0, z: -5.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2898,10 +2898,10 @@ MonoBehaviour:
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 120
-    OrthographicSize: 10
+    OrthographicSize: 15
     NearClipPlane: 0.001
     FarClipPlane: 5000
-    Dutch: 0
+    Dutch: 10
     LensShift: {x: 0, y: 0}
   m_Transitions:
     m_BlendHint: 0
@@ -2940,8 +2940,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panSpeed: 10
   zoomSpeed: 250
-  zoomInMax: 40
-  zoomOutMax: 135
+  zoomInMax: 3
+  zoomOutMax: 15
 --- !u!1 &766346061
 GameObject:
   m_ObjectHideFlags: 0
@@ -8527,6 +8527,8 @@ MonoBehaviour:
   gridLayout: {fileID: 1219287649}
   MainTilemap: {fileID: 179798506}
   TempTilemap: {fileID: 85727862}
+  mousePositionReference: {fileID: -1234928931982293860, guid: dd585dc079b2cab45b7e48b450adb489,
+    type: 3}
 --- !u!156049354 &1219287649
 Grid:
   m_ObjectHideFlags: 0

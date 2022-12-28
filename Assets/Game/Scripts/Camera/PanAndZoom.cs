@@ -39,9 +39,9 @@ public class PanAndZoom : MonoBehaviour
 
     public void ZoomScreen(float increment)
     {
-        float fov = virtualCamera.m_Lens.FieldOfView;
+        float fov = virtualCamera.m_Lens.OrthographicSize;
         float target = Mathf.Clamp(fov + increment,zoomInMax,zoomOutMax);
-        virtualCamera.m_Lens.FieldOfView = Mathf.MoveTowards(fov, target, zoomSpeed * Time.deltaTime);
+        virtualCamera.m_Lens.OrthographicSize = Mathf.MoveTowards(fov, target, zoomSpeed * Time.deltaTime);
     }
 
     public Vector2 PanDirection(float x, float y)
