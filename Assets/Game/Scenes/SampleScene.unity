@@ -2354,8 +2354,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingDatas:
   - {fileID: 11400000, guid: e4851c752ddf36f4da93a3942998f9a9, type: 2}
-  - {fileID: 11400000, guid: e4851c752ddf36f4da93a3942998f9a9, type: 2}
-  - {fileID: 11400000, guid: e4851c752ddf36f4da93a3942998f9a9, type: 2}
+  - {fileID: 11400000, guid: 71d94c38688605044a44a44307901c90, type: 2}
+  - {fileID: 11400000, guid: 347eff86640da1c4487ae8d0e6ffd65e, type: 2}
   scrollContent: {fileID: 814945743}
   productPrefab: {fileID: 5014728683306149405, guid: 9889c71845b969540a711069e0c4a1f9,
     type: 3}
