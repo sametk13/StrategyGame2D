@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 
-public class ProductionMenuHandler : MonoBehaviour
+public class ProductionMenuHandler : MonoSingleton<ProductionMenuHandler>
 {
     public List<ProductData> buildingDatas = new List<ProductData>();
 
