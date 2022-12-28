@@ -10,7 +10,7 @@ namespace SKUtils.ScriptableSystem
         [ReadOnly] public UnityEvent ActionEvent;
 
         [ContextMenu("Call Action")] // Utilised to create a button
-        public void CallAction() 
+        public  void CallAction() 
         {
             ActionEvent?.Invoke(); 
         }

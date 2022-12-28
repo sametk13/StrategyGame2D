@@ -5,9 +5,19 @@ using UnityEngine;
 
 public class Building : MonoBehaviour
 {
-    public  bool Placed { get; private set; }
-    public BoundsInt area;
-    
+    public bool Placed { get; private set; }
+    [HideInInspector] public BoundsInt area;
+
+    public BuildingData buildingData;
+
+    private void Awake()
+    {
+        area.size = new Vector3Int(
+            buildingData.BuildingSize.x,
+            buildingData.BuildingSize.y,
+            1);
+    }
+
     #region Build Methods
 
     public bool CanBePlaced()
@@ -32,6 +42,6 @@ public class Building : MonoBehaviour
         Placed = true;
         GridBuildingSystem.Instance.TakeArea(areaTemp);
     }
-    
+
     #endregion
 }

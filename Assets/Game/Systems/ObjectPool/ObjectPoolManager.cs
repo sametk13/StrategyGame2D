@@ -22,7 +22,7 @@ namespace SKUtils.ObjectPool
         {
             if (!objectPoolerPairs.ContainsKey(poolerName))
             {
-                Debug.LogError($"There is no object pooler named: {poolerName}");
+                Debug.Log($"There is no object pooler named: {poolerName}");
                 return null;
             }
             GameObject go = objectPoolerPairs[poolerName].GetPooledObject();
