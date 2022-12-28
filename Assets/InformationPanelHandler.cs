@@ -2,7 +2,7 @@ using SKUtils.ObjectPool;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InformationPanelHandler : MonoBehaviour
+public class InformationPanelHandler : MonoSingleton<InformationPanelHandler>
 {
     [SerializeField] private GameObject informationProductPrefab;
     [SerializeField] private Transform layout;
@@ -41,6 +41,12 @@ public class InformationPanelHandler : MonoBehaviour
 [System.Serializable]
 public class ProductInfoDatas
 {
+    public ProductInfoDatas(ProductData _productData, int _count)
+    {
+        this.ProductData = _productData;
+        this.Count = _count;
+    }
+
     public ProductData ProductData;
     public int Count;
 }
