@@ -11,6 +11,14 @@ public class Building : MonoBehaviour, ISelectable
     public BuildingData BuildingData  { get => buildingData;  set => InitializeAreaSize(value); }
     [SerializeField]private BuildingData buildingData;
 
+    public Transform SpawnPoint;
+    [HideInInspector]public Vector2 NextSpawnPoint;
+
+    private void Start()
+    {
+        NextSpawnPoint = SpawnPoint.position;
+    }
+
     private void InitializeAreaSize(BuildingData _buildingData)
     {
         this.buildingData = _buildingData;
@@ -28,7 +36,7 @@ public class Building : MonoBehaviour, ISelectable
         InformationPanelHandler.Instance.SetInformationList(productInfoDatas);
 
 
-        ProductionMenuHandler.Instance.SetProductCardList(BuildingData.UnitDatas, ProductType.unit);
+        ProductionMenuHandler.Instance.SetProductCardList(BuildingData.UnitDatas, ProductType.Unit,this);
     }
     #region Build Methods
 

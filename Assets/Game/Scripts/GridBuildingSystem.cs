@@ -208,11 +208,3 @@ public class GridBuildingSystem : MonoSingleton<GridBuildingSystem>
 
     #endregion
 }
-
-public enum TileType
-{
-    Empty,
-    White,
-    Green,
-    Red
-}

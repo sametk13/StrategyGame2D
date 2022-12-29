@@ -1,15 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitCard : ProductCard
 {
     public UnitData unitData { get => _unitData; set => _unitData = value; }
     private UnitData _unitData;
+    [HideInInspector]public Vector2 spawnPoint;
 
     public override void Indicate()
     {
-        //Factory
+        UnitFactory.Instance.SpawnUnit(unitData.unitType,spawnPoint,Quaternion.identity);
     }
 
     public override void InitializeCard(UnitData _unitData)

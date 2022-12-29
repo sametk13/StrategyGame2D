@@ -1,7 +1,5 @@
 using SKUtils.ObjectPool;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 
 public class ProductionMenuHandler : MonoSingleton<ProductionMenuHandler>
@@ -21,7 +19,7 @@ public class ProductionMenuHandler : MonoSingleton<ProductionMenuHandler>
     }
     public void GetBuildingDatas()
     {
-        SetProductCardList(buildingDatas,ProductType.building);
+        SetProductCardList(buildingDatas,ProductType.Building);
     }
 
     public void ClearProducts()
@@ -39,10 +37,10 @@ public class ProductionMenuHandler : MonoSingleton<ProductionMenuHandler>
 
         switch (_productType)
         {
-            case ProductType.building:
+            case ProductType.Building:
                 productPrefab = buildingCardPrefab;
                 break;
-            case ProductType.unit:
+            case ProductType.Unit:
                 productPrefab = unitCardPrefab;
                 break;
         }
@@ -55,16 +53,16 @@ public class ProductionMenuHandler : MonoSingleton<ProductionMenuHandler>
 
         for (int i = 0; i < _buildingDatas.Count; i++)
         {
-            ProductCard newProduct;
+            BuildingCard newProduct;
 
             GameObject product = ObjectPoolManager.Instance.GetObject("buildingCard");
             if (product != null)
             {
-                newProduct = product.GetComponent<ProductCard>();
+                newProduct = product.GetComponent<BuildingCard>();
             }
             else
             {
-                newProduct = Instantiate(GetProductPrefab(_productType), scrollContent).GetComponent<ProductCard>();
+                newProduct = Instantiate(GetProductPrefab(_productType), scrollContent).GetComponent<BuildingCard>();
             }
             currentProducts.Add(newProduct.gameObject);
             BuildingData currentData = _buildingDatas[i];
@@ -72,32 +70,27 @@ public class ProductionMenuHandler : MonoSingleton<ProductionMenuHandler>
         }
     }
 
-    public void SetProductCardList(List<UnitData> _unitDatas, ProductType _productType)
+    public void SetProductCardList(List<UnitData> _unitDatas, ProductType _productType,Building _building)
     {
         ClearProducts();
 
         for (int i = 0; i < _unitDatas.Count; i++)
         {
-            ProductCard newProduct;
+            UnitCard newProduct;
 
             GameObject product = ObjectPoolManager.Instance.GetObject("unitCard");
             if (product != null)
             {
-                newProduct = product.GetComponent<ProductCard>();
+                newProduct = product.GetComponent<UnitCard>();
             }
             else
             {
-                newProduct = Instantiate(GetProductPrefab(_productType), scrollContent).GetComponent<ProductCard>();
+                newProduct = Instantiate(GetProductPrefab(_productType), scrollContent).GetComponent<UnitCard>();
             }
             currentProducts.Add(newProduct.gameObject);
             UnitData currentData = _unitDatas[i];
             newProduct.InitializeCard(currentData);
+            newProduct.spawnPoint = _building.SpawnPoint.position;
         }
     }
-}
-
-public enum ProductType
-{
-    building,
-    unit
 }

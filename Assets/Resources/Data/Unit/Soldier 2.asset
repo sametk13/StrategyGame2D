@@ -17,3 +17,4 @@ MonoBehaviour:
   ProductName: Soldier 2
   ProductSprite: {fileID: 21300000, guid: 4d2d8fb4fc2041441980b4ec253532b0, type: 3}
   CellSize: {x: 1, y: 1}
+  unitType: 1

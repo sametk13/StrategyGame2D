@@ -1,33 +1,43 @@
-
+using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitFactory : MonoBehaviour
+public class UnitFactory : MonoSingleton<UnitFactory>
 {
-    public enum UnitEnum
-    {
-        soldier =0,
-        archer
-    }
+    // Dictionary to store the unit templates
+    private Dictionary<UnitType, UnitData> unitDatas;
 
-    public Unit UnitSpawner(UnitEnum unitEnum)
+    void Start()
     {
-        Unit unit = null;
+        // Initialize the dictionary
+        unitDatas = new Dictionary<UnitType, UnitData>();
 
-        switch (unitEnum)
+        // Load the unit templates from the Resources folder
+        UnitData[] datas = Resources.LoadAll<UnitData>(@"Data\Unit");
+
+        // Add the unit templates to the dictionary
+        foreach (UnitData data in datas)
         {
-            case UnitEnum.soldier:
-                unit = new Soldier();
-                break;
-            case UnitEnum.archer:
-                unit = new Archer();
-                break;
+            unitDatas.Add(data.unitType, data);
         }
-        return unit;
     }
 
-    public void TestFactory(int unitIndex)
+    // Method to spawn a unit of the specified type
+    public GameObject SpawnUnit(UnitType type, Vector3 position, Quaternion rotation)
     {
-        Unit unit = UnitSpawner((UnitEnum)unitIndex);
-        unit.Spawn();
+        // Check if the unit type exists in the dictionary
+        if (unitDatas.ContainsKey(type))
+        {
+            // If it does, instantiate the unit and return it
+            UnitData data = unitDatas[type];
+            GameObject unit = Instantiate(data.ProductPrefab, position, rotation);
+            return unit;
+        }
+        else
+        {
+            // If the unit type does not exist, return null
+            Debug.LogError("Unit type " + type + " does not exist in the factory!");
+            return null;
+        }
     }
 }
+
