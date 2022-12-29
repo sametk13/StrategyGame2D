@@ -9,8 +9,7 @@ public class InformationPanelHandler : MonoSingleton<InformationPanelHandler>
 
     private List<GameObject> currentInfoCards = new List<GameObject>();
 
-
-    public void SetInformationList(List<ProductInfoDatas> productInfoDatas)
+    public void ClearInformationList()
     {
         for (int i = 0; i < currentInfoCards.Count; i++)
         {
@@ -18,6 +17,10 @@ public class InformationPanelHandler : MonoSingleton<InformationPanelHandler>
         }
         currentInfoCards.Clear();
 
+    }
+    public void SetInformationList(List<ProductInfoDatas> productInfoDatas)
+    {
+        ClearInformationList();
 
         for (int i = 0; i < productInfoDatas.Count; i++)
         {

@@ -17,10 +17,14 @@ public class ProductionMenuHandler : MonoSingleton<ProductionMenuHandler>
 
     private void Start()
     {
+        GetBuildingDatas();
+    }
+    public void GetBuildingDatas()
+    {
         SetProductCardList(buildingDatas,ProductType.building);
     }
 
-    private void ClearProducts()
+    public void ClearProducts()
     {
         for (int i = 0; i < currentProducts.Count; i++)
         {
