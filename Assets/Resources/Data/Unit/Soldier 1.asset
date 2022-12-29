@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 062cc72774f889149802b5542ddf9d15, type: 3}
   m_Name: Soldier 1
   m_EditorClassIdentifier: 
-  ProductPrefab: {fileID: -927199367670048503, guid: fbf5785e33f8f1a42ac1ff8318da7943,
+  ProductPrefab: {fileID: 8914621949098407113, guid: 822f59eb9278c4c4a9ea5cbfcfe7331c,
     type: 3}
   ProductName: Soldier 1
   ProductSprite: {fileID: 21300000, guid: 518ded92e5dbf494e8f76a74d752272e, type: 3}
   CellSize: {x: 1, y: 1}
+  unitType: 0

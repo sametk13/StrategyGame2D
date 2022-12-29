@@ -20,14 +20,14 @@ public class Pathfinding : MonoBehaviour
     private void Update()
     {
         FindPath(player.position, TargetPosition.position);
-        if (GridReference.FinalPath != null && GridReference.FinalPath.Count > 0)
-        {
-            player.position = Vector3.MoveTowards(player.position, GridReference.FinalPath[0].vPosition, 1f * Time.deltaTime);
-        }
-        else
-        {
-            Debug.Log("Completed path");
-        }
+        //if (GridReference.FinalPath != null && GridReference.FinalPath.Count > 0)
+        //{
+        //    player.position = Vector3.MoveTowards(player.position, GridReference.FinalPath[0].vPosition, 1f * Time.deltaTime);
+        //}
+        //else
+        //{
+        //    Debug.Log("Completed path");
+        //}
     }
     void FindPath(Vector3 a_StartPos, Vector3 a_TargetPos)
     {
