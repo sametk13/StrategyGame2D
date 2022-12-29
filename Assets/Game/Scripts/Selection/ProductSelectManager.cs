@@ -1,6 +1,4 @@
 using SKUtils.Feedbacks;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,25 +16,18 @@ public class ProductSelectManager : MonoSingleton<ProductSelectManager>
                 prevSelectedObject.material = defaultMaterial;
 
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()), Vector2.zero);
+            if (hit.collider == null) return;
 
-            if (hit.collider != null)
+            ISelectable selectable = hit.collider.GetComponentInChildren<ISelectable>();
+            if (selectable != null)
             {
-                SetProductInfoPanel(hit.transform.gameObject);
+                selectable.Selected();
                 SetSelectedObjectMaterial(hit.transform.gameObject);
                 PlaySelectedObjectPunchScale(hit.transform.gameObject);
 
                 Debug.Log("Target object: " + hit.collider.gameObject.transform.name, hit.collider.gameObject);
             }
         }
-    }
-
-    private void SetProductInfoPanel(GameObject go)
-    {
-        Debug.Log("SetProductInfoPanel");
-        Building building = go.GetComponentInChildren<Building>();
-        List<ProductInfoDatas> productInfoDatas = new List<ProductInfoDatas>();
-        productInfoDatas.Add(new ProductInfoDatas(building.buildingData, 1));
-        InformationPanelHandler.Instance.SetInformationList(productInfoDatas);
     }
 
     private void SetSelectedObjectMaterial(GameObject go)

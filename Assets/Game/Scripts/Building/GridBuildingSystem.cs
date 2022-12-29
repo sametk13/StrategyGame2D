@@ -9,8 +9,6 @@ using UnityEngine.Tilemaps;
 
 public class GridBuildingSystem : MonoSingleton<GridBuildingSystem>
 {
-    [SerializeField] ScriptableActionGameObject buildingDataAction;
-
     public static Action<Building> OnBuild;
     public static Action<Building> OnCancel;
 
@@ -28,27 +26,18 @@ public class GridBuildingSystem : MonoSingleton<GridBuildingSystem>
     private Vector3 prevPos;
     private BoundsInt prevArea;
 
-    [SerializeField]InputActionReference mousePositionReference;
+    [SerializeField] InputActionReference mousePositionReference;
     #region Unity Methods
 
-    private void OnEnable()
-    {
-        buildingDataAction.AddListener(InitializeWithBuilding);
-    }
-    private void OnDisable()
-    {
-        buildingDataAction.RemoveListener(InitializeWithBuilding);
-    }
-
     private void Start()
-    {     
+    {
         string tilePath = @"Tiles\";
         tileBases.Add(TileType.Empty, null);
         tileBases.Add(TileType.White, Resources.Load<TileBase>(tilePath + "white"));
         tileBases.Add(TileType.Green, Resources.Load<TileBase>(tilePath + "green"));
         tileBases.Add(TileType.Red, Resources.Load<TileBase>(tilePath + "red"));
 
-        TileMapColorAlphaSetter(MainTilemap,0f);
+        TileMapColorAlphaSetter(MainTilemap, 0f);
     }
 
     private void Update()
@@ -147,11 +136,13 @@ public class GridBuildingSystem : MonoSingleton<GridBuildingSystem>
 
     #region Building Placement
 
-    public void InitializeWithBuilding(ProductData buildingData)
+    public void InitializeWithBuilding(ProductData _productData)
     {
         if (temp == null)
         {
-            temp = Instantiate(buildingData.ProductPrefab, Vector3.zero, Quaternion.identity).GetComponent<Building>();
+            temp = Instantiate(_productData.ProductPrefab, Vector3.zero, Quaternion.identity).GetComponent<Building>();
+            Building building = temp.GetComponentInChildren<Building>();
+            building.ProductData = _productData;
             FollowBuilding();
 
             TileMapColorAlphaSetter(MainTilemap, 0.5f);

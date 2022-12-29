@@ -9,15 +9,17 @@ public class ProductionMenuHandler : MonoSingleton<ProductionMenuHandler>
     public List<ProductData> buildingDatas = new List<ProductData>();
 
     [SerializeField] private Transform scrollContent;
-    [SerializeField] private GameObject productPrefab;
+
+    [SerializeField] private GameObject buildingCardPrefab;
+    [SerializeField] private GameObject unitCardPrefab;
 
     private List<GameObject> currentProducts = new List<GameObject>();
 
     private void Start()
     {
-        SetProductDataList(buildingDatas);
+        SetBuildingCardList(buildingDatas);
     }
-    public void SetProductDataList(List<ProductData> productDatas)
+    public void SetBuildingCardList(List<ProductData> productDatas)
     {
         for (int i = 0; i < currentProducts.Count; i++)
         {
@@ -28,20 +30,20 @@ public class ProductionMenuHandler : MonoSingleton<ProductionMenuHandler>
 
         for (int i = 0; i < productDatas.Count; i++)
         {
-            Product newProduct;
+            ProductCard newProduct;
 
             GameObject product = ObjectPoolManager.Instance.GetObject("product");
             if (product != null)
             {
-                newProduct = product.GetComponent<Product>();
+                newProduct = product.GetComponent<ProductCard>();
             }
             else
             {
-                newProduct = Instantiate(productPrefab, scrollContent).GetComponent<Product>();
+                newProduct = Instantiate(buildingCardPrefab, scrollContent).GetComponent<ProductCard>();
             }
             currentProducts.Add(newProduct.gameObject);
             ProductData currentData = productDatas[i];
-            newProduct.InitializeItem(currentData);
+            newProduct.InitializeCard(currentData);
         }
     }
 }

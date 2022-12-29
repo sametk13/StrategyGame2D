@@ -2357,7 +2357,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 71d94c38688605044a44a44307901c90, type: 2}
   - {fileID: 11400000, guid: 347eff86640da1c4487ae8d0e6ffd65e, type: 2}
   scrollContent: {fileID: 814945743}
-  productPrefab: {fileID: 5014728683306149405, guid: 9889c71845b969540a711069e0c4a1f9,
+  buildingCardPrefab: {fileID: 5695511623059463845, guid: 20c3126b80e9617498d14f79b1e1c40d,
+    type: 3}
+  unitCardPrefab: {fileID: 5695511623059463845, guid: 35e48740b0b2883459b5d45a27803ab2,
     type: 3}
 --- !u!1 &301625362
 GameObject:

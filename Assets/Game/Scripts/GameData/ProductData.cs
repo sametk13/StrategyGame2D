@@ -8,4 +8,5 @@ public class ProductData : ScriptableObject
     public GameObject ProductPrefab;
     public string ProductName;
     public Sprite ProductSprite;
+    public Vector2Int CellSize;
 }

@@ -3,21 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Building : MonoBehaviour
+public class Building : MonoBehaviour, ISelectable
 {
     public bool Placed { get; private set; }
     [HideInInspector] public BoundsInt area;
 
-    public BuildingData buildingData;
+    public ProductData ProductData { get => productData;  set => InitializeAreaSize(value); }
+    private ProductData productData;
 
-    private void Awake()
+    private void InitializeAreaSize(ProductData _productData)
     {
+        this.productData = _productData;
+
         area.size = new Vector3Int(
-            buildingData.BuildingSize.x,
-            buildingData.BuildingSize.y,
+            _productData.CellSize.x,
+            _productData.CellSize.y,
             1);
     }
 
+    public void Selected()
+    {
+        List<ProductInfoDatas> productInfoDatas = new List<ProductInfoDatas>();
+        productInfoDatas.Add(new ProductInfoDatas(productData, 1));
+        InformationPanelHandler.Instance.SetInformationList(productInfoDatas);
+    }
     #region Build Methods
 
     public bool CanBePlaced()
@@ -42,6 +51,8 @@ public class Building : MonoBehaviour
         Placed = true;
         GridBuildingSystem.Instance.TakeArea(areaTemp);
     }
+
+
 
     #endregion
 }

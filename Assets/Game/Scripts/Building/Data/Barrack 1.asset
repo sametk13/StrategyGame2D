@@ -16,4 +16,5 @@ MonoBehaviour:
     type: 3}
   ProductName: Barrack3434
   ProductSprite: {fileID: 21300000, guid: 08c91a7677e66844281a99aaf6ea36f1, type: 3}
+  CellSize: {x: 2, y: 2}
   BuildingSize: {x: 2, y: 2}
