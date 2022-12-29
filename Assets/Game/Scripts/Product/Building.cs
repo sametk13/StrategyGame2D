@@ -8,24 +8,27 @@ public class Building : MonoBehaviour, ISelectable
     public bool Placed { get; private set; }
     [HideInInspector] public BoundsInt area;
 
-    public ProductData ProductData { get => productData;  set => InitializeAreaSize(value); }
-    private ProductData productData;
+    public BuildingData BuildingData  { get => buildingData;  set => InitializeAreaSize(value); }
+    [SerializeField]private BuildingData buildingData;
 
-    private void InitializeAreaSize(ProductData _productData)
+    private void InitializeAreaSize(BuildingData _buildingData)
     {
-        this.productData = _productData;
+        this.buildingData = _buildingData;
 
         area.size = new Vector3Int(
-            _productData.CellSize.x,
-            _productData.CellSize.y,
+            _buildingData.CellSize.x,
+            _buildingData.CellSize.y,
             1);
     }
 
     public void Selected()
     {
         List<ProductInfoDatas> productInfoDatas = new List<ProductInfoDatas>();
-        productInfoDatas.Add(new ProductInfoDatas(productData, 1));
+        productInfoDatas.Add(new ProductInfoDatas(BuildingData, 1));
         InformationPanelHandler.Instance.SetInformationList(productInfoDatas);
+
+
+        ProductionMenuHandler.Instance.SetProductCardList(BuildingData.UnitDatas, ProductType.unit);
     }
     #region Build Methods
 

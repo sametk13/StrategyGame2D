@@ -136,13 +136,13 @@ public class GridBuildingSystem : MonoSingleton<GridBuildingSystem>
 
     #region Building Placement
 
-    public void InitializeWithBuilding(ProductData _productData)
+    public void InitializeWithBuilding(BuildingData _buildingData)
     {
         if (temp == null)
         {
-            temp = Instantiate(_productData.ProductPrefab, Vector3.zero, Quaternion.identity).GetComponent<Building>();
+            temp = Instantiate(_buildingData.ProductPrefab, Vector3.zero, Quaternion.identity).GetComponent<Building>();
             Building building = temp.GetComponentInChildren<Building>();
-            building.ProductData = _productData;
+            building.BuildingData = _buildingData;
             FollowBuilding();
 
             TileMapColorAlphaSetter(MainTilemap, 0.5f);
