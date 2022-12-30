@@ -73,29 +73,6 @@ public class ProductSelectManager : MonoSingleton<ProductSelectManager>
             }
         }
 
-
-        //bool initialized = true;
-        //for (int i = 0; i < selectedUnitList.Count; i++)
-        //{
-        //    if (unitCounts.Count < selectedUnitList.Count && initialized)
-        //    {
-        //        unitCounts.Add(new UnitCounts(selectedUnitList[i], 1));
-        //        initialized = false;
-        //    }
-        //    else
-        //    {
-        //        if (selectedUnitList.Contains(unitCounts[i - 1].unit) && unitCounts[i - 1].unit.unitData.unitType == selectedUnitList[i].unitData.unitType)
-        //        {
-        //            Debug.Log("In");
-        //            unitCounts[i - 1].count++;
-        //        }
-        //        else
-        //        {
-        //            unitCounts.Add(new UnitCounts(selectedUnitList[i], 1));
-        //        }
-        //    }
-        //}
-
         foreach (var _unitCount in unitCounts)
         {
             Debug.Log(_unitCount.unitData.unitType + " " + _unitCount.count);
