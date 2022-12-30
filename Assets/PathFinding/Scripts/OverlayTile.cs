@@ -19,13 +19,6 @@ namespace finished3
         public List<Sprite> arrows;
 
 
-        private void Update()
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                HideTile();
-            }
-        }
 
         public void HideTile()
         {

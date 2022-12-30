@@ -32,6 +32,7 @@ public class ProductSelectManager : MonoSingleton<ProductSelectManager>
             if (priorSelected != null && !UILeftClickDetector())
             {
                 ClearSelectionUnitList();
+                priorSelected.UnSelected();
 
                 InformationPanelHandler.Instance.ClearInformationList();
                 ProductionMenuHandler.Instance.ClearProducts();
@@ -75,8 +76,11 @@ public class ProductSelectManager : MonoSingleton<ProductSelectManager>
 
         foreach (var _unitCount in unitCounts)
         {
-            Debug.Log(_unitCount.unitData.unitType + " " + _unitCount.count);
-            productInfoDatas.Add(new ProductInfoDatas(_unitCount.unitData, _unitCount.count));
+            if (_unitCount.count > 0)
+            {
+                Debug.Log(_unitCount.unitData.unitType + " " + _unitCount.count);
+                productInfoDatas.Add(new ProductInfoDatas(_unitCount.unitData, _unitCount.count));
+            }
         }
         InformationPanelHandler.Instance.SetInformationList(productInfoDatas);
     }

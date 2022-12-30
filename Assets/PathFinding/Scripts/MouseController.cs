@@ -13,12 +13,14 @@ namespace finished3
         private Unit unit;
 
         public OverlayTile standingOnTile;
+        OverlayTile priorTile;
 
         private PathFinder pathFinder;
         private List<OverlayTile> path;
 
         private List<OverlayTile> overlayTiles;
         private bool isMoving;
+
 
         private void Start()
         {
@@ -36,10 +38,6 @@ namespace finished3
             standingOnTile = MapManager.Instance.GetStandingOnTile(tileToCheck);
             isMoving = false;
         }
-        //foreach (var item in rangeFinderTiles)
-        //   {
-        //       item.ShowTile();
-        //   }
 
         void LateUpdate()
         {
@@ -51,6 +49,13 @@ namespace finished3
                     if (hit == null) return;
 
                     OverlayTile tile = hit.Value.collider.gameObject.GetComponent<OverlayTile>();
+
+                    if (tile == null) return;
+
+                    //if (tile.isBlocked)
+                    //{
+                    //    tile = GetNewTile(tile);
+                    //}
 
                     if (overlayTiles.Contains(tile))
                     {
@@ -71,13 +76,42 @@ namespace finished3
                 }
                 else
                 {
+
                     isMoving = false;
                 }
             }
         }
 
+        //private OverlayTile GetNewTile(OverlayTile _overlayTile)
+        //{
+        //    OverlayTile newTile = null;
+        //    var neighbourTiles = pathFinder.GetNeightbourOverlayTiles(_overlayTile);
+
+        //    for (int i = 0; i < neighbourTiles.Count; i++)
+        //    {
+        //        var nextNeighbourTile = pathFinder.GetNeightbourOverlayTiles(neighbourTiles[i]);
+
+        //        for (int a = 0; a < nextNeighbourTile.Count; a++)
+        //        {
+        //            if (!nextNeighbourTile[a].isBlocked)
+        //            {
+        //                newTile = neighbourTiles[i];
+        //                return newTile;
+        //            }
+        //        }
+        //    }
+        //    return newTile;
+
+        //}
+
         private void MoveAlongPath()
         {
+            if (path[0].isBlocked)
+            {
+                path = pathFinder.FindPath(standingOnTile, standingOnTile, overlayTiles);
+                return;
+            }
+
             var step = speed * Time.deltaTime;
 
             float zIndex = path[0].transform.position.z;
@@ -96,6 +130,9 @@ namespace finished3
             transform.position = new Vector3(tile.transform.position.x, tile.transform.position.y + 0.0001f, tile.transform.position.z);
             GetComponentInChildren<SpriteRenderer>().sortingOrder = tile.GetComponent<SpriteRenderer>().sortingOrder;
             standingOnTile = tile;
+            standingOnTile.isBlocked = true;
+            if (priorTile != null) priorTile.isBlocked = false;
+            priorTile = standingOnTile;
         }
 
         private RaycastHit2D? GetFocusedOnTile()

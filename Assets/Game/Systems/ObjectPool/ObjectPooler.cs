@@ -21,7 +21,7 @@ namespace SKUtils.ObjectPool
                 itemsToPool.Remove(go);
                 return go;
             }
-            Debug.LogError($"Object Pool is Emty");
+            Debug.LogWarning($"Object Pool is Emty");
             return null;
         }
 

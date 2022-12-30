@@ -45,6 +45,7 @@ public class Building : MonoBehaviour, ISelectable
 
     public virtual void UnSelected()
     {
+        Debug.Log("UnSelected building");
         spriteRenderer.material = buildingData.defaultMat;
     }
     #region Build Methods

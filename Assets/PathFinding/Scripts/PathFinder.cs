@@ -85,7 +85,7 @@ namespace finished3
             return Mathf.Abs(start.gridLocation.x - tile.gridLocation.x) + Mathf.Abs(start.gridLocation.y - tile.gridLocation.y);
         }
 
-        private List<OverlayTile> GetNeightbourOverlayTiles(OverlayTile currentOverlayTile)
+        public List<OverlayTile> GetNeightbourOverlayTiles(OverlayTile currentOverlayTile)
         {
             var map = MapManager.Instance.map;
 
