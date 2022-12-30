@@ -42,7 +42,7 @@ namespace finished3
                                     overlayTile.transform.position = new Vector3(cellWorldPosition.x, cellWorldPosition.y, cellWorldPosition.z + 1);
                                     overlayTile.GetComponent<SpriteRenderer>().sortingOrder = tm.GetComponent<TilemapRenderer>().sortingOrder;
                                     overlayTile.gameObject.GetComponent<OverlayTile>().gridLocation = new Vector3Int(x, y, z);
-    
+
                                     map.Add(new Vector2Int(x, y), overlayTile.gameObject.GetComponent<OverlayTile>());
                                 }
                             }
@@ -52,40 +52,23 @@ namespace finished3
             }
         }
 
-        public List<OverlayTile> GetSurroundingTiles(Vector2Int originTile)
+        public List<OverlayTile> GetSurroundingTiles()
         {
-            var surroundingTiles = new List<OverlayTile>();
+            return map.Values.ToList();
+        }
 
+        public OverlayTile GetStandingOnTile(Vector2Int TileToCheck)
+        {
 
-            Vector2Int TileToCheck = new Vector2Int(originTile.x + 1, originTile.y);
             if (map.ContainsKey(TileToCheck))
             {
-                if (Mathf.Abs(map[TileToCheck].transform.position.z - map[originTile].transform.position.z) <= 1)
-                    surroundingTiles.Add(map[TileToCheck]);
+                return map[TileToCheck];
             }
-
-            TileToCheck = new Vector2Int(originTile.x - 1, originTile.y);
-            if (map.ContainsKey(TileToCheck))
+            else
             {
-                if (Mathf.Abs(map[TileToCheck].transform.position.z - map[originTile].transform.position.z) <= 1)
-                    surroundingTiles.Add(map[TileToCheck]);
+                Debug.Log("TileToCheck not containskey");
+                return null;
             }
-
-            TileToCheck = new Vector2Int(originTile.x, originTile.y + 1);
-            if (map.ContainsKey(TileToCheck))
-            {
-                if (Mathf.Abs(map[TileToCheck].transform.position.z - map[originTile].transform.position.z) <= 1)
-                    surroundingTiles.Add(map[TileToCheck]);
-            }
-
-            TileToCheck = new Vector2Int(originTile.x, originTile.y - 1);
-            if (map.ContainsKey(TileToCheck))
-            {
-                if (Mathf.Abs(map[TileToCheck].transform.position.z - map[originTile].transform.position.z) <= 1)
-                    surroundingTiles.Add(map[TileToCheck]);
-            }
-
-            return surroundingTiles;
         }
     }
 }

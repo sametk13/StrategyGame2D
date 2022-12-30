@@ -8,6 +8,7 @@ public class Unit : MonoBehaviour, ISelectable
 
     public SpriteRenderer spriteRenderer { get; set; }
 
+    public bool IsSelected { get; private set; }
 
     public virtual void Start()
     {
@@ -15,6 +16,8 @@ public class Unit : MonoBehaviour, ISelectable
     }
     public virtual void Selected()
     {
+        IsSelected = true;
+
         List<ProductInfoDatas> productInfoDatas = new List<ProductInfoDatas>();
         productInfoDatas.Add(new ProductInfoDatas(unitData, 1));
         InformationPanelHandler.Instance.SetInformationList(productInfoDatas);
@@ -24,6 +27,8 @@ public class Unit : MonoBehaviour, ISelectable
 
     public virtual void UnSelected()
     {
+        IsSelected = false;
+
         spriteRenderer.material = _unitData.defaultMat;
     }
 }

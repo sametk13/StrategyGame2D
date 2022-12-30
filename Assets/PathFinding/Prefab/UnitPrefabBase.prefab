@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: -2404139133259693468}
   - component: {fileID: 7030773807143745584}
   - component: {fileID: 8661317287571675931}
+  - component: {fileID: 333394088138535783}
   m_Layer: 0
   m_Name: UnitPrefabBase
   m_TagString: Untagged
@@ -89,6 +90,21 @@ MonoBehaviour:
   vibrato: 10
   elasticity: 10
   punch: {x: 0.04, y: 0.04, z: 0.04}
+--- !u!114 &333394088138535783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6688883963585979011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b378b776784c4114eb9ec528d4591bdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursor: {fileID: 0}
+  speed: 5
+  characterPrefab: {fileID: 6688883963585979011}
 --- !u!1 &9085850214030969528
 GameObject:
   m_ObjectHideFlags: 0
