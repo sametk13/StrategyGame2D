@@ -1,7 +1,79 @@
 fileFormatVersion: 2
 guid: 68e33a3deef62bc45b5ded8df120a1b3
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -6391880005261337960
+    second: wooden_buildings_01 (1)_0
+  - first:
+      213: -2380024947313558687
+    second: wooden_buildings_01 (1)_1
+  - first:
+      213: -8081661044954854791
+    second: wooden_buildings_01 (1)_2
+  - first:
+      213: 3177366477453243122
+    second: wooden_buildings_01 (1)_3
+  - first:
+      213: -6976072450914423685
+    second: wooden_buildings_01 (1)_4
+  - first:
+      213: -5625557460587598578
+    second: wooden_buildings_01 (1)_5
+  - first:
+      213: -26295346298549282
+    second: wooden_buildings_01 (1)_6
+  - first:
+      213: -833133087323986591
+    second: wooden_buildings_01 (1)_7
+  - first:
+      213: -2779031587965126200
+    second: wooden_buildings_01 (1)_8
+  - first:
+      213: 6794396308686765143
+    second: wooden_buildings_01 (1)_9
+  - first:
+      213: -4188718963531417851
+    second: wooden_buildings_01 (1)_10
+  - first:
+      213: -5918630273349502079
+    second: wooden_buildings_01 (1)_11
+  - first:
+      213: 4430382965669085610
+    second: wooden_buildings_01 (1)_12
+  - first:
+      213: -5654255751516975365
+    second: wooden_buildings_01 (1)_13
+  - first:
+      213: 3854476036700466023
+    second: wooden_buildings_01 (1)_14
+  - first:
+      213: 1874774773894306626
+    second: BarrackSprite
+  - first:
+      213: -2326132085256033133
+    second: wooden_buildings_01 (1)_16
+  - first:
+      213: -4506092924129797730
+    second: wooden_buildings_01 (1)_17
+  - first:
+      213: -1950534430249263021
+    second: wooden_buildings_01 (1)_18
+  - first:
+      213: 5048648066740461432
+    second: wooden_buildings_01 (1)_19
+  - first:
+      213: 8697791333234094707
+    second: wooden_buildings_01 (1)_20
+  - first:
+      213: 1403220011357745967
+    second: wooden_buildings_01 (1)_21
+  - first:
+      213: 9074693178070089224
+    second: wooden_buildings_01 (1)_22
+  - first:
+      213: -412536076334474032
+    second: wooden_buildings_01 (1)_23
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -41,7 +113,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -102,7 +174,511 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: wooden_buildings_01 (1)_0
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 2360
+        width: 349
+        height: 236
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89ad977300b7b47a0800000000000000
+      internalID: -6391880005261337960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_buildings_01 (1)_1
+      rect:
+        serializedVersion: 2
+        x: 789
+        y: 2354
+        width: 349
+        height: 234
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16bbeca9be378fed0800000000000000
+      internalID: -2380024947313558687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_buildings_01 (1)_2
+      rect:
+        serializedVersion: 2
+        x: 1015
+        y: 2360
+        width: 888
+        height: 712
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97a8a5c191c28df80800000000000000
+      internalID: -8081661044954854791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_buildings_01 (1)_3
+      rect:
+        serializedVersion: 2
+        x: 1556
+        y: 2477
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f2b5d11af5481c20800000000000000
+      internalID: 3177366477453243122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_buildings_01 (1)_4
+      rect:
+        serializedVersion: 2
+        x: 2325
+        y: 2355
+        width: 349
+        height: 239
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7c6bd31113003f90800000000000000
+      internalID: -6976072450914423685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_buildings_01 (1)_5
+      rect:
+        serializedVersion: 2
+        x: 357
+        y: 2421
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0da02a8b410ee1b0800000000000000
+      internalID: -5625557460587598578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_buildings_01 (1)_6
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 1571
+        width: 550
+        height: 381
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edb01a8958492aff0800000000000000
+      internalID: -26295346298549282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_buildings_01 (1)_7
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 1536
+        width: 546
+        height: 370
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 165ed670fdd1074f0800000000000000
+      internalID: -833133087323986591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_buildings_01 (1)_8
+      rect:
+        serializedVersion: 2
+        x: 1556
+        y: 1548
+        width: 535
+        height: 379
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c9bfb3ae75ee69d0800000000000000
+      internalID: -2779031587965126200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_buildings_01 (1)_9
+      rect:
+        serializedVersion: 2
+        x: 2082
+        y: 1698
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75cff7ac17b8a4e50800000000000000
+      internalID: 6794396308686765143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_buildings_01 (1)_10
+      rect:
+        serializedVersion: 2
+        x: 2340
+        y: 1536
+        width: 547
+        height: 358
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50774c2ab4eaed5c0800000000000000
+      internalID: -4188718963531417851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_buildings_01 (1)_11
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 786
+        width: 478
+        height: 334
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18b3128ef1dccdda0800000000000000
+      internalID: -5918630273349502079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_buildings_01 (1)_12
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 780
+        width: 501
+        height: 322
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa1c5a785d1eb7d30800000000000000
+      internalID: 4430382965669085610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_buildings_01 (1)_13
+      rect:
+        serializedVersion: 2
+        x: 1569
+        y: 785
+        width: 484
+        height: 321
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfe0f9df95c0881b0800000000000000
+      internalID: -5654255751516975365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_buildings_01 (1)_14
+      rect:
+        serializedVersion: 2
+        x: 2039
+        y: 911
+        width: 7
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76b69c29889dd7530800000000000000
+      internalID: 3854476036700466023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BarrackSprite
+      rect:
+        serializedVersion: 2
+        x: 2375
+        y: 801
+        width: 371
+        height: 329
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24b55df49b9840a10800000000000000
+      internalID: 1874774773894306626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_buildings_01 (1)_16
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 894
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39cecad513be7bfd0800000000000000
+      internalID: -2326132085256033133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_buildings_01 (1)_17
+      rect:
+        serializedVersion: 2
+        x: 1572
+        y: 896
+        width: 6
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e99975c1c542771c0800000000000000
+      internalID: -4506092924129797730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_buildings_01 (1)_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 646
+        height: 434
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 350e2d2254f4ee4e0800000000000000
+      internalID: -1950534430249263021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_buildings_01 (1)_19
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 606
+        height: 395
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87f1706faa6601640800000000000000
+      internalID: 5048648066740461432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_buildings_01 (1)_20
+      rect:
+        serializedVersion: 2
+        x: 1539
+        y: 0
+        width: 664
+        height: 376
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 372b3eb7223c4b870800000000000000
+      internalID: 8697791333234094707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_buildings_01 (1)_21
+      rect:
+        serializedVersion: 2
+        x: 2186
+        y: 135
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f23b2be6a2d397310800000000000000
+      internalID: 1403220011357745967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_buildings_01 (1)_22
+      rect:
+        serializedVersion: 2
+        x: 2309
+        y: 0
+        width: 668
+        height: 431
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80e378c9d59cfed70800000000000000
+      internalID: 9074693178070089224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_buildings_01 (1)_23
+      rect:
+        serializedVersion: 2
+        x: 2955
+        y: 131
+        width: 16
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0dcdc01df90664af0800000000000000
+      internalID: -412536076334474032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

@@ -15,7 +15,12 @@ MonoBehaviour:
   ProductPrefab: {fileID: 5249543589208906696, guid: 65a96a185d9850f43ae4bbcf3e4cfe9a,
     type: 3}
   ProductName: Barrack
-  ProductSprite: {fileID: 21300000, guid: 56e456ab0f7f79a4dbabcc9079c49a94, type: 3}
-  CellSize: {x: 2, y: 2}
+  ProductSprite: {fileID: 1874774773894306626, guid: 68e33a3deef62bc45b5ded8df120a1b3,
+    type: 3}
+  CellSize: {x: 4, y: 4}
+  outlineMat: {fileID: 2100000, guid: 5a6db85ebb9466f4b90af9ebdd3c4fdc, type: 2}
+  defaultMat: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   UnitDatas:
+  - {fileID: 11400000, guid: 7b1cd04f22357314f8b9af0c05ebed0b, type: 2}
+  - {fileID: 11400000, guid: 5d75cb03bccce824ba23945d1d2c99c8, type: 2}
   - {fileID: 11400000, guid: 12278230dc452424399fa673b3ca163a, type: 2}

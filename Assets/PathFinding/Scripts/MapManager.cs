@@ -14,7 +14,6 @@ namespace finished3
         public Dictionary<Vector2Int, OverlayTile> map;
         public bool ignoreBottomTiles;
 
-        public Tilemap walkableTilemap;
         void Start()
         {
             var tileMaps = gameObject.transform.GetComponentsInChildren<Tilemap>().OrderBy(x => x.GetComponent<TilemapRenderer>().sortingOrder);

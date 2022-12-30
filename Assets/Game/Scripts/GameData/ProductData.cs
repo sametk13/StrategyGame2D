@@ -9,4 +9,5 @@ public class ProductData : ScriptableObject
     public string ProductName;
     public Sprite ProductSprite;
     public Vector2Int CellSize;
+    public Material outlineMat, defaultMat;
 }

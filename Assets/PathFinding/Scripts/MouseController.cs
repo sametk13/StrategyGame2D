@@ -35,6 +35,7 @@ namespace finished3
             if (hit.HasValue)
             {
                 OverlayTile tile = hit.Value.collider.gameObject.GetComponent<OverlayTile>();
+                if (tile == null) return;
 
                 cursor.transform.position = tile.transform.position;
                 cursor.gameObject.GetComponent<SpriteRenderer>().sortingOrder = tile.transform.GetComponent<SpriteRenderer>().sortingOrder;
@@ -104,7 +105,7 @@ namespace finished3
         private void PositionCharacterOnLine(OverlayTile tile)
         {
             character.transform.position = new Vector3(tile.transform.position.x, tile.transform.position.y + 0.0001f, tile.transform.position.z);
-            character.GetComponent<SpriteRenderer>().sortingOrder = tile.GetComponent<SpriteRenderer>().sortingOrder;
+            character.GetComponentInChildren<SpriteRenderer>().sortingOrder = tile.GetComponent<SpriteRenderer>().sortingOrder;
             character.standingOnTile = tile;
         }
 

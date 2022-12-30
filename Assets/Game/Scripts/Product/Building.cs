@@ -14,9 +14,12 @@ public class Building : MonoBehaviour, ISelectable
     public Transform SpawnPoint;
     [HideInInspector]public Vector2 NextSpawnPoint;
 
+    public SpriteRenderer spriteRenderer { get; set; }
+
     private void Start()
     {
         NextSpawnPoint = SpawnPoint.position;
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     private void InitializeAreaSize(BuildingData _buildingData)
@@ -35,8 +38,14 @@ public class Building : MonoBehaviour, ISelectable
         productInfoDatas.Add(new ProductInfoDatas(BuildingData, 1));
         InformationPanelHandler.Instance.SetInformationList(productInfoDatas);
 
-
         ProductionMenuHandler.Instance.SetProductCardList(BuildingData.UnitDatas, ProductType.Unit,this);
+
+        spriteRenderer.material = buildingData.outlineMat;
+    }
+
+    public virtual void UnSelected()
+    {
+        spriteRenderer.material = buildingData.defaultMat;
     }
     #region Build Methods
 
@@ -62,6 +71,7 @@ public class Building : MonoBehaviour, ISelectable
         Placed = true;
         GridBuildingSystem.Instance.TakeArea(areaTemp);
     }
+
 
 
 

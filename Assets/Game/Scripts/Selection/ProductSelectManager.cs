@@ -6,9 +6,9 @@ using UnityEngine.InputSystem;
 
 public class ProductSelectManager : MonoSingleton<ProductSelectManager>
 {
-    [SerializeField] Material defaultMaterial, outlineMaterial;
+    [SerializeField] Material defaultMaterial;
 
-    private SpriteRenderer prevSelectedObject;
+    private ISelectable prevSelectedObject;
 
     PointerEventData m_PointerEventData;
 
@@ -18,7 +18,8 @@ public class ProductSelectManager : MonoSingleton<ProductSelectManager>
         {
             if ( prevSelectedObject != null && !UILeftClickDetector())
             {
-                prevSelectedObject.material = defaultMaterial;
+                prevSelectedObject.UnSelected();
+
                 InformationPanelHandler.Instance.ClearInformationList();
                 ProductionMenuHandler.Instance.ClearProducts();
                 ProductionMenuHandler.Instance.GetBuildingDatas();
@@ -31,8 +32,8 @@ public class ProductSelectManager : MonoSingleton<ProductSelectManager>
             if (selectable != null)
             {
                 selectable.Selected();
-                SetSelectedObjectMaterial(hit.transform.gameObject);
                 PlaySelectedObjectPunchScale(hit.transform.gameObject);
+                prevSelectedObject = selectable;
                 Debug.Log("Target object: " + hit.transform.gameObject.name);
             }
         }
@@ -61,12 +62,6 @@ public class ProductSelectManager : MonoSingleton<ProductSelectManager>
         }
     }
 
-    private void SetSelectedObjectMaterial(GameObject go)
-    {
-        SpriteRenderer renderer = go.GetComponentInChildren<SpriteRenderer>();
-        renderer.material = outlineMaterial;
-        prevSelectedObject = renderer;
-    }
     private void PlaySelectedObjectPunchScale(GameObject go)
     {
         PunchScaleFeedBack punchScaleFeedBack = go.GetComponentInChildren<PunchScaleFeedBack>();
