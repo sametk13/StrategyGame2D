@@ -20,6 +20,8 @@ public class PanAndZoom : MonoBehaviour
         inputProvider = GetComponent<CinemachineInputProvider>();
         virtualCamera = GetComponent<CinemachineVirtualCamera>();
         cameraTransform = virtualCamera.VirtualCameraGameObject.transform;
+        virtualCamera.m_Lens.OrthographicSize = zoomOutMax;
+
     }
 
     private void Update()

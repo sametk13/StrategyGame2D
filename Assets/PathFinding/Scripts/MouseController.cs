@@ -37,6 +37,7 @@ namespace finished3
             if (hit.HasValue)
             {
                 OverlayTile tile = hit.Value.collider.gameObject.GetComponent<OverlayTile>();
+
                 cursor.transform.position = tile.transform.position;
                 cursor.gameObject.GetComponent<SpriteRenderer>().sortingOrder = tile.transform.GetComponent<SpriteRenderer>().sortingOrder;
 

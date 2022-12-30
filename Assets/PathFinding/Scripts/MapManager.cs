@@ -5,10 +5,8 @@ using UnityEngine.Tilemaps;
 
 namespace finished3
 {
-    public class MapManager : MonoBehaviour
+    public class MapManager : MonoSingleton<MapManager>
     {
-        private static MapManager _instance;
-        public static MapManager Instance { get { return _instance; } }
 
         public GameObject overlayPrefab;
         public GameObject overlayContainer;
@@ -16,16 +14,6 @@ namespace finished3
         public Dictionary<Vector2Int, OverlayTile> map;
         public bool ignoreBottomTiles;
 
-        private void Awake()
-        {
-            if (_instance != null && _instance != this)
-            {
-                Destroy(this.gameObject);
-            } else
-            {
-                _instance = this;
-            }
-        }
 
         void Start()
         {
