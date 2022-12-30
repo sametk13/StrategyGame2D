@@ -1,4 +1,5 @@
-﻿using SKUtils.ScriptableSystem;
+﻿using finished3;
+using SKUtils.ScriptableSystem;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -92,6 +93,10 @@ public class GridBuildingSystem : MonoSingleton<GridBuildingSystem>
 
     #region Tilemap management
 
+    //private void TileMapDisabler(GameObject go,bool state)
+    //{
+    //    go.
+    //}
     private void TileMapColorAlphaSetter(Tilemap tilemap, float alphaValue)
     {
         Color tilemapNewColor = tilemap.color;

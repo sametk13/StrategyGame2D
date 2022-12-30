@@ -14,7 +14,6 @@ namespace finished3
 
         private PathFinder pathFinder;
         private RangeFinder rangeFinder;
-        private ArrowTranslator arrowTranslator;
         private List<OverlayTile> path;
         private List<OverlayTile> rangeFinderTiles;
         private bool isMoving;
@@ -23,7 +22,6 @@ namespace finished3
         {
             pathFinder = new PathFinder();
             rangeFinder = new RangeFinder();
-            arrowTranslator = new ArrowTranslator();
 
             path = new List<OverlayTile>();
             isMoving = false;
@@ -54,9 +52,6 @@ namespace finished3
                     {
                         var previousTile = i > 0 ? path[i - 1] : character.standingOnTile;
                         var futureTile = i < path.Count - 1 ? path[i + 1] : null;
-
-                        var arrow = arrowTranslator.TranslateDirection(previousTile, path[i], futureTile);
-                        path[i].SetSprite(arrow);
                     }
                 }
 

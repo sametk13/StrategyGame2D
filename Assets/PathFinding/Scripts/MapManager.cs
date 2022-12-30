@@ -14,10 +14,10 @@ namespace finished3
         public Dictionary<Vector2Int, OverlayTile> map;
         public bool ignoreBottomTiles;
 
-
+        public Tilemap walkableTilemap;
         void Start()
         {
-            var tileMaps = gameObject.transform.GetComponentsInChildren<Tilemap>().OrderByDescending(x => x.GetComponent<TilemapRenderer>().sortingOrder);
+            var tileMaps = gameObject.transform.GetComponentsInChildren<Tilemap>().OrderBy(x => x.GetComponent<TilemapRenderer>().sortingOrder);
             map = new Dictionary<Vector2Int, OverlayTile>();
 
             foreach (var tm in tileMaps)
