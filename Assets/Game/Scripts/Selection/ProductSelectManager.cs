@@ -8,35 +8,53 @@ public class ProductSelectManager : MonoSingleton<ProductSelectManager>
 {
     [SerializeField] Material defaultMaterial;
 
-    private ISelectable prevSelectedObject;
+    public List<Unit> selectedUnitList;
+    private ISelectable priorSelected;
 
     PointerEventData m_PointerEventData;
 
+    private void Awake()
+    {
+        selectedUnitList = new List<Unit>();
+    }
     void Update()
     {
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-            if ( prevSelectedObject != null && !UILeftClickDetector())
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()), Vector2.zero);
+            if (hit.collider == null) return;
+            ISelectable selectable = hit.collider.GetComponentInChildren<ISelectable>();
+
+            if (priorSelected != null && !UILeftClickDetector())
             {
-                prevSelectedObject.UnSelected();
+                ClearSelectionUnitList();
 
                 InformationPanelHandler.Instance.ClearInformationList();
                 ProductionMenuHandler.Instance.ClearProducts();
                 ProductionMenuHandler.Instance.GetBuildingDatas();
             }
 
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()), Vector2.zero);
-            if (hit.collider == null) return;
-
-            ISelectable selectable = hit.collider.GetComponentInChildren<ISelectable>();
             if (selectable != null)
             {
                 selectable.Selected();
                 PlaySelectedObjectPunchScale(hit.transform.gameObject);
-                prevSelectedObject = selectable;
+                priorSelected = selectable;
                 Debug.Log("Target object: " + hit.transform.gameObject.name);
             }
         }
+    }
+
+    public void AppendUnitInfoList()
+    {
+        if (selectedUnitList.Count == 0) return;
+
+        List<ProductInfoDatas> productInfoDatas = new List<ProductInfoDatas>();
+
+        foreach (var unit in selectedUnitList)
+        {
+            productInfoDatas.Add(new ProductInfoDatas(unit.unitData, 1));
+        }
+        InformationPanelHandler.Instance.SetInformationList(productInfoDatas);
     }
 
     private bool UILeftClickDetector()
@@ -66,5 +84,18 @@ public class ProductSelectManager : MonoSingleton<ProductSelectManager>
     {
         PunchScaleFeedBack punchScaleFeedBack = go.GetComponentInChildren<PunchScaleFeedBack>();
         punchScaleFeedBack.PunchScale();
+    }
+
+    public void AddSelectionUnit(Unit _unit)
+    {
+        selectedUnitList.Add(_unit);
+    }
+    public void ClearSelectionUnitList()
+    {
+        foreach (var unit in selectedUnitList)
+        {
+            unit.UnSelected();
+        }
+        selectedUnitList.Clear();
     }
 }

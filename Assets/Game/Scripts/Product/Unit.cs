@@ -1,3 +1,4 @@
+using finished3;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,10 +18,6 @@ public class Unit : MonoBehaviour, ISelectable
     public virtual void Selected()
     {
         IsSelected = true;
-
-        List<ProductInfoDatas> productInfoDatas = new List<ProductInfoDatas>();
-        productInfoDatas.Add(new ProductInfoDatas(unitData, 1));
-        InformationPanelHandler.Instance.SetInformationList(productInfoDatas);
 
         spriteRenderer.material = _unitData.outlineMat;
     }

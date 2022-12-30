@@ -19,6 +19,7 @@ namespace finished3
 
         private List<OverlayTile> overlayTiles;
         private bool isMoving;
+
         private void Start()
         {
 
@@ -42,21 +43,17 @@ namespace finished3
 
         void LateUpdate()
         {
-            if (!unit.IsSelected || isMoving)
+            if (unit.IsSelected || isMoving)
             {
                 if (Mouse.current.rightButton.wasPressedThisFrame)
                 {
-                    Debug.Log("test");
                     RaycastHit2D? hit = GetFocusedOnTile();
                     if (hit == null) return;
-                    Debug.Log("test1");
 
                     OverlayTile tile = hit.Value.collider.gameObject.GetComponent<OverlayTile>();
 
                     if (overlayTiles.Contains(tile))
                     {
-                        Debug.Log("test2");
-
                         path = pathFinder.FindPath(standingOnTile, tile, overlayTiles);
 
                         for (int i = 0; i < path.Count; i++)
@@ -65,15 +62,16 @@ namespace finished3
                             var futureTile = i < path.Count - 1 ? path[i + 1] : null;
                         }
                     }
-                    tile.ShowTile();
-                    tile.gameObject.GetComponent<OverlayTile>().HideTile();
                 }
 
                 if (path.Count > 0)
                 {
-                    Debug.Log("test3");
-
+                    isMoving = true;
                     MoveAlongPath();
+                }
+                else
+                {
+                    isMoving = false;
                 }
             }
         }
@@ -91,7 +89,6 @@ namespace finished3
                 PositionCharacterOnLine(path[0]);
                 path.RemoveAt(0);
             }
-
         }
 
         private void PositionCharacterOnLine(OverlayTile tile)

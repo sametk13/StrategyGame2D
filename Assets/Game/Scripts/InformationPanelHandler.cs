@@ -16,10 +16,10 @@ public class InformationPanelHandler : MonoSingleton<InformationPanelHandler>
             ObjectPoolManager.Instance.AddObject("informationProduct", currentInfoCards[i]);
         }
         currentInfoCards.Clear();
-
     }
     public void SetInformationList(List<ProductInfoDatas> productInfoDatas)
     {
+
         ClearInformationList();
 
         for (int i = 0; i < productInfoDatas.Count; i++)

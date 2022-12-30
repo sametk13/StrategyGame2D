@@ -1,6 +1,6 @@
 public enum UnitType
 {
-    Soldier = 0,
+    Soldier = 1,
     Archer,
     Wizard
 }

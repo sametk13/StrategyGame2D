@@ -70,5 +70,21 @@ namespace finished3
                 return null;
             }
         }
+
+        public void ShowTileMaps()
+        {
+            foreach (var tile in map.Values)
+            {
+                tile.ShowTile();
+            }
+        }
+
+        public void HideTileMaps()
+        {
+            foreach (var tile in map.Values)
+            {
+                tile.HideTile();
+            }
+        }
     }
 }
