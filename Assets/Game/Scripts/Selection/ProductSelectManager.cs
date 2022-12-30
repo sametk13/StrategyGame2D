@@ -1,5 +1,7 @@
 using SKUtils.Feedbacks;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.Entities.UniversalDelegates;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -12,6 +14,8 @@ public class ProductSelectManager : MonoSingleton<ProductSelectManager>
     private ISelectable priorSelected;
 
     PointerEventData m_PointerEventData;
+
+    [SerializeField] BuildingData barrackData;
 
     private void Awake()
     {
@@ -50,9 +54,52 @@ public class ProductSelectManager : MonoSingleton<ProductSelectManager>
 
         List<ProductInfoDatas> productInfoDatas = new List<ProductInfoDatas>();
 
-        foreach (var unit in selectedUnitList)
+        List<UnitCounts> unitCounts = new List<UnitCounts>();
+
+        foreach (var unitData in barrackData.UnitDatas)
         {
-            productInfoDatas.Add(new ProductInfoDatas(unit.unitData, 1));
+            unitCounts.Add(new UnitCounts(unitData, 0));
+        }
+
+        foreach (var selectedUnit in selectedUnitList)
+        {
+            foreach (var _unitCounts in unitCounts)
+            {
+                if (_unitCounts.unitData.unitType == selectedUnit.unitData.unitType)
+                {
+                    _unitCounts.count++;
+                    break;
+                }
+            }
+        }
+
+
+        //bool initialized = true;
+        //for (int i = 0; i < selectedUnitList.Count; i++)
+        //{
+        //    if (unitCounts.Count < selectedUnitList.Count && initialized)
+        //    {
+        //        unitCounts.Add(new UnitCounts(selectedUnitList[i], 1));
+        //        initialized = false;
+        //    }
+        //    else
+        //    {
+        //        if (selectedUnitList.Contains(unitCounts[i - 1].unit) && unitCounts[i - 1].unit.unitData.unitType == selectedUnitList[i].unitData.unitType)
+        //        {
+        //            Debug.Log("In");
+        //            unitCounts[i - 1].count++;
+        //        }
+        //        else
+        //        {
+        //            unitCounts.Add(new UnitCounts(selectedUnitList[i], 1));
+        //        }
+        //    }
+        //}
+
+        foreach (var _unitCount in unitCounts)
+        {
+            Debug.Log(_unitCount.unitData.unitType + " " + _unitCount.count);
+            productInfoDatas.Add(new ProductInfoDatas(_unitCount.unitData, _unitCount.count));
         }
         InformationPanelHandler.Instance.SetInformationList(productInfoDatas);
     }
@@ -98,4 +145,15 @@ public class ProductSelectManager : MonoSingleton<ProductSelectManager>
         }
         selectedUnitList.Clear();
     }
+}
+
+public class UnitCounts
+{
+    public UnitCounts(UnitData _unitData, int _count)
+    {
+        this.unitData = _unitData;
+        this.count = _count;
+    }
+    public UnitData unitData;
+    public int count;
 }
