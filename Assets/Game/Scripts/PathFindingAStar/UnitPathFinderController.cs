@@ -77,13 +77,14 @@ public class UnitPathFinderController : MonoBehaviour
     {
         if (_path[0].isBlocked)
         {
-            _path = _pathFinder.FindPath(standingOnTile, standingOnTile, _overlayTiles);
+            _path = _pathFinder.FindPath(standingOnTile, standingOnTile, _overlayTiles); // Calculating Path
             return;
         }
 
         var step = speed * Time.deltaTime;
 
         float zIndex = _path[0].transform.position.z;
+        //Movement
         transform.position = Vector2.MoveTowards(transform.position, _path[0].transform.position, step);
         transform.position = new Vector3(transform.position.x, transform.position.y, zIndex);
 

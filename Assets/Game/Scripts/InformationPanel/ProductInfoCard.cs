@@ -8,6 +8,7 @@ public class ProductInfoCard : MonoBehaviour
     [SerializeField] TextMeshProUGUI productCountText;
     [SerializeField] Image productImage;
 
+    //Info Card Initialization
     public void InitializeInfoCard(ProductData _productData, int count = 1)
     {
         productNameText.SetText(_productData.productName);

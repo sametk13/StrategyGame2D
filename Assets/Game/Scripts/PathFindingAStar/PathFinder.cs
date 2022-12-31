@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PathFinder
 {
+
+    //A* Pathfinding Implementation
+
     private Dictionary<Vector2Int, OverlayTile> searchableTiles;
 
     public List<OverlayTile> FindPath(OverlayTile start, OverlayTile end, List<OverlayTile> inRangeTiles)
@@ -31,6 +34,8 @@ public class PathFinder
         {
             OverlayTile currentOverlayTile = openList.OrderBy(x => x.F).First();
 
+            //Defining open and closed list
+
             openList.Remove(currentOverlayTile);
             closedList.Add(currentOverlayTile);
 
@@ -45,7 +50,7 @@ public class PathFinder
                 {
                     continue;
                 }
-
+                
                 tile.G = GetManhattenDistance(start, tile);
                 tile.H = GetManhattenDistance(end, tile);
 
@@ -80,6 +85,7 @@ public class PathFinder
 
     private int GetManhattenDistance(OverlayTile start, OverlayTile tile)
     {
+        //Calculating Manhattan
         return Mathf.Abs(start.gridLocation.x - tile.gridLocation.x) + Mathf.Abs(start.gridLocation.y - tile.gridLocation.y);
     }
 

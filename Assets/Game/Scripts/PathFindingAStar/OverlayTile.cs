@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class OverlayTile : MonoBehaviour
 {
+    //Overlay Tile Property Definitor
     public Vector2Int grid2DLocation { get { return new Vector2Int(gridLocation.x, gridLocation.y); } }
 
     public List<Sprite> arrows;

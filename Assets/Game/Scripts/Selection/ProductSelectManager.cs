@@ -40,7 +40,6 @@ public class ProductSelectManager : MonoSingleton<ProductSelectManager>
                 selectable.Selected();
                 PlaySelectedObjectPunchScale(hit.transform.gameObject);
                 _priorSelected = selectable;
-                Debug.Log("Target object: " + hit.transform.gameObject.name);
             }
         }
     }
@@ -82,24 +81,18 @@ public class ProductSelectManager : MonoSingleton<ProductSelectManager>
     }
 
     private bool UILeftClickDetector()
-    {
-        //Set up the new Pointer Event
+    {   
+        //Detecting if the click is on ui or not
         _m_PointerEventData = new PointerEventData(EventSystem.current);
-        //Interconnecting the data position with the mouse position
         _m_PointerEventData.position = Mouse.current.position.ReadValue();
-        //Create a list of Raycast Results
         List<RaycastResult> results = new List<RaycastResult>();
-        //Raycast using the Graphics Raycaster and mouse click position
         EventSystem.current.RaycastAll(_m_PointerEventData, results);
-
         if (results.Count > 0)
         {
-            Debug.Log("This is UI");
             return true;
         }
         else
         {
-            Debug.Log("This not UI");
             return false;
         }
     }

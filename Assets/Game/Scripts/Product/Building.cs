@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Building : Product
 {
+    //Inheriting a product to a building
     public BuildingData buildingData { get => _buildingData; set => InitializeAreaSize(value); }
     public bool placed { get => _placed; private set => _placed = value; }
     public Transform spawnPoint { get => _spawnPoint; private set => _spawnPoint = value; }
@@ -33,12 +34,11 @@ public class Building : Product
             1);
     }
 
-    public override void Selected()
+    public override void Selected() //Selecting Building
     {
-        Debug.Log("Selected building");
-
         List<ProductInfoDatas> productInfoDatas = new List<ProductInfoDatas>();
         productInfoDatas.Add(new ProductInfoDatas(buildingData, 1));
+        //Handling Panels
         InformationPanelHandler.Instance.SetInformationList(productInfoDatas);
 
         ProductionMenuHandler.Instance.SetProductCardList(buildingData.unitDatas, ProductType.Unit, this);
@@ -48,10 +48,9 @@ public class Building : Product
 
     public override void UnSelected()
     {
-        Debug.Log("UnSelected building");
         spriteRenderer.material = buildingData.defaultMat;
     }
-    public bool CanBePlaced()
+    public bool CanBePlaced() //Check if it is placeable
     {
         Vector3Int positionInt = GridBuildingSystem.Instance.gridLayout.LocalToCell(transform.position);
         BoundsInt areaTemp = area;
@@ -65,7 +64,7 @@ public class Building : Product
         return false;
     }
 
-    public void Place()
+    public void Place()//Placement
     {
         Vector3Int positionInt = GridBuildingSystem.Instance.gridLayout.LocalToCell(transform.position);
         BoundsInt areaTemp = area;

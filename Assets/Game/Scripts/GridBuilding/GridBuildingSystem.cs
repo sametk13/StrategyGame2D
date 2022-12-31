@@ -194,7 +194,6 @@ public class GridBuildingSystem : MonoSingleton<GridBuildingSystem>
         {
             if (b != _tileBases[TileType.White])
             {
-                Debug.Log("Cannot place here");
                 return false;
             }
         }

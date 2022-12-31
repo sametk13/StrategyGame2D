@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,7 +11,7 @@ public class BoxSelection : MonoBehaviour
     {
         _selectionAreaTransform.gameObject.SetActive(false);
     }
-
+    //Handling box selection on update
     private void Update()
     {
         if (Mouse.current.leftButton.wasPressedThisFrame)

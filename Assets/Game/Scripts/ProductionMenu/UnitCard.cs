@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class UnitCard : ProductCard
 {
+    //Holding unitcard data
     public UnitData unitData { get => _unitData; set => _unitData = value; }
     public Vector2 spawnPoint { get => _spawnPoint; set => _spawnPoint = value; }
 

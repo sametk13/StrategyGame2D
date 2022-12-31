@@ -26,6 +26,8 @@ public class MapManager : MonoSingleton<MapManager>
         {
             BoundsInt bounds = tm.cellBounds;
 
+            //Looping through the map tiles
+
             for (int z = bounds.max.z; z >= bounds.min.z; z--)
             {
                 for (int y = bounds.min.y; y < bounds.max.y; y++)
@@ -69,7 +71,6 @@ public class MapManager : MonoSingleton<MapManager>
         }
         else
         {
-            Debug.Log("TileToCheck not containskey");
             return null;
         }
     }

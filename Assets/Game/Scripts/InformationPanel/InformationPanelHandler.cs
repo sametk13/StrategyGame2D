@@ -12,7 +12,7 @@ public class InformationPanelHandler : MonoSingleton<InformationPanelHandler>
     [SerializeField] private GameObject informationProductPrefab;
     [SerializeField] private Transform layout;
 
-
+    //Information list clear using object pooling
     public void ClearInformationList()
     {
         for (int i = 0; i < currentInfoCards.Count; i++)
@@ -21,6 +21,7 @@ public class InformationPanelHandler : MonoSingleton<InformationPanelHandler>
         }
         currentInfoCards.Clear();
     }
+    //Setting Information list using object pooling
     public void SetInformationList(List<ProductInfoDatas> productInfoDatas)
     {
 

@@ -85,16 +85,15 @@ public class ProductionMenuHandler : MonoSingleton<ProductionMenuHandler>
         OnProductionChange?.Invoke();
         ProductionChanged?.Invoke();
     }
-
     public void SetProductCardList(List<UnitData> _unitDatas, ProductType _productType, Building _building)
     {
-        ClearProducts();
+        ClearProducts();//Clear first
 
         for (int i = 0; i < _unitDatas.Count; i++)
         {
             UnitCard newProduct;
 
-            GameObject product = ObjectPoolManager.Instance.GetObject("unitCard");
+            GameObject product = ObjectPoolManager.Instance.GetObject("unitCard"); //Pooling
             if (product != null)
             {
                 newProduct = product.GetComponent<UnitCard>();
