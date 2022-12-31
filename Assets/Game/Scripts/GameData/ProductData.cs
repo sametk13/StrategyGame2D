@@ -5,9 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Building/BuildingData")]
 public class ProductData : ScriptableObject
 {
-    public GameObject ProductPrefab;
-    public string ProductName;
-    public Sprite ProductSprite;
-    public Vector2Int CellSize;
+    public GameObject productPrefab;
+    public string productName;
+    public Sprite productSprite;
+    public Vector2Int cellSize;
     public Material outlineMat, defaultMat;
 }

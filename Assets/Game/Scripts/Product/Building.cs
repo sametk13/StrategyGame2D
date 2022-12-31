@@ -5,19 +5,21 @@ using UnityEngine;
 
 public class Building : Product
 {
-    public bool Placed { get; private set; }
-    [HideInInspector] public BoundsInt area;
+    public BuildingData buildingData { get => _buildingData; set => InitializeAreaSize(value); }
+    public bool placed { get => _placed; private set => _placed = value; }
+    public Transform spawnPoint { get => _spawnPoint; private set => _spawnPoint = value; }
+    public Vector2 nextSpawnPoint { get => _nextSpawnPoint; private set => _nextSpawnPoint = value; }
+    public BoundsInt area;
 
-    public BuildingData BuildingData  { get => buildingData;  set => InitializeAreaSize(value); }
-    private BuildingData buildingData;
 
-    public Transform SpawnPoint;
-    [HideInInspector]public Vector2 NextSpawnPoint;
-
+    private bool _placed;
+    private BuildingData _buildingData;
+    private Transform _spawnPoint;
+    private Vector2 _nextSpawnPoint;
 
     private void Start()
     {
-        NextSpawnPoint = SpawnPoint.position;
+        nextSpawnPoint = spawnPoint.position;
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
@@ -26,8 +28,8 @@ public class Building : Product
         this.buildingData = _buildingData;
 
         area.size = new Vector3Int(
-            _buildingData.CellSize.x,
-            _buildingData.CellSize.y,
+            _buildingData.cellSize.x,
+            _buildingData.cellSize.y,
             1);
     }
 
@@ -36,10 +38,10 @@ public class Building : Product
         Debug.Log("Selected building");
 
         List<ProductInfoDatas> productInfoDatas = new List<ProductInfoDatas>();
-        productInfoDatas.Add(new ProductInfoDatas(BuildingData, 1));
+        productInfoDatas.Add(new ProductInfoDatas(buildingData, 1));
         InformationPanelHandler.Instance.SetInformationList(productInfoDatas);
 
-        ProductionMenuHandler.Instance.SetProductCardList(BuildingData.UnitDatas, ProductType.Unit,this);
+        ProductionMenuHandler.Instance.SetProductCardList(buildingData.unitDatas, ProductType.Unit, this);
 
         spriteRenderer.material = buildingData.outlineMat;
     }
@@ -68,7 +70,7 @@ public class Building : Product
         Vector3Int positionInt = GridBuildingSystem.Instance.gridLayout.LocalToCell(transform.position);
         BoundsInt areaTemp = area;
         areaTemp.position = positionInt;
-        Placed = true;
+        placed = true;
         GridBuildingSystem.Instance.TakeArea(areaTemp);
     }
 }

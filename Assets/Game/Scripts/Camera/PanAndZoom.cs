@@ -1,34 +1,36 @@
 using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PanAndZoom : MonoBehaviour
 {
-    [SerializeField] private float panSpeed = 10f;
-    [SerializeField] private float zoomSpeed = 15f;
-    [SerializeField] private float zoomInMax = 40f;
-    [SerializeField] private float zoomOutMax = 90f;
+    public float panSpeed { get => _panSpeed; private set => _panSpeed = value; }
+    public float zoomSpeed { get => _zoomSpeed; private set => _zoomSpeed = value; }
+    public float zoomInMax { get => _zoomInMax; private set => _zoomInMax = value; }
+    public float zoomOutMax { get => _zoomOutMax; private set => _zoomOutMax = value; }
 
-    private CinemachineInputProvider inputProvider;
-    private CinemachineVirtualCamera virtualCamera;
-    private Transform cameraTransform;
+
+    [SerializeField] private float _panSpeed = 10f;
+    [SerializeField] private float _zoomSpeed = 15f;
+    [SerializeField] private float _zoomInMax = 40f;
+    [SerializeField] private float _zoomOutMax = 90f;
+
+    private CinemachineInputProvider _inputProvider;
+    private CinemachineVirtualCamera _virtualCamera;
+    private Transform _cameraTransform;
 
     private void Awake()
     {
-        inputProvider = GetComponent<CinemachineInputProvider>();
-        virtualCamera = GetComponent<CinemachineVirtualCamera>();
-        cameraTransform = virtualCamera.VirtualCameraGameObject.transform;
-        virtualCamera.m_Lens.OrthographicSize = zoomOutMax;
-
+        _inputProvider = GetComponent<CinemachineInputProvider>();
+        _virtualCamera = GetComponent<CinemachineVirtualCamera>();
+        _cameraTransform = _virtualCamera.VirtualCameraGameObject.transform;
+        _virtualCamera.m_Lens.OrthographicSize = zoomOutMax;
     }
 
     private void Update()
     {
-        float x = inputProvider.GetAxisValue(0);
-        float y = inputProvider.GetAxisValue (1);
-        float z = inputProvider.GetAxisValue (2);
+        float x = _inputProvider.GetAxisValue(0);
+        float y = _inputProvider.GetAxisValue (1);
+        float z = _inputProvider.GetAxisValue (2);
         if (x != 0 || y != 0)
         {
             PanScreen(x, y);
@@ -41,9 +43,9 @@ public class PanAndZoom : MonoBehaviour
 
     public void ZoomScreen(float increment)
     {
-        float fov = virtualCamera.m_Lens.OrthographicSize;
+        float fov = _virtualCamera.m_Lens.OrthographicSize;
         float target = Mathf.Clamp(fov + increment,zoomInMax,zoomOutMax);
-        virtualCamera.m_Lens.OrthographicSize = Mathf.MoveTowards(fov, target, zoomSpeed * Time.deltaTime);
+        _virtualCamera.m_Lens.OrthographicSize = Mathf.MoveTowards(fov, target, zoomSpeed * Time.deltaTime);
     }
 
     public Vector2 PanDirection(float x, float y)
@@ -71,7 +73,7 @@ public class PanAndZoom : MonoBehaviour
     public void PanScreen(float x, float y)
     {
         Vector2 Direction = PanDirection(x, y);
-        cameraTransform.position = Vector3.Lerp(cameraTransform.position,
-            cameraTransform.position + (Vector3)Direction * panSpeed,Time.deltaTime);
+        _cameraTransform.position = Vector3.Lerp(_cameraTransform.position,
+            _cameraTransform.position + (Vector3)Direction * panSpeed,Time.deltaTime);
     }
 }

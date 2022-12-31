@@ -1,21 +1,17 @@
 using SKUtils.Feedbacks;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.Entities.UniversalDelegates;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class ProductSelectManager : MonoSingleton<ProductSelectManager>
 {
-    [SerializeField] Material defaultMaterial;
-
     public List<Unit> selectedUnitList;
-    private ISelectable priorSelected;
 
-    PointerEventData m_PointerEventData;
-
-    [SerializeField] BuildingData barrackData;
+    private ISelectable _priorSelected;
+    private PointerEventData _m_PointerEventData;
+    [SerializeField] private BuildingData _barrackData;
+    [SerializeField] private Material defaultMaterial;
 
     private void Awake()
     {
@@ -29,10 +25,10 @@ public class ProductSelectManager : MonoSingleton<ProductSelectManager>
             if (hit.collider == null) return;
             ISelectable selectable = hit.collider.GetComponentInChildren<ISelectable>();
 
-            if (priorSelected != null && !UILeftClickDetector())
+            if (_priorSelected != null && !UILeftClickDetector())
             {
                 ClearSelectionUnitList();
-                priorSelected.UnSelected();
+                _priorSelected.UnSelected();
 
                 InformationPanelHandler.Instance.ClearInformationList();
                 ProductionMenuHandler.Instance.ClearProducts();
@@ -43,7 +39,7 @@ public class ProductSelectManager : MonoSingleton<ProductSelectManager>
             {
                 selectable.Selected();
                 PlaySelectedObjectPunchScale(hit.transform.gameObject);
-                priorSelected = selectable;
+                _priorSelected = selectable;
                 Debug.Log("Target object: " + hit.transform.gameObject.name);
             }
         }
@@ -57,7 +53,7 @@ public class ProductSelectManager : MonoSingleton<ProductSelectManager>
 
         List<UnitCounts> unitCounts = new List<UnitCounts>();
 
-        foreach (var unitData in barrackData.UnitDatas)
+        foreach (var unitData in _barrackData.unitDatas)
         {
             unitCounts.Add(new UnitCounts(unitData, 0));
         }
@@ -88,13 +84,13 @@ public class ProductSelectManager : MonoSingleton<ProductSelectManager>
     private bool UILeftClickDetector()
     {
         //Set up the new Pointer Event
-        m_PointerEventData = new PointerEventData(EventSystem.current);
+        _m_PointerEventData = new PointerEventData(EventSystem.current);
         //Interconnecting the data position with the mouse position
-        m_PointerEventData.position = Mouse.current.position.ReadValue();
+        _m_PointerEventData.position = Mouse.current.position.ReadValue();
         //Create a list of Raycast Results
         List<RaycastResult> results = new List<RaycastResult>();
         //Raycast using the Graphics Raycaster and mouse click position
-        EventSystem.current.RaycastAll(m_PointerEventData, results);
+        EventSystem.current.RaycastAll(_m_PointerEventData, results);
 
         if (results.Count > 0)
         {
@@ -128,13 +124,3 @@ public class ProductSelectManager : MonoSingleton<ProductSelectManager>
     }
 }
 
-public class UnitCounts
-{
-    public UnitCounts(UnitData _unitData, int _count)
-    {
-        this.unitData = _unitData;
-        this.count = _count;
-    }
-    public UnitData unitData;
-    public int count;
-}

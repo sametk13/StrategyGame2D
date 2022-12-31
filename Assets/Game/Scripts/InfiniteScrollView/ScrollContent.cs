@@ -2,27 +2,26 @@
 
 public class ScrollContent : MonoBehaviour
 {
-    public float ItemSpacing { get { return itemSpacing; } }
-
-    public float VerticalMargin { get { return verticalMargin; } }
-    public float Height { get { return height; } }
-    public float ChildWidth { get { return childWidth; } }
-    public float ChildHeight { get { return childHeight; } }
-
+    public float itemSpacing { get { return _itemSpacing; } }
+    public float verticalMargin { get { return _verticalMargin; } }
+    public float height { get { return _height; } }
+    public float childWidth { get { return _childWidth; } }
+    public float childHeight { get { return _childHeight; } }
 
 
-    private RectTransform rectTransform;
 
-    private RectTransform[] rtChildren;
+    private RectTransform _rectTransform;
 
-    private float height;
+    private RectTransform[] _rtChildren;
 
-    private float childWidth, childHeight;
+    private float _height;
+
+    private float _childWidth, _childHeight;
 
     [SerializeField]
-    private float itemSpacing;
+    private float _itemSpacing;
     [SerializeField]
-    private float verticalMargin;
+    private float _verticalMargin;
 
     private void OnEnable()
     {
@@ -42,26 +41,28 @@ public class ScrollContent : MonoBehaviour
 
     private void InitializeContentVertical()
     {
-        rectTransform = GetComponent<RectTransform>();
-        rtChildren = new RectTransform[rectTransform.childCount];
+        if (_rectTransform.childCount == 0) return;
 
-        for (int i = 0; i < rectTransform.childCount; i++)
+        _rectTransform = GetComponent<RectTransform>();
+        _rtChildren = new RectTransform[_rectTransform.childCount];
+
+        for (int i = 0; i < _rectTransform.childCount; i++)
         {
-            rtChildren[i] = rectTransform.GetChild(i) as RectTransform;
+            _rtChildren[i] = _rectTransform.GetChild(i) as RectTransform;
         }
 
-        height = rectTransform.rect.height - (2 * verticalMargin);
+        _height = _rectTransform.rect.height - (2 * verticalMargin);
 
-        childWidth = rtChildren[0].rect.width;
-        childHeight = rtChildren[0].rect.height;
+        _childWidth = _rtChildren[0].rect.width;
+        _childHeight = _rtChildren[0].rect.height;
 
         float originY = 0 - (height * 0.5f);
         float posOffset = childHeight * 0.5f;
-        for (int i = 0; i < rtChildren.Length; i++)
+        for (int i = 0; i < _rtChildren.Length; i++)
         {
-            Vector2 childPos = rtChildren[i].localPosition;
+            Vector2 childPos = _rtChildren[i].localPosition;
             childPos.y = originY + posOffset + i * (childHeight + itemSpacing);
-            rtChildren[i].localPosition = childPos;
+            _rtChildren[i].localPosition = childPos;
         }
     }
 }

@@ -5,39 +5,39 @@ using UnityEngine.InputSystem;
 
 public class BoxSelection : MonoBehaviour
 {
-    [SerializeField] private Transform selectionAreaTransform;
+    [SerializeField] private Transform _selectionAreaTransform;
 
-    private Vector3 startPosition;
+    private Vector3 _startPosition;
 
     private void Awake()
     {
-        selectionAreaTransform.gameObject.SetActive(false);
+        _selectionAreaTransform.gameObject.SetActive(false);
     }
 
     private void Update()
     {
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-            selectionAreaTransform.gameObject.SetActive(true);
-            startPosition = GetMouseWorldPosition();
+            _selectionAreaTransform.gameObject.SetActive(true);
+            _startPosition = GetMouseWorldPosition();
         }
 
         if (Mouse.current.leftButton.isPressed)
         {
             Vector3 currentMousePosition = GetMouseWorldPosition();
             Vector3 lowerLeft = new Vector3(
-                Mathf.Min(startPosition.x, currentMousePosition.x),
-                Mathf.Min(startPosition.y, currentMousePosition.y));
+                Mathf.Min(_startPosition.x, currentMousePosition.x),
+                Mathf.Min(_startPosition.y, currentMousePosition.y));
             Vector3 upperRight = new Vector3(
-                Mathf.Max(startPosition.x, currentMousePosition.x),
-                Mathf.Max(startPosition.y, currentMousePosition.y));
-            selectionAreaTransform.position = lowerLeft;
-            selectionAreaTransform.localScale = upperRight - lowerLeft;
+                Mathf.Max(_startPosition.x, currentMousePosition.x),
+                Mathf.Max(_startPosition.y, currentMousePosition.y));
+            _selectionAreaTransform.position = lowerLeft;
+            _selectionAreaTransform.localScale = upperRight - lowerLeft;
         }
         if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
-            selectionAreaTransform.gameObject.SetActive(false);
-            Collider2D[] collider2DArray = Physics2D.OverlapAreaAll(startPosition, GetMouseWorldPosition());
+            _selectionAreaTransform.gameObject.SetActive(false);
+            Collider2D[] collider2DArray = Physics2D.OverlapAreaAll(_startPosition, GetMouseWorldPosition());
 
             ProductSelectManager.Instance.ClearSelectionUnitList();
 

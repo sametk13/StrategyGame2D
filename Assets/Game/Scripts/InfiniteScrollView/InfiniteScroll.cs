@@ -7,15 +7,15 @@ public class InfiniteScroll : MonoBehaviour, IBeginDragHandler, IDragHandler, IS
 {
 
     [SerializeField]
-    private ScrollContent scrollContent;
+    private ScrollContent _scrollContent;
 
     [SerializeField]
-    private float outOfBoundsThreshold;
-    private ScrollRect scrollRect;
+    private float _outOfBoundsThreshold;
+    private ScrollRect _scrollRect;
 
-    private Vector2 lastDragPosition;
+    private Vector2 _lastDragPosition;
 
-    private bool positiveDrag;
+    private bool _positiveDrag;
 
 
     private void OnEnable()
@@ -30,25 +30,25 @@ public class InfiniteScroll : MonoBehaviour, IBeginDragHandler, IDragHandler, IS
 
     private void Start()
     {
-        scrollRect = GetComponent<ScrollRect>();
-        scrollRect.vertical = true;
-        scrollRect.movementType = ScrollRect.MovementType.Unrestricted;
+        _scrollRect = GetComponent<ScrollRect>();
+        _scrollRect.vertical = true;
+        _scrollRect.movementType = ScrollRect.MovementType.Unrestricted;
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
-        lastDragPosition = eventData.position;
+        _lastDragPosition = eventData.position;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        positiveDrag = eventData.position.y > lastDragPosition.y;
+        _positiveDrag = eventData.position.y > _lastDragPosition.y;
 
-        lastDragPosition = eventData.position;
+        _lastDragPosition = eventData.position;
     }
 
     public void OnScroll(PointerEventData eventData)
     {
-        positiveDrag = eventData.scrollDelta.y > 0;
+        _positiveDrag = eventData.scrollDelta.y > 0;
     }
 
     public void StartIEOnViewScroll()
@@ -70,26 +70,26 @@ public class InfiniteScroll : MonoBehaviour, IBeginDragHandler, IDragHandler, IS
 
     private void HandleVerticalScroll()
     {
-        if (scrollRect.content.childCount == 0) return;
-        int currItemIndex = positiveDrag ? scrollRect.content.childCount - 1 : 0;
-        var currItem = scrollRect.content.GetChild(currItemIndex);
+        if (_scrollRect.content.childCount == 0) return;
+        int currItemIndex = _positiveDrag ? _scrollRect.content.childCount - 1 : 0;
+        var currItem = _scrollRect.content.GetChild(currItemIndex);
 
         if (!ReachedThreshold(currItem))
         {
             return;
         }
 
-        int endItemIndex = positiveDrag ? 0 : scrollRect.content.childCount - 1;
-        Transform endItem = scrollRect.content.GetChild(endItemIndex);
+        int endItemIndex = _positiveDrag ? 0 : _scrollRect.content.childCount - 1;
+        Transform endItem = _scrollRect.content.GetChild(endItemIndex);
         Vector2 newPos = endItem.position;
 
-        if (positiveDrag)
+        if (_positiveDrag)
         {
-            newPos.y = endItem.position.y - scrollContent.ChildHeight * 1.5f + scrollContent.ItemSpacing;
+            newPos.y = endItem.position.y - _scrollContent.childHeight * 1.5f + _scrollContent.itemSpacing;
         }
         else
         {
-            newPos.y = endItem.position.y + scrollContent.ChildHeight * 1.5f - scrollContent.ItemSpacing;
+            newPos.y = endItem.position.y + _scrollContent.childHeight * 1.5f - _scrollContent.itemSpacing;
         }
 
         currItem.position = newPos;
@@ -98,9 +98,9 @@ public class InfiniteScroll : MonoBehaviour, IBeginDragHandler, IDragHandler, IS
 
     private bool ReachedThreshold(Transform item)
     {
-        float posYThreshold = transform.position.y + scrollContent.Height * 0.5f + outOfBoundsThreshold;
-        float negYThreshold = transform.position.y - scrollContent.Height * 0.5f - outOfBoundsThreshold;
-        return positiveDrag ? item.position.y - scrollContent.ChildWidth * 0.5f > posYThreshold :
-            item.position.y + scrollContent.ChildWidth * 0.5f < negYThreshold;
+        float posYThreshold = transform.position.y + _scrollContent.height * 0.5f + _outOfBoundsThreshold;
+        float negYThreshold = transform.position.y - _scrollContent.height * 0.5f - _outOfBoundsThreshold;
+        return _positiveDrag ? item.position.y - _scrollContent.childWidth * 0.5f > posYThreshold :
+            item.position.y + _scrollContent.childWidth * 0.5f < negYThreshold;
     }
 }
