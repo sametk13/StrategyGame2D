@@ -50,6 +50,13 @@ public class UnitPathFinderController : MonoBehaviour
 
                 if (_overlayTiles.Contains(tile))
                 {
+                    Vector2Int tileToCheck = new Vector2Int((int)transform.position.x, (int)transform.position.y);
+
+                    if (standingOnTile == null)
+                    {
+                        standingOnTile = MapManager.Instance.GetStandingOnTile(tileToCheck);
+                    }
+                    if (standingOnTile == null) return;
 
                     _path = _pathFinder.FindPath(standingOnTile, tile, _overlayTiles);
 

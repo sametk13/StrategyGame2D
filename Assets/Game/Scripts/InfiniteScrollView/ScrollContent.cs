@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.Entities.UniversalDelegates;
+using UnityEngine;
 
 public class ScrollContent : MonoBehaviour
 {
@@ -63,6 +64,7 @@ public class ScrollContent : MonoBehaviour
         {
             Vector2 childPos = _rtChildren[i].localPosition;
             childPos.y = originY + posOffset + i * (childHeight + itemSpacing);
+            childPos.x = 0;
             _rtChildren[i].localPosition = childPos;
         }
     }

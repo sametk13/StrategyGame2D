@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class ProductionMenuHandler : MonoSingleton<ProductionMenuHandler>
 {
@@ -31,6 +32,7 @@ public class ProductionMenuHandler : MonoSingleton<ProductionMenuHandler>
         for (int i = 0; i < _currentProducts.Count; i++)
         {
             _currentProducts[i].transform.parent = null;
+            _currentProducts[i].GetComponentInChildren<Button>().onClick.RemoveAllListeners();
 
             if (_currentProducts[i].GetComponent<UnitCard>())
             {
