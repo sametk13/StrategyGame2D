@@ -108,7 +108,10 @@ public class ProductionMenuHandler : MonoSingleton<ProductionMenuHandler>
             _currentProducts.Add(newProduct.gameObject);
             UnitData currentData = _unitDatas[i];
             newProduct.InitializeCard(currentData);
+
             newProduct.spawnPoint = _building.spawnPoint.position;
+            newProduct.targetPoint = _building.nextTargetTile;
+
         }
         OnProductionChange?.Invoke();
     }

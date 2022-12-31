@@ -11,6 +11,8 @@ public class PathFinder
 
     public List<OverlayTile> FindPath(OverlayTile start, OverlayTile end, List<OverlayTile> inRangeTiles)
     {
+        if (start == null || end == null) return null;
+
         searchableTiles = new Dictionary<Vector2Int, OverlayTile>();
 
         List<OverlayTile> openList = new List<OverlayTile>();
@@ -50,7 +52,7 @@ public class PathFinder
                 {
                     continue;
                 }
-                
+
                 tile.G = GetManhattenDistance(start, tile);
                 tile.H = GetManhattenDistance(end, tile);
 

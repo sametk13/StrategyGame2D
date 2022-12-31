@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Building : Product
 {
@@ -9,20 +11,42 @@ public class Building : Product
     public BuildingData BuildingData { get => _buildingData; set => InitializeAreaSize(value); }
     public bool placed { get => _placed; private set => _placed = value; }
     public Transform spawnPoint { get => _spawnPoint; private set => _spawnPoint = value; }
-    public Vector2 nextSpawnPoint { get => _nextSpawnPoint; private set => _nextSpawnPoint = value; }
+    public OverlayTile nextTargetTile;
+    public Transform nextTargetPoint;
     public BoundsInt area;
 
 
+    private bool isSelected = false;
     private bool _placed;
     private BuildingData _buildingData;
     [SerializeField] private Transform _spawnPoint;
-    private Vector2 _nextSpawnPoint;
     [SerializeField] private BuildingData buildingData;
 
     private void Start()
     {
-        nextSpawnPoint = spawnPoint.position;
+        Vector2Int tileToCheck = new Vector2Int((int)_spawnPoint.position.x, (int)_spawnPoint.position.y);
+
+        nextTargetTile = MapManager.Instance.GetStandingOnTile(tileToCheck);
+
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+    }
+
+    private void Update()
+    {
+        // Handling spawn point
+        if (Mouse.current.rightButton.wasPressedThisFrame && isSelected)
+        {
+            RaycastHit2D? hit = GetFocusedOnTile();
+            if (hit == null) return;
+
+            OverlayTile tile = hit.Value.collider.gameObject.GetComponent<OverlayTile>();
+            Debug.Log(tile.name, tile);
+            if (tile == null) return;
+
+            nextTargetPoint.position = tile.transform.position;
+            nextTargetTile = tile;
+            ProductionMenuHandler.Instance.SetProductCardList(buildingData.unitDatas, ProductType.Unit, this);
+        }
     }
 
     private void InitializeAreaSize(BuildingData _buildingData)
@@ -37,6 +61,7 @@ public class Building : Product
 
     public override void Selected() //Selecting Building
     {
+        isSelected = true;
         List<ProductInfoDatas> productInfoDatas = new List<ProductInfoDatas>();
         productInfoDatas.Add(new ProductInfoDatas(buildingData, 1));
         //Handling Panels
@@ -45,11 +70,24 @@ public class Building : Product
         ProductionMenuHandler.Instance.SetProductCardList(buildingData.unitDatas, ProductType.Unit, this);
 
         spriteRenderer.material = buildingData.outlineMat;
+
+        //Handling spawn point
+        SpriteRenderer newTargetPointRenderer = nextTargetPoint.GetComponentInChildren<SpriteRenderer>();
+        Color newColor = newTargetPointRenderer.material.color;
+        newColor.a = 1f;
+        newTargetPointRenderer.color = newColor;
     }
 
     public override void UnSelected()
     {
+        isSelected = false;
         spriteRenderer.material = buildingData.defaultMat;
+
+        //Handling spawn point
+        SpriteRenderer newTargetPointRenderer = nextTargetPoint.GetComponentInChildren<SpriteRenderer>();
+        Color newColor = newTargetPointRenderer.material.color;
+        newColor.a = 0f;
+        newTargetPointRenderer.color = newColor;
     }
     public bool CanBePlaced() //Check if it is placeable
     {
@@ -72,5 +110,18 @@ public class Building : Product
         areaTemp.position = positionInt;
         placed = true;
         GridBuildingSystem.Instance.TakeArea(areaTemp);
+    }
+
+    private RaycastHit2D? GetFocusedOnTile()
+    {
+        Vector2 mousePos2D = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+
+        RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos2D, Vector2.zero);
+
+        if (hits.Length > 0)
+        {
+            return hits.OrderByDescending(i => i.collider.transform.position.z).First();
+        }
+        return null;
     }
 }

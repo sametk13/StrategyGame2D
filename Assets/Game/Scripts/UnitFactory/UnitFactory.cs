@@ -17,13 +17,18 @@ public class UnitFactory : MonoSingleton<UnitFactory>
         }
     }
 
-    public GameObject SpawnUnit(UnitType type, Vector3 position, Quaternion rotation)
+    public GameObject SpawnUnit(UnitType type, Vector3 position, Quaternion rotation,OverlayTile targetTile)
     {
         //Handling spawn if the unit exist in the dictionary
         if (_unitDatas.ContainsKey(type))
         {
             UnitData data = _unitDatas[type];
             GameObject unit = Instantiate(data.productPrefab, position, rotation);
+            UnitPathFinderController unitPathFinderController = unit.GetComponent<UnitPathFinderController>();
+
+          
+
+            unitPathFinderController.MoveAlongPath(targetTile);
             return unit;
         }
         else

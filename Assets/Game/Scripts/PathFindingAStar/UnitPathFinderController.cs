@@ -8,7 +8,7 @@ public class UnitPathFinderController : MonoBehaviour
     public float speed { get => _speed; set => _speed = value; }
     public OverlayTile standingOnTile;
 
-    [SerializeField]private float _speed;
+    [SerializeField] private float _speed;
 
     private Unit _unit;
     private OverlayTile _priorTile;
@@ -17,8 +17,9 @@ public class UnitPathFinderController : MonoBehaviour
     private List<OverlayTile> _overlayTiles;
     private bool _isMoving;
 
+    OverlayTile tile;
 
-    private void Start()
+    private void Awake()
     {
         _unit = GetComponent<Unit>();
 
@@ -44,7 +45,7 @@ public class UnitPathFinderController : MonoBehaviour
                 RaycastHit2D? hit = GetFocusedOnTile();
                 if (hit == null) return;
 
-                OverlayTile tile = hit.Value.collider.gameObject.GetComponent<OverlayTile>();
+                tile = hit.Value.collider.gameObject.GetComponent<OverlayTile>();
 
                 if (tile == null) return;
 
@@ -60,6 +61,8 @@ public class UnitPathFinderController : MonoBehaviour
 
                     _path = _pathFinder.FindPath(standingOnTile, tile, _overlayTiles);
 
+                    if (_path == null) _path = new List<OverlayTile>();
+
                     for (int i = 0; i < _path.Count; i++)
                     {
                         var previousTile = i > 0 ? _path[i - 1] : standingOnTile;
@@ -68,10 +71,10 @@ public class UnitPathFinderController : MonoBehaviour
                 }
             }
 
-            if (_path.Count > 0)
+            if (_path != null && _path.Count > 0)
             {
                 _isMoving = true;
-                MoveAlongPath();
+                MoveAlongPath(tile);
             }
             else
             {
@@ -80,13 +83,27 @@ public class UnitPathFinderController : MonoBehaviour
         }
     }
 
-    private void MoveAlongPath()
+    public void MoveAlongPath(OverlayTile targetTile)
     {
-        if (_path[0].isBlocked)
+        Debug.Log("test");
+        if (_path == null) _path = new List<OverlayTile>();
+        Debug.Log("test1");
+
+        if (_path.Count == 0 || _path[0].isBlocked )
         {
-            _path = _pathFinder.FindPath(standingOnTile, standingOnTile, _overlayTiles); // Calculating Path
+            Debug.Log("test2");
+
+            _isMoving = true;
+
+            _path = _pathFinder.FindPath(standingOnTile, targetTile, _overlayTiles); // Calculating Path
+            if (_path.Count > 0 && _path[0].isBlocked && targetTile == _path[0])
+            {
+                Debug.Log("test3");
+                _path.Clear();
+            }
             return;
         }
+        Debug.Log("test4");
 
         var step = speed * Time.deltaTime;
 
@@ -97,6 +114,8 @@ public class UnitPathFinderController : MonoBehaviour
 
         if (Vector2.Distance(transform.position, _path[0].transform.position) < 0.00001f)
         {
+            Debug.Log("test5");
+
             PositionCharacterOnLine(_path[0]);
             _path.RemoveAt(0);
         }
