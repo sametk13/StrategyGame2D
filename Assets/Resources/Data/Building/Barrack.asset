@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a5c6aa97e7c25145bc5f42bad010792, type: 3}
   m_Name: Barrack
   m_EditorClassIdentifier: 
-  ProductPrefab: {fileID: 5292350618813411523, guid: 59f50abd4a5f3ef4aa8895b859d2425c,
+  productPrefab: {fileID: 5292350618813411523, guid: 59f50abd4a5f3ef4aa8895b859d2425c,
     type: 3}
-  ProductName: Barrack
-  ProductSprite: {fileID: 21300000, guid: b27097bcd64d5fa4b8c6fcfb8dd95f10, type: 3}
-  CellSize: {x: 4, y: 4}
+  productName: Barrack
+  productSprite: {fileID: 21300000, guid: b27097bcd64d5fa4b8c6fcfb8dd95f10, type: 3}
+  cellSize: {x: 4, y: 4}
   outlineMat: {fileID: 2100000, guid: 5a6db85ebb9466f4b90af9ebdd3c4fdc, type: 2}
   defaultMat: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  UnitDatas:
+  unitDatas:
   - {fileID: 11400000, guid: 7b1cd04f22357314f8b9af0c05ebed0b, type: 2}
   - {fileID: 11400000, guid: 5d75cb03bccce824ba23945d1d2c99c8, type: 2}
   - {fileID: 11400000, guid: 12278230dc452424399fa673b3ca163a, type: 2}

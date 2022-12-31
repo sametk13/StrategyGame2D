@@ -21,9 +21,9 @@ public class GridBuildingSystem : MonoSingleton<GridBuildingSystem>
     public Tilemap tempTilemap { get => _tempTilemap; set => _tempTilemap = value; }
 
 
-    private GridLayout _gridLayout;
-    private Tilemap _mainTilemap;
-    private Tilemap _tempTilemap;
+    [SerializeField]private GridLayout _gridLayout;
+    [SerializeField] private Tilemap _mainTilemap;
+    [SerializeField] private Tilemap _tempTilemap;
 
     private Building _temp;
     private Vector3 _prevPos;
@@ -144,7 +144,7 @@ public class GridBuildingSystem : MonoSingleton<GridBuildingSystem>
         {
             _temp = Instantiate(_buildingData.productPrefab, Vector3.zero, Quaternion.identity).GetComponent<Building>();
             Building building = _temp.GetComponentInChildren<Building>();
-            building.buildingData = _buildingData;
+            building.BuildingData = _buildingData;
             FollowBuilding();
 
             TileMapColorAlphaSetter(mainTilemap, 0.5f);

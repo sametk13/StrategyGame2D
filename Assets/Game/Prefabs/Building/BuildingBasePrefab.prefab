@@ -162,6 +162,7 @@ MonoBehaviour:
   area:
     m_Position: {x: 0, y: 0, z: 0}
     m_Size: {x: 2, y: 2, z: 1}
+  buildingData: {fileID: 0}
   SpawnPoint: {fileID: 2468420019903732444}
   NextSpawnPoint: {x: 0, y: 0}
 --- !u!61 &8294393364866414916

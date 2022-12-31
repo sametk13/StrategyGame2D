@@ -13,9 +13,9 @@ public class MapManager : MonoSingleton<MapManager>
     public Dictionary<Vector2Int, OverlayTile> map;
 
 
-    private GameObject _overlayPrefab;
-    private GameObject _overlayContainer;
-    private bool _ignoreBottomTiles;
+    [SerializeField] private GameObject _overlayPrefab;
+    [SerializeField] private GameObject _overlayContainer;
+    [SerializeField] private bool _ignoreBottomTiles;
 
     void Start()
     {

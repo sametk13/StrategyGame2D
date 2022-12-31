@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a5c6aa97e7c25145bc5f42bad010792, type: 3}
   m_Name: PowerPlant
   m_EditorClassIdentifier: 
-  ProductPrefab: {fileID: 5292350618813411523, guid: 822997cb003ab654d85599cab380b2aa,
+  productPrefab: {fileID: 5292350618813411523, guid: 822997cb003ab654d85599cab380b2aa,
     type: 3}
-  ProductName: Power Plant
-  ProductSprite: {fileID: 21300000, guid: 27705230795c03647bd898fee192da3b, type: 3}
-  CellSize: {x: 2, y: 3}
+  productName: Power Plant
+  productSprite: {fileID: 21300000, guid: 27705230795c03647bd898fee192da3b, type: 3}
+  cellSize: {x: 2, y: 3}
   outlineMat: {fileID: 2100000, guid: 5a6db85ebb9466f4b90af9ebdd3c4fdc, type: 2}
   defaultMat: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  UnitDatas: []
+  unitDatas: []

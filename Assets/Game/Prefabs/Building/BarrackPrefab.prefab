@@ -7,6 +7,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 514530040495679117, guid: 65a96a185d9850f43ae4bbcf3e4cfe9a,
+        type: 3}
+      propertyPath: _spawnPoint
+      value: 
+      objectReference: {fileID: 2587742551165104599}
+    - target: {fileID: 514530040495679117, guid: 65a96a185d9850f43ae4bbcf3e4cfe9a,
+        type: 3}
+      propertyPath: area.m_Size.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 514530040495679117, guid: 65a96a185d9850f43ae4bbcf3e4cfe9a,
+        type: 3}
+      propertyPath: area.m_Size.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2077103226882709871, guid: 65a96a185d9850f43ae4bbcf3e4cfe9a,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 8.959999
+      objectReference: {fileID: 0}
+    - target: {fileID: 2077103226882709871, guid: 65a96a185d9850f43ae4bbcf3e4cfe9a,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 8.959999
+      objectReference: {fileID: 0}
     - target: {fileID: 2077103226882709871, guid: 65a96a185d9850f43ae4bbcf3e4cfe9a,
         type: 3}
       propertyPath: m_Sprite
@@ -110,3 +135,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65a96a185d9850f43ae4bbcf3e4cfe9a, type: 3}
+--- !u!4 &2587742551165104599 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2468420019903732444, guid: 65a96a185d9850f43ae4bbcf3e4cfe9a,
+    type: 3}
+  m_PrefabInstance: {fileID: 119368264157031179}
+  m_PrefabAsset: {fileID: 0}

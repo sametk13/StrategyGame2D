@@ -41,9 +41,10 @@ public class ScrollContent : MonoBehaviour
 
     private void InitializeContentVertical()
     {
+        _rectTransform = GetComponent<RectTransform>();
+
         if (_rectTransform.childCount == 0) return;
 
-        _rectTransform = GetComponent<RectTransform>();
         _rtChildren = new RectTransform[_rectTransform.childCount];
 
         for (int i = 0; i < _rectTransform.childCount; i++)

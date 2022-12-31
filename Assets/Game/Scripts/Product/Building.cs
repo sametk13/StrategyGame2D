@@ -6,7 +6,7 @@ using UnityEngine;
 public class Building : Product
 {
     //Inheriting a product to a building
-    public BuildingData buildingData { get => _buildingData; set => InitializeAreaSize(value); }
+    public BuildingData BuildingData { get => _buildingData; set => InitializeAreaSize(value); }
     public bool placed { get => _placed; private set => _placed = value; }
     public Transform spawnPoint { get => _spawnPoint; private set => _spawnPoint = value; }
     public Vector2 nextSpawnPoint { get => _nextSpawnPoint; private set => _nextSpawnPoint = value; }
@@ -15,8 +15,9 @@ public class Building : Product
 
     private bool _placed;
     private BuildingData _buildingData;
-    private Transform _spawnPoint;
+    [SerializeField] private Transform _spawnPoint;
     private Vector2 _nextSpawnPoint;
+    [SerializeField] private BuildingData buildingData;
 
     private void Start()
     {

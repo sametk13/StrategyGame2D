@@ -6,8 +6,6 @@ public class OverlayTile : MonoBehaviour
     //Overlay Tile Property Definitor
     public Vector2Int grid2DLocation { get { return new Vector2Int(gridLocation.x, gridLocation.y); } }
 
-    public List<Sprite> arrows;
-
     public int G { get => _G; set => _G = value; }
     public int H { get => _H; set => _H = value; }
     public int F { get { return G + H; } }

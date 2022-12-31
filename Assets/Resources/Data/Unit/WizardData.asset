@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 062cc72774f889149802b5542ddf9d15, type: 3}
   m_Name: WizardData
   m_EditorClassIdentifier: 
-  ProductPrefab: {fileID: 6552725210894865238, guid: 4e879e12d4b73e1458c2bbf7cd7f924b,
+  productPrefab: {fileID: 6552725210894865238, guid: 4e879e12d4b73e1458c2bbf7cd7f924b,
     type: 3}
-  ProductName: Wizard
-  ProductSprite: {fileID: 8248543377919322394, guid: cc8cb170ff11da442bedd0e9e3be0e9a,
+  productName: Wizard
+  productSprite: {fileID: 8248543377919322394, guid: cc8cb170ff11da442bedd0e9e3be0e9a,
     type: 3}
-  CellSize: {x: 1, y: 1}
+  cellSize: {x: 1, y: 1}
   outlineMat: {fileID: 2100000, guid: 29ff28517f9b1b147bc2c4edbf5babab, type: 2}
   defaultMat: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  unitType: 2
+  unitType: 3
