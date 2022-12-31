@@ -6,10 +6,9 @@ using UnityEngine.InputSystem;
 public class UnitPathFinderController : MonoBehaviour
 {
     public float speed { get => _speed; set => _speed = value; }
-    public OverlayTile standingOnTile { get => _standingOnTile; set => _standingOnTile = value; }
+    public OverlayTile standingOnTile;
 
-    private float _speed;
-    private OverlayTile _standingOnTile;
+    [SerializeField]private float _speed;
 
     private Unit _unit;
     private OverlayTile _priorTile;
@@ -41,6 +40,7 @@ public class UnitPathFinderController : MonoBehaviour
         {
             if (Mouse.current.rightButton.wasPressedThisFrame)
             {
+
                 RaycastHit2D? hit = GetFocusedOnTile();
                 if (hit == null) return;
 
@@ -50,6 +50,7 @@ public class UnitPathFinderController : MonoBehaviour
 
                 if (_overlayTiles.Contains(tile))
                 {
+
                     _path = _pathFinder.FindPath(standingOnTile, tile, _overlayTiles);
 
                     for (int i = 0; i < _path.Count; i++)
@@ -67,7 +68,6 @@ public class UnitPathFinderController : MonoBehaviour
             }
             else
             {
-
                 _isMoving = false;
             }
         }
