@@ -3,8 +3,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace finished3
-{
     public class MapManager : MonoSingleton<MapManager>
     {
 
@@ -87,4 +85,4 @@ namespace finished3
             }
         }
     }
-}
+

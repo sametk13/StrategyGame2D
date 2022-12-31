@@ -1,9 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static finished3.ArrowTranslator;
 
-namespace finished3
-{
     public class OverlayTile : MonoBehaviour
     {
         public int G;
@@ -29,18 +26,5 @@ namespace finished3
         {
             gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
         }
-
-        public void SetSprite(ArrowDirection d)
-        {
-            if (d == ArrowDirection.None)
-                GetComponentsInChildren<SpriteRenderer>()[1].color = new Color(1, 1, 1, 0);
-            else
-            {
-                GetComponentsInChildren<SpriteRenderer>()[1].color = new Color(1, 1, 1, 1);
-                GetComponentsInChildren<SpriteRenderer>()[1].sprite = arrows[(int)d];
-                GetComponentsInChildren<SpriteRenderer>()[1].sortingOrder = gameObject.GetComponent<SpriteRenderer>().sortingOrder;
-            }
-        }
-
     }
-}
+

@@ -1,12 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using static finished3.ArrowTranslator;
 using static UnityEngine.UI.CanvasScaler;
 using UnityEngine.InputSystem;
 
-namespace finished3
-{
     public class MouseController : MonoBehaviour
     {
         public float speed;
@@ -52,11 +49,6 @@ namespace finished3
 
                     if (tile == null) return;
 
-                    //if (tile.isBlocked)
-                    //{
-                    //    tile = GetNewTile(tile);
-                    //}
-
                     if (overlayTiles.Contains(tile))
                     {
                         path = pathFinder.FindPath(standingOnTile, tile, overlayTiles);
@@ -81,28 +73,6 @@ namespace finished3
                 }
             }
         }
-
-        //private OverlayTile GetNewTile(OverlayTile _overlayTile)
-        //{
-        //    OverlayTile newTile = null;
-        //    var neighbourTiles = pathFinder.GetNeightbourOverlayTiles(_overlayTile);
-
-        //    for (int i = 0; i < neighbourTiles.Count; i++)
-        //    {
-        //        var nextNeighbourTile = pathFinder.GetNeightbourOverlayTiles(neighbourTiles[i]);
-
-        //        for (int a = 0; a < nextNeighbourTile.Count; a++)
-        //        {
-        //            if (!nextNeighbourTile[a].isBlocked)
-        //            {
-        //                newTile = neighbourTiles[i];
-        //                return newTile;
-        //            }
-        //        }
-        //    }
-        //    return newTile;
-
-        //}
 
         private void MoveAlongPath()
         {
@@ -148,5 +118,5 @@ namespace finished3
 
             return null;
         }
-    }
-}
+   }
+

@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a5c6aa97e7c25145bc5f42bad010792, type: 3}
   m_Name: Barrack
   m_EditorClassIdentifier: 
-  ProductPrefab: {fileID: 5249543589208906696, guid: 65a96a185d9850f43ae4bbcf3e4cfe9a,
+  ProductPrefab: {fileID: 5292350618813411523, guid: 59f50abd4a5f3ef4aa8895b859d2425c,
     type: 3}
   ProductName: Barrack
-  ProductSprite: {fileID: 1874774773894306626, guid: 68e33a3deef62bc45b5ded8df120a1b3,
-    type: 3}
+  ProductSprite: {fileID: 21300000, guid: b27097bcd64d5fa4b8c6fcfb8dd95f10, type: 3}
   CellSize: {x: 4, y: 4}
   outlineMat: {fileID: 2100000, guid: 5a6db85ebb9466f4b90af9ebdd3c4fdc, type: 2}
   defaultMat: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}

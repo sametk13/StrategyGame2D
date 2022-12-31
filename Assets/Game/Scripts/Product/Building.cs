@@ -3,18 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Building : MonoBehaviour, ISelectable
+public class Building : Product
 {
     public bool Placed { get; private set; }
     [HideInInspector] public BoundsInt area;
 
     public BuildingData BuildingData  { get => buildingData;  set => InitializeAreaSize(value); }
-    [SerializeField]private BuildingData buildingData;
+    private BuildingData buildingData;
 
     public Transform SpawnPoint;
     [HideInInspector]public Vector2 NextSpawnPoint;
 
-    public SpriteRenderer spriteRenderer { get; set; }
 
     private void Start()
     {
@@ -32,8 +31,10 @@ public class Building : MonoBehaviour, ISelectable
             1);
     }
 
-    public void Selected()
+    public override void Selected()
     {
+        Debug.Log("Selected building");
+
         List<ProductInfoDatas> productInfoDatas = new List<ProductInfoDatas>();
         productInfoDatas.Add(new ProductInfoDatas(BuildingData, 1));
         InformationPanelHandler.Instance.SetInformationList(productInfoDatas);
@@ -43,13 +44,11 @@ public class Building : MonoBehaviour, ISelectable
         spriteRenderer.material = buildingData.outlineMat;
     }
 
-    public virtual void UnSelected()
+    public override void UnSelected()
     {
         Debug.Log("UnSelected building");
         spriteRenderer.material = buildingData.defaultMat;
     }
-    #region Build Methods
-
     public bool CanBePlaced()
     {
         Vector3Int positionInt = GridBuildingSystem.Instance.gridLayout.LocalToCell(transform.position);
@@ -72,9 +71,4 @@ public class Building : MonoBehaviour, ISelectable
         Placed = true;
         GridBuildingSystem.Instance.TakeArea(areaTemp);
     }
-
-
-
-
-    #endregion
 }

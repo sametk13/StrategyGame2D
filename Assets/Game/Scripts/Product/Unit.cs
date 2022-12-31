@@ -1,13 +1,9 @@
-using finished3;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Unit : MonoBehaviour, ISelectable
+public class Unit : Product
 {
     public UnitData unitData { get => _unitData; set => _unitData = value; }
     private UnitData _unitData;
-
-    public SpriteRenderer spriteRenderer { get; set; }
 
     public bool IsSelected { get; private set; }
 
@@ -15,15 +11,19 @@ public class Unit : MonoBehaviour, ISelectable
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
-    public virtual void Selected()
+    public override void Selected()
     {
+        Debug.Log("Selected Unit");
+
         IsSelected = true;
 
         spriteRenderer.material = _unitData.outlineMat;
     }
 
-    public virtual void UnSelected()
+    public override void UnSelected()
     {
+        Debug.Log("UnSelected Unit");
+
         IsSelected = false;
 
         spriteRenderer.material = _unitData.defaultMat;

@@ -1,4 +1,3 @@
-using finished3;
 using UnityEngine;
 
 public class UnitCard : ProductCard
