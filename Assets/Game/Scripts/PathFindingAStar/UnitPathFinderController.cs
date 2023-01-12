@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
-using UnityEngine.InputSystem;
 
 public class UnitPathFinderController : MonoBehaviour
 {
@@ -10,112 +8,46 @@ public class UnitPathFinderController : MonoBehaviour
 
     [SerializeField] private float _speed;
 
-    private Unit _unit;
-    private OverlayTile _priorTile;
     private PathFinder _pathFinder;
     private List<OverlayTile> _path;
-    private List<OverlayTile> _overlayTiles;
-    private bool _isMoving;
-
-    OverlayTile tile;
 
     private void Awake()
     {
-        _unit = GetComponent<Unit>();
-
         _pathFinder = new PathFinder();
 
         _path = new List<OverlayTile>();
 
-        _overlayTiles = GridMapManager.Instance.GetAllTiles();
-
         Vector2Int tileToCheck = new Vector2Int((int)transform.position.x, (int)transform.position.y);
-
         standingOnTile = GridMapManager.Instance.GetStandingOnTile(tileToCheck);
-        _isMoving = false;
     }
 
     void LateUpdate()
     {
-        if (_unit.isSelected || _isMoving)
+        if (_path != null && _path.Count > 0)
         {
-            if (Mouse.current.rightButton.wasPressedThisFrame)
-            {
+            MoveAlongPath(_path[0]);
+        }
+    }
+    public void MoveToTile(OverlayTile _targetTile)
+    {
+        _path = _pathFinder.FindPath(standingOnTile, _targetTile);
 
-                RaycastHit2D? hit = GetFocusedOnTile();
-                if (hit == null) return;
-
-                tile = hit.Value.collider.gameObject.GetComponent<OverlayTile>();
-
-                if (tile == null) return;
-
-                if (_overlayTiles.Contains(tile))
-                {
-                    Vector2Int tileToCheck = new Vector2Int((int)transform.position.x, (int)transform.position.y);
-
-                    if (standingOnTile == null)
-                    {
-                        standingOnTile = GridMapManager.Instance.GetStandingOnTile(tileToCheck);
-                    }
-                    if (standingOnTile == null) return;
-
-                    _path = _pathFinder.FindPath(standingOnTile, tile, _overlayTiles);
-
-                    if (_path == null) _path = new List<OverlayTile>();
-
-                    for (int i = 0; i < _path.Count; i++)
-                    {
-                        var previousTile = i > 0 ? _path[i - 1] : standingOnTile;
-                        var futureTile = i < _path.Count - 1 ? _path[i + 1] : null;
-                    }
-                }
-            }
-
-            if (_path != null && _path.Count > 0)
-            {
-                _isMoving = true;
-                MoveAlongPath(tile);
-            }
-            else
-            {
-                _isMoving = false;
-            }
+        for (int i = 0; i < _path.Count; i++)
+        {
+            var previousTile = i > 0 ? _path[i - 1] : standingOnTile;
+            var futureTile = i < _path.Count - 1 ? _path[i + 1] : null;
         }
     }
 
-    public void MoveAlongPath(OverlayTile targetTile)
+    private void MoveAlongPath(OverlayTile targetTile)
     {
-        Debug.Log("test");
-        if (_path == null) _path = new List<OverlayTile>();
-        Debug.Log("test1");
-
-        if (_path.Count == 0 || _path[0].isBlocked )
-        {
-            Debug.Log("test2");
-
-            _isMoving = true;
-
-            _path = _pathFinder.FindPath(standingOnTile, targetTile, _overlayTiles); // Calculating Path
-            if (_path.Count > 0 && _path[0].isBlocked && targetTile == _path[0])
-            {
-                Debug.Log("test3");
-                _path.Clear();
-            }
-            return;
-        }
-        Debug.Log("test4");
-
         var step = speed * Time.deltaTime;
 
-        float zIndex = _path[0].transform.position.z;
         //Movement
         transform.position = Vector2.MoveTowards(transform.position, _path[0].transform.position, step);
-        transform.position = new Vector3(transform.position.x, transform.position.y, zIndex);
 
         if (Vector2.Distance(transform.position, _path[0].transform.position) < 0.00001f)
         {
-            Debug.Log("test5");
-
             PositionCharacterOnLine(_path[0]);
             _path.RemoveAt(0);
         }
@@ -123,25 +55,10 @@ public class UnitPathFinderController : MonoBehaviour
 
     private void PositionCharacterOnLine(OverlayTile tile)
     {
-        transform.position = new Vector3(tile.transform.position.x, tile.transform.position.y + 0.0001f, tile.transform.position.z);
-        GetComponentInChildren<SpriteRenderer>().sortingOrder = tile.GetComponent<SpriteRenderer>().sortingOrder;
         standingOnTile = tile;
-        standingOnTile.isBlocked = true;
-        if (_priorTile != null) _priorTile.isBlocked = false;
-        _priorTile = standingOnTile;
+        //standingOnTile.isBlocked = true;
     }
 
-    private RaycastHit2D? GetFocusedOnTile()
-    {
-        Vector2 mousePos2D = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
-        RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos2D, Vector2.zero);
-
-        if (hits.Length > 0)
-        {
-            return hits.OrderByDescending(i => i.collider.transform.position.z).First();
-        }
-        return null;
-    }
 }
 

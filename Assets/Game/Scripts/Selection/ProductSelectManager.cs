@@ -115,5 +115,10 @@ public class ProductSelectManager : MonoSingleton<ProductSelectManager>
         }
         selectedUnitList.Clear();
     }
+
+    public List<Unit> GetSelectedUnits()
+    {
+        return selectedUnitList;
+    }
 }
 

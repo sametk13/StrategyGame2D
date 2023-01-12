@@ -4,37 +4,22 @@ using UnityEngine;
 
 public class PathFinder
 {
-
     //A* Pathfinding Implementation
 
     private Dictionary<Vector2Int, OverlayTile> searchableTiles;
 
-    public List<OverlayTile> FindPath(OverlayTile start, OverlayTile end, List<OverlayTile> inRangeTiles)
+    public List<OverlayTile> FindPath(OverlayTile start, OverlayTile end)
     {
-        if (start == null || end == null) return null;
-
-        searchableTiles = new Dictionary<Vector2Int, OverlayTile>();
+        searchableTiles = GridMapManager.Instance.map;
 
         List<OverlayTile> openList = new List<OverlayTile>();
         HashSet<OverlayTile> closedList = new HashSet<OverlayTile>();
-
-        if (inRangeTiles.Count > 0)
-        {
-            foreach (var item in inRangeTiles)
-            {
-                searchableTiles.Add(item.grid2DLocation, GridMapManager.Instance.map[item.grid2DLocation]);
-            }
-        }
-        else
-        {
-            searchableTiles = GridMapManager.Instance.map;
-        }
 
         openList.Add(start);
 
         while (openList.Count > 0)
         {
-            OverlayTile currentOverlayTile = openList.OrderBy(x => x.F).First();
+            OverlayTile currentOverlayTile = openList[0];
 
             //Defining open and closed list
 
@@ -48,7 +33,7 @@ public class PathFinder
 
             foreach (var tile in GetNeightbourOverlayTiles(currentOverlayTile))
             {
-                if (tile.isBlocked || closedList.Contains(tile) || Mathf.Abs(currentOverlayTile.transform.position.z - tile.transform.position.z) > 1)
+                if (tile.isBlocked || closedList.Contains(tile))
                 {
                     continue;
                 }
@@ -57,7 +42,6 @@ public class PathFinder
                 tile.H = GetManhattenDistance(end, tile);
 
                 tile.previous = currentOverlayTile;
-
 
                 if (!openList.Contains(tile))
                 {
@@ -93,8 +77,7 @@ public class PathFinder
 
     public List<OverlayTile> GetNeightbourOverlayTiles(OverlayTile currentOverlayTile)
     {
-        var map = GridMapManager.Instance.map;
-
+       
         List<OverlayTile> neighbours = new List<OverlayTile>();
 
         //right
