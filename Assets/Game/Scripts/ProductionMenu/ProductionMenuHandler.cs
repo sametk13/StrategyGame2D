@@ -109,7 +109,7 @@ public class ProductionMenuHandler : MonoSingleton<ProductionMenuHandler>
             UnitData currentData = _unitDatas[i];
             newProduct.InitializeCard(currentData);
 
-            newProduct.spawnPoint = _building.spawnPoint.position;
+            newProduct.spawnTile = GridMapManager.Instance.GetNearestOnTile(new Vector2(_building.spawnPoint.position.x, _building.spawnPoint.position.y));
             newProduct.targetPoint = _building.nextTargetTile;
 
         }

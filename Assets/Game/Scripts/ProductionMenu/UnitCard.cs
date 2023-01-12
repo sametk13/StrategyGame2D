@@ -4,18 +4,18 @@ public class UnitCard : ProductCard
 {
     //Holding unitcard data
     public UnitData unitData { get => _unitData; set => _unitData = value; }
-    public Vector2 spawnPoint { get => _spawnPoint; set => _spawnPoint = value; }
+    public OverlayTile spawnTile { get => _spawnTile; set => _spawnTile = value; }
 
     public OverlayTile targetPoint;
 
 
     private UnitData _unitData;
-    private Vector2 _spawnPoint;
+    private OverlayTile _spawnTile;
 
 
     public override void Indicate()
     {
-        Unit unit = UnitFactory.Instance.SpawnUnit(unitData.unitType, spawnPoint, Quaternion.identity, targetPoint).GetComponent<Unit>();
+        Unit unit = UnitFactory.Instance.SpawnUnit(unitData.unitType, spawnTile, targetPoint).GetComponent<Unit>();
         unit.unitData = _unitData;
     }
 
