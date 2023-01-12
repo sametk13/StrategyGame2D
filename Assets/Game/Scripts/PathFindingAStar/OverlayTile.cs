@@ -4,6 +4,8 @@ using UnityEngine;
 public class OverlayTile : MonoBehaviour
 {
     //Overlay Tile Property Definitor
+
+    public Vector3Int gridLocation { get => _gridLocation; set => _gridLocation = value; }
     public Vector2Int grid2DLocation { get { return new Vector2Int(gridLocation.x, gridLocation.y); } }
 
     public int G { get => _G; set => _G = value; }
@@ -11,9 +13,7 @@ public class OverlayTile : MonoBehaviour
     public int F { get { return G + H; } }
 
     public bool isBlocked { get => _isBlocked; set => _isBlocked = value; }
-
     public OverlayTile previous { get => _previous; set => _previous = value; }
-    public Vector3Int gridLocation { get => _gridLocation; set => _gridLocation = value; }
 
     private int _G;
     private int _H;
