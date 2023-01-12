@@ -26,7 +26,7 @@ public class Building : Product
     {
         Vector2Int tileToCheck = new Vector2Int((int)_spawnPoint.position.x, (int)_spawnPoint.position.y);
 
-        nextTargetTile = MapManager.Instance.GetStandingOnTile(tileToCheck);
+        nextTargetTile = GridMapManager.Instance.GetStandingOnTile(tileToCheck);
 
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }

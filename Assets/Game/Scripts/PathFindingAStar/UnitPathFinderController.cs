@@ -27,11 +27,11 @@ public class UnitPathFinderController : MonoBehaviour
 
         _path = new List<OverlayTile>();
 
-        _overlayTiles = MapManager.Instance.GetSurroundingTiles();
+        _overlayTiles = GridMapManager.Instance.GetAllTiles();
 
         Vector2Int tileToCheck = new Vector2Int((int)transform.position.x, (int)transform.position.y);
 
-        standingOnTile = MapManager.Instance.GetStandingOnTile(tileToCheck);
+        standingOnTile = GridMapManager.Instance.GetStandingOnTile(tileToCheck);
         _isMoving = false;
     }
 
@@ -55,7 +55,7 @@ public class UnitPathFinderController : MonoBehaviour
 
                     if (standingOnTile == null)
                     {
-                        standingOnTile = MapManager.Instance.GetStandingOnTile(tileToCheck);
+                        standingOnTile = GridMapManager.Instance.GetStandingOnTile(tileToCheck);
                     }
                     if (standingOnTile == null) return;
 

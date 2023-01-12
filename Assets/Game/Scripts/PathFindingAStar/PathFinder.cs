@@ -22,12 +22,12 @@ public class PathFinder
         {
             foreach (var item in inRangeTiles)
             {
-                searchableTiles.Add(item.grid2DLocation, MapManager.Instance.map[item.grid2DLocation]);
+                searchableTiles.Add(item.grid2DLocation, GridMapManager.Instance.map[item.grid2DLocation]);
             }
         }
         else
         {
-            searchableTiles = MapManager.Instance.map;
+            searchableTiles = GridMapManager.Instance.map;
         }
 
         openList.Add(start);
@@ -93,7 +93,7 @@ public class PathFinder
 
     public List<OverlayTile> GetNeightbourOverlayTiles(OverlayTile currentOverlayTile)
     {
-        var map = MapManager.Instance.map;
+        var map = GridMapManager.Instance.map;
 
         List<OverlayTile> neighbours = new List<OverlayTile>();
 
