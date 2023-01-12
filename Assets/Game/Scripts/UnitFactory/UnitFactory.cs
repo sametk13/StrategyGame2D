@@ -26,7 +26,7 @@ public class UnitFactory : MonoSingleton<UnitFactory>
             GameObject unit = Instantiate(data.productPrefab, spawnTile.gridLocation,Quaternion.identity);
             UnitPathFinderController unitPathFinderController = unit.GetComponent<UnitPathFinderController>();
 
-            unitPathFinderController.MoveToTile(targetTile);
+            //unitPathFinderController.MoveToTile(targetTile);
 
             return unit;
         }

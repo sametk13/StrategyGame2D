@@ -8,48 +8,74 @@ public class PathFinder
 
     private Dictionary<Vector2Int, OverlayTile> searchableTiles;
 
-    public List<OverlayTile> FindPath(OverlayTile start, OverlayTile end)
+
+    public List<OverlayTile> FindPath(OverlayTile startTile, OverlayTile endTile)
     {
+        // Initialize the searchable tiles dictionary
         searchableTiles = GridMapManager.Instance.map;
 
+
+        // Initialize the open and closed lists
         List<OverlayTile> openList = new List<OverlayTile>();
         HashSet<OverlayTile> closedList = new HashSet<OverlayTile>();
 
+
+        OverlayTile start = startTile;
+        OverlayTile end = endTile;
+
+
+        // Add the starting tile to the open list
         openList.Add(start);
 
+        // While there are still tiles in the open list
         while (openList.Count > 0)
         {
-            OverlayTile currentOverlayTile = openList[0];
+            // Get the tile with the lowest F value (F = G + H)
+            OverlayTile currentTile = openList.OrderBy(t => t.F).First();
 
-            //Defining open and closed list
+            // Remove the current tile from the open list and add it to the closed list
+            openList.Remove(currentTile);
+            closedList.Add(currentTile);
 
-            openList.Remove(currentOverlayTile);
-            closedList.Add(currentOverlayTile);
-
-            if (currentOverlayTile == end)
+            // If the current tile is the end tile, return the path
+            if (currentTile == end)
             {
                 return GetFinishedList(start, end);
             }
 
-            foreach (var tile in GetNeightbourOverlayTiles(currentOverlayTile))
+            // Get the neighboring tiles
+            List<OverlayTile> neighbors = GetNeightbourOverlayTiles(currentTile);
+
+            // Iterate through each neighboring tile
+            foreach (var neighbor in neighbors)
             {
-                if (tile.isBlocked || closedList.Contains(tile))
+                // If the tile is blocked or already in the closed list, skip it
+                if (neighbor.isBlocked || closedList.Contains(neighbor))
                 {
                     continue;
                 }
 
-                tile.G = GetManhattenDistance(start, tile);
-                tile.H = GetManhattenDistance(end, tile);
+                // Calculate the G (movement cost) and H (heuristic) values for the tile
+                int movementCost = currentTile.G + GetManhattenDistance(currentTile, neighbor);
+                int heuristic = GetManhattenDistance(neighbor, end);
 
-                tile.previous = currentOverlayTile;
-
-                if (!openList.Contains(tile))
+                // If the tile is not in the open list, or the new G value is lower than the previous one, update the tile's values
+                if (!openList.Contains(neighbor) || movementCost < neighbor.G)
                 {
-                    openList.Add(tile);
+                    neighbor.G = movementCost;
+                    neighbor.H = heuristic;
+                    neighbor.previous = currentTile;
+
+                    // If the tile is not in the open list, add it
+                    if (!openList.Contains(neighbor))
+                    {
+                        openList.Add(neighbor);
+                    }
                 }
             }
         }
 
+        // If no path is found, return an empty list
         return new List<OverlayTile>();
     }
 
@@ -77,7 +103,7 @@ public class PathFinder
 
     public List<OverlayTile> GetNeightbourOverlayTiles(OverlayTile currentOverlayTile)
     {
-       
+
         List<OverlayTile> neighbours = new List<OverlayTile>();
 
         //right
@@ -91,10 +117,54 @@ public class PathFinder
             neighbours.Add(searchableTiles[locationToCheck]);
         }
 
+        //right down
+        locationToCheck = new Vector2Int(
+            currentOverlayTile.gridLocation.x + 1,
+            currentOverlayTile.gridLocation.y - 1
+        );
+
+        if (searchableTiles.ContainsKey(locationToCheck))
+        {
+            neighbours.Add(searchableTiles[locationToCheck]);
+        }
+
+        //right up
+        locationToCheck = new Vector2Int(
+            currentOverlayTile.gridLocation.x + 1,
+            currentOverlayTile.gridLocation.y + 1
+        );
+
+        if (searchableTiles.ContainsKey(locationToCheck))
+        {
+            neighbours.Add(searchableTiles[locationToCheck]);
+        }
+
         //left
         locationToCheck = new Vector2Int(
             currentOverlayTile.gridLocation.x - 1,
             currentOverlayTile.gridLocation.y
+        );
+
+        if (searchableTiles.ContainsKey(locationToCheck))
+        {
+            neighbours.Add(searchableTiles[locationToCheck]);
+        }
+
+        //left down
+        locationToCheck = new Vector2Int(
+            currentOverlayTile.gridLocation.x - 1,
+            currentOverlayTile.gridLocation.y - 1
+        );
+
+        if (searchableTiles.ContainsKey(locationToCheck))
+        {
+            neighbours.Add(searchableTiles[locationToCheck]);
+        }
+
+        //left up
+        locationToCheck = new Vector2Int(
+            currentOverlayTile.gridLocation.x - 1,
+            currentOverlayTile.gridLocation.y + 1
         );
 
         if (searchableTiles.ContainsKey(locationToCheck))
