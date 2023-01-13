@@ -11,6 +11,8 @@ public class UnitPathFinderController : MonoBehaviour
     private PathFinder _pathFinder;
     private List<OverlayTile> _path;
 
+    private OverlayTile _previousEndTile;
+
     private void Awake()
     {
         _pathFinder = new PathFinder();
@@ -30,7 +32,13 @@ public class UnitPathFinderController : MonoBehaviour
     }
     public void MoveToTile(OverlayTile _targetTile)
     {
-        _path = _pathFinder.FindPath(standingOnTile, _targetTile);
+        if (_previousEndTile != null)
+        {
+            _previousEndTile.isBlocked = false;
+            _previousEndTile = null;
+        }
+
+        _path = _pathFinder.FindPath(standingOnTile, _targetTile, ref _previousEndTile);
 
         for (int i = 0; i < _path.Count; i++)
         {

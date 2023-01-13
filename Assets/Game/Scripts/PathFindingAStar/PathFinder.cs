@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 public class PathFinder
 {
@@ -9,7 +10,7 @@ public class PathFinder
     private Dictionary<Vector2Int, OverlayTile> searchableTiles;
 
 
-    public List<OverlayTile> FindPath(OverlayTile startTile, OverlayTile endTile)
+    public List<OverlayTile> FindPath(OverlayTile startTile, OverlayTile endTile, ref OverlayTile previousEndTile)
     {
         // Initialize the searchable tiles dictionary
         searchableTiles = GridMapManager.Instance.map;
@@ -22,6 +23,12 @@ public class PathFinder
 
         OverlayTile start = startTile;
         OverlayTile end = endTile;
+
+
+        if (end.isBlocked)
+        {
+            end = GetUsableClosestTile(end);
+        }
 
 
         // Add the starting tile to the open list
@@ -40,6 +47,8 @@ public class PathFinder
             // If the current tile is the end tile, return the path
             if (currentTile == end)
             {
+                end.isBlocked = true;
+                previousEndTile = end;
                 return GetFinishedList(start, end);
             }
 
@@ -99,6 +108,39 @@ public class PathFinder
     {
         //Calculating Manhattan
         return Mathf.Abs(start.gridLocation.x - tile.gridLocation.x) + Mathf.Abs(start.gridLocation.y - tile.gridLocation.y);
+    }
+
+    //public OverlayTile GetUsableClosestNeightbourTile(OverlayTile tile)
+    //{
+    //    var sortedList = searchableTiles.Keys.OrderBy(p => Vector2.Distance(p, tile.grid2DLocation)).ToList();
+
+    //    for (int i = 0; i < sortedList.Count; i++)
+    //    {
+    //        var tilePosition = sortedList[i];
+    //        if (searchableTiles[tilePosition].isBlocked)
+    //            continue;
+    //        return searchableTiles[tilePosition];
+    //    }
+    //    return null;
+    //}
+
+    public OverlayTile GetUsableClosestTile(OverlayTile currentOverlayTile)
+    {
+        var neighbours = GetNeightbourOverlayTiles(currentOverlayTile);
+        var queue = new Queue<OverlayTile>(neighbours);
+
+        while (queue.Count > 0)
+        {
+            var currentTile = queue.Dequeue();
+            if (!currentTile.isBlocked)
+                return currentTile;
+            var currentTileNeighbours = GetNeightbourOverlayTiles(currentTile);
+            foreach (var neighbour in currentTileNeighbours)
+            {
+                queue.Enqueue(neighbour);
+            }
+        }
+        return null;
     }
 
     public List<OverlayTile> GetNeightbourOverlayTiles(OverlayTile currentOverlayTile)
