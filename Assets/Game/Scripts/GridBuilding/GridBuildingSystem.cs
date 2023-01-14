@@ -126,6 +126,10 @@ public class GridBuildingSystem : MonoSingleton<GridBuildingSystem>
     public bool CanTakeArea(BoundsInt area, OverlayTile _targetTile)
     {
         OverlayTile[] tileArray = GetTilesBlock(area, _targetTile).ToArray();
+
+        if (area.size.x * area.size.y > tileArray.Count()) 
+            return false;
+
         foreach (OverlayTile _tile in tileArray)
         {
             if (_tile.isBlocked)
