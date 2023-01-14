@@ -89,27 +89,13 @@ public class Building : Product
         newColor.a = 0f;
         newTargetPointRenderer.color = newColor;
     }
-    public bool CanBePlaced() //Check if it is placeable
-    {
-        Vector3Int positionInt = GridBuildingSystem.Instance.gridLayout.LocalToCell(transform.position);
-        BoundsInt areaTemp = area;
-        areaTemp.position = positionInt;
-
-        if (GridBuildingSystem.Instance.CanTakeArea(areaTemp))
-        {
-            return true;
-        }
-
-        return false;
-    }
 
     public void Place()//Placement
     {
-        Vector3Int positionInt = GridBuildingSystem.Instance.gridLayout.LocalToCell(transform.position);
+        Vector3Int positionInt = GridMapManager.Instance.GetNearestOnTile(transform.position).gridLocation;
         BoundsInt areaTemp = area;
         areaTemp.position = positionInt;
         placed = true;
-        GridBuildingSystem.Instance.TakeArea(areaTemp);
     }
 
     private RaycastHit2D? GetFocusedOnTile()
