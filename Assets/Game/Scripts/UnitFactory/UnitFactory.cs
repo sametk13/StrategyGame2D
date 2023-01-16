@@ -7,8 +7,12 @@ public class UnitFactory : IProductFactory
 
     private UnitType _unitType;
 
-    public UnitFactory(UnitType unitType, UnitFactoryDatas factoryDatas)
+    Barrack _barrack;
+
+    public UnitFactory(UnitType unitType, UnitFactoryDatas factoryDatas, Barrack barrack)
     {
+        _barrack = barrack;
+
         _unitType = unitType;
 
         _unitDataPairs = new Dictionary<UnitType, UnitData>();
@@ -25,10 +29,10 @@ public class UnitFactory : IProductFactory
         {
             UnitData data = _unitDataPairs[_unitType];
 
-            GameObject newBuilding = Object.Instantiate(data.productPrefab);
+            GameObject newBuilding = Object.Instantiate(data.productPrefab, _barrack.spawnPointTransform.position,Quaternion.identity);
 
             Unit unit = newBuilding.GetComponent<Unit>();
-            unit.InitalizeUnit(data);
+            unit.InitalizeUnit(data, _barrack);
 
             return newBuilding;
         }

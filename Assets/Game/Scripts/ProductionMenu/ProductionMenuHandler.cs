@@ -48,7 +48,7 @@ public class ProductionMenuHandler : MonoSingleton<ProductionMenuHandler>
     }
 
 
-    public void SetProductCardList(List<ProductData> _productDatas)
+    public void SetProductCardList(List<ProductData> _productDatas,Barrack barrack = null)
     {
         ClearProducts();
 
@@ -68,7 +68,7 @@ public class ProductionMenuHandler : MonoSingleton<ProductionMenuHandler>
             }
             _currentProducts.Add(newCard.gameObject);
             ProductData currentData = _productDatas[i];
-            newCard.InitializeCard(currentData.type, currentData.productName, currentData.productSprite);
+            newCard.InitializeCard(currentData.type, currentData.productName, currentData.productSprite,barrack);
         }
         OnProductionChange?.Invoke();
         ProductionChanged?.Invoke();

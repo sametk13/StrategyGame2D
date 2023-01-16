@@ -11,11 +11,13 @@ public class CardHandler : MonoBehaviour
 
     Enum _productType;
 
-    public  void Indicate()
+    IProduct _product;
+
+    public void Indicate()
     {
         if (_productType is UnitType)
         {
-            IProductFactory productFactory = new UnitFactory((UnitType)_productType, ProductionMenuHandler.Instance.unitFactoryDatas);
+            IProductFactory productFactory = new UnitFactory((UnitType)_productType, ProductionMenuHandler.Instance.unitFactoryDatas, (Barrack)_product);
             productFactory.CreateProduct();
         }
         else if (_productType is BuildingType)
@@ -25,8 +27,9 @@ public class CardHandler : MonoBehaviour
         }
     }
 
-    public  void InitializeCard(Enum type,string productName, Sprite productSprite)
+    public void InitializeCard(Enum type, string productName, Sprite productSprite, IProduct product)
     {
+        _product = product;
         _productType = type;
         ProductNameText.SetText(productName);
         ProductImage.sprite = productSprite;
