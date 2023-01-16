@@ -29,7 +29,7 @@ public class UnitMovementManager : MonoBehaviour
 
         foreach (var unit in selectedUnits)
         {
-            UnitPathFinderController unitPathFinderController = unit.GetComponent<UnitPathFinderController>();
+            UnitMovementHandler unitPathFinderController = unit.GetComponent<UnitMovementHandler>();
             unitPathFinderController.MoveToTile(_overlayTile);
         }
     }

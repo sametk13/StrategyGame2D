@@ -1,34 +1,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitFactory : MonoSingleton<UnitFactory>
+public class UnitFactory : IProductFactory
 {
-    private Dictionary<UnitType, UnitData> _unitDatas;
+    private Dictionary<UnitType, UnitData> _unitDataPairs;
 
-    void Start()
+    private UnitType _unitType;
+
+    public UnitFactory(UnitType unitType, UnitFactoryDatas factoryDatas)
     {
-        _unitDatas = new Dictionary<UnitType, UnitData>();
+        _unitType = unitType;
 
-        UnitData[] datas = Resources.LoadAll<UnitData>(@"Data\Unit");
+        _unitDataPairs = new Dictionary<UnitType, UnitData>();
 
-        foreach (UnitData data in datas)
+        foreach (UnitData data in factoryDatas.unitDatas)
         {
-            _unitDatas.Add(data.unitType, data);
+            _unitDataPairs.Add((UnitType)data.type, data);
         }
     }
 
-    public GameObject SpawnUnit(UnitType type, OverlayTile spawnTile, OverlayTile targetTile)
+    public GameObject CreateProduct()
     {
-        //Handling spawn if the unit exist in the dictionary
-        if (_unitDatas.ContainsKey(type))
+        if (_unitDataPairs.ContainsKey(_unitType))
         {
-            UnitData data = _unitDatas[type];
-            GameObject unit = Instantiate(data.productPrefab, spawnTile.gridLocation,Quaternion.identity);
-            UnitPathFinderController unitPathFinderController = unit.GetComponent<UnitPathFinderController>();
+            UnitData data = _unitDataPairs[_unitType];
 
-            unitPathFinderController.MoveToTile(targetTile);
+            GameObject newBuilding = Object.Instantiate(data.productPrefab);
 
-            return unit;
+            Unit unit = newBuilding.GetComponent<Unit>();
+            unit.InitalizeUnit(data);
+
+            return newBuilding;
         }
         else
         {

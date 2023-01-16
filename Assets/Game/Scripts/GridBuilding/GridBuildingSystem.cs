@@ -19,9 +19,9 @@ public class GridBuildingSystem : MonoSingleton<GridBuildingSystem>
 
     private void Update()
     {
-        if (_building != null && !_building.placed)
+        if (_building != null && !_building.isPlaced)
         {
-            RaycastHit2D? hit = Raycastter.GetMouseRaycastHit();
+            RaycastHit2D? hit = Raycaster.GetMouseRaycastHit();
             if (hit == null) return;
 
             OverlayTile currentTile = hit.Value.collider.GetComponent<OverlayTile>();
@@ -33,9 +33,9 @@ public class GridBuildingSystem : MonoSingleton<GridBuildingSystem>
                 FollowBuilding(currentTile);
             }
 
-            if (Mouse.current.leftButton.wasPressedThisFrame && CanTakeArea(_building.area, currentTile))
+            if (Mouse.current.leftButton.wasPressedThisFrame && CanTakeArea(_building.area, GetTilesBlock(_building.area, currentTile).ToArray()))
             {
-                _building.Place();
+                _building.build();
 
                 var placedTiles = GetTilesBlock(_building.area, currentTile);
                 for (int i = 0; i < placedTiles.Count; i++)
@@ -58,14 +58,10 @@ public class GridBuildingSystem : MonoSingleton<GridBuildingSystem>
             }
         }
     }
-    public void InitializeWithBuilding(BuildingData _buildingData)
+
+    public void InitializeBuilding(Building building) 
     {
-        if (_building == null)
-        {
-            _building = Instantiate(_buildingData.productPrefab, Vector3.zero, Quaternion.identity).GetComponent<Building>();
-            Building building = _building.GetComponentInChildren<Building>();
-            building.BuildingData = _buildingData;
-        }
+        _building = building;
     }
     private void FollowBuilding(OverlayTile _targetTile)
     {
@@ -77,21 +73,23 @@ public class GridBuildingSystem : MonoSingleton<GridBuildingSystem>
 
         BoundsInt buildingArea = _building.area;
 
-        OverlayTile[] baseArray = GetTilesBlock(buildingArea, _targetTile).ToArray();
+        OverlayTile[] tileArray = GetTilesBlock(buildingArea, _targetTile).ToArray();
 
-        ChangeColorOnTileConvenience(baseArray);
-        _prevTileArea = new List<OverlayTile>(baseArray.ToList());
+        ChangeColorOnTileConvenience(buildingArea, tileArray);
+        _prevTileArea = new List<OverlayTile>(tileArray.ToList());
     }
 
-    private void ChangeColorOnTileConvenience(OverlayTile[] tileArray)
+    private void ChangeColorOnTileConvenience(BoundsInt area, OverlayTile[] tileArray)
     {
+        Color newColor = Color.green;
+
+        if (!CanTakeArea(area,tileArray))       
+            newColor = Color.red;
+        
         for (int i = 0; i < tileArray.Length; i++)
         {
-            if (tileArray[i].isBlocked)
-                tileArray[i].SetTileColor(Color.red);
-            else
-
-                tileArray[i].SetTileColor(Color.green);
+            tileArray[i].ShowTile();
+            tileArray[i].SetTileColor(newColor);
         }
     }
 
@@ -120,13 +118,12 @@ public class GridBuildingSystem : MonoSingleton<GridBuildingSystem>
         for (int i = 0; i < _prevTileArea.Count; i++)
         {
             _prevTileArea[i].SetTileColor(Color.white);
+            _prevTileArea[i].HideTile();
         }
     }
 
-    public bool CanTakeArea(BoundsInt area, OverlayTile _targetTile)
+    public bool CanTakeArea(BoundsInt area, OverlayTile[] tileArray)
     {
-        OverlayTile[] tileArray = GetTilesBlock(area, _targetTile).ToArray();
-
         if (area.size.x * area.size.y > tileArray.Count()) 
             return false;
 

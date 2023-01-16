@@ -10,12 +10,13 @@ public class ProductionMenuHandler : MonoSingleton<ProductionMenuHandler>
     public static Action OnProductionChange;
     public static UnityEvent ProductionChanged;
 
-    public List<BuildingData> buildingDatas = new List<BuildingData>();
+    public BuildingFactoryDatas buildingFactory;
+    public UnitFactoryDatas unitFactoryDatas;
 
 
     [SerializeField] private Transform _scrollContent;
-    [SerializeField] private GameObject _buildingCardPrefab;
-    [SerializeField] private GameObject _unitCardPrefab;
+    [SerializeField] private GameObject _buttonCardPrefab;
+
     private List<GameObject> _currentProducts = new List<GameObject>();
 
     private void Start()
@@ -24,7 +25,14 @@ public class ProductionMenuHandler : MonoSingleton<ProductionMenuHandler>
     }
     public void GetBuildingDatas()
     {
-        SetProductCardList(buildingDatas, ProductType.Building);
+        List<ProductData> productDatas = new List<ProductData>();
+
+        for (int i = 0; i < buildingFactory.buildingDatas.Count; i++)
+        {
+            productDatas.Add(buildingFactory.buildingDatas[i]);
+        } 
+
+        SetProductCardList(productDatas);
     }
 
     public void ClearProducts()
@@ -34,85 +42,35 @@ public class ProductionMenuHandler : MonoSingleton<ProductionMenuHandler>
             _currentProducts[i].transform.parent = null;
             _currentProducts[i].GetComponentInChildren<Button>().onClick.RemoveAllListeners();
 
-            if (_currentProducts[i].GetComponent<UnitCard>())
-            {
-                ObjectPoolManager.Instance.AddObject("unitCard", _currentProducts[i]);
-            }
-            else if (_currentProducts[i].GetComponent<BuildingCard>())
-            {
-                ObjectPoolManager.Instance.AddObject("buildingCard", _currentProducts[i]);
-            }
+            ObjectPoolManager.Instance.AddObject("buttonCard", _currentProducts[i]);
         }
         _currentProducts.Clear();
     }
 
-    public GameObject GetProductPrefab(ProductType _productType)
-    {
-        GameObject productPrefab = null;
 
-        switch (_productType)
-        {
-            case ProductType.Building:
-                productPrefab = _buildingCardPrefab;
-                break;
-            case ProductType.Unit:
-                productPrefab = _unitCardPrefab;
-                break;
-        }
-        return productPrefab;
-    }
-
-    public void SetProductCardList(List<BuildingData> _buildingDatas, ProductType _productType)
+    public void SetProductCardList(List<ProductData> _productDatas)
     {
         ClearProducts();
 
-        for (int i = 0; i < _buildingDatas.Count; i++)
+        for (int i = 0; i < _productDatas.Count; i++)
         {
-            BuildingCard newProduct;
+            CardHandler newCard;
 
-            GameObject product = ObjectPoolManager.Instance.GetObject("buildingCard");
+            GameObject product = ObjectPoolManager.Instance.GetObject("buttonCard");
             if (product != null)
             {
-                newProduct = product.GetComponent<BuildingCard>();
-                newProduct.transform.parent = _scrollContent;
+                newCard = product.GetComponent<CardHandler>();
+                newCard.transform.parent = _scrollContent;
             }
             else
             {
-                newProduct = Instantiate(GetProductPrefab(_productType), _scrollContent).GetComponent<BuildingCard>();
+                newCard = Instantiate(_buttonCardPrefab, _scrollContent).GetComponent<CardHandler>();
             }
-            _currentProducts.Add(newProduct.gameObject);
-            BuildingData currentData = _buildingDatas[i];
-            newProduct.InitializeCard(currentData);
+            _currentProducts.Add(newCard.gameObject);
+            ProductData currentData = _productDatas[i];
+            newCard.InitializeCard(currentData.type, currentData.productName, currentData.productSprite);
         }
         OnProductionChange?.Invoke();
         ProductionChanged?.Invoke();
-    }
-    public void SetProductCardList(List<UnitData> _unitDatas, ProductType _productType, Building _building)
-    {
-        ClearProducts();//Clear first
-
-        for (int i = 0; i < _unitDatas.Count; i++)
-        {
-            UnitCard newProduct;
-
-            GameObject product = ObjectPoolManager.Instance.GetObject("unitCard"); //Pooling
-            if (product != null)
-            {
-                newProduct = product.GetComponent<UnitCard>();
-                newProduct.transform.parent = _scrollContent;
-            }
-            else
-            {
-                newProduct = Instantiate(GetProductPrefab(_productType), _scrollContent).GetComponent<UnitCard>();
-            }
-            _currentProducts.Add(newProduct.gameObject);
-            UnitData currentData = _unitDatas[i];
-            newProduct.InitializeCard(currentData);
-
-            newProduct.spawnTile = GridMapManager.Instance.GetNearestOnTile(new Vector2(_building.spawnPoint.position.x, _building.spawnPoint.position.y));
-            newProduct.targetPoint = _building.nextTargetTile;
-
-        }
-        OnProductionChange?.Invoke();
     }
 }

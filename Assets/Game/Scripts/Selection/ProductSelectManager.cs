@@ -61,11 +61,11 @@ public class ProductSelectManager : MonoSingleton<ProductSelectManager>
         {
             foreach (var _unitCounts in unitCounts)
             {
-                if (_unitCounts.unitData.unitType == selectedUnit.unitData.unitType)
-                {
-                    _unitCounts.count++;
-                    break;
-                }
+                //if (_unitCounts.unitData.unitType == selectedUnit.unitData.unitType)
+                //{
+                //    _unitCounts.count++;
+                //    break;
+                //}
             }
         }
 
@@ -73,7 +73,6 @@ public class ProductSelectManager : MonoSingleton<ProductSelectManager>
         {
             if (_unitCount.count > 0)
             {
-                Debug.Log(_unitCount.unitData.unitType + " " + _unitCount.count);
                 productInfoDatas.Add(new ProductInfoDatas(_unitCount.unitData, _unitCount.count));
             }
         }

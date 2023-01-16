@@ -1,113 +1,45 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class Building : Product
+public abstract class Building :MonoBehaviour, IProduct
 {
-    //Inheriting a product to a building
-    public BuildingData BuildingData { get => _buildingData; set => InitializeAreaSize(value); }
-    public bool placed { get => _placed; private set => _placed = value; }
-    public Transform spawnPoint { get => _spawnPoint; private set => _spawnPoint = value; }
-    public OverlayTile nextTargetTile;
-    public Transform nextTargetPoint;
+    public virtual BuildingData buildingData { get; private set; }
+    public bool isPlaced { get; private set; }
     public BoundsInt area;
 
+    //Implementing Unit from Iproduct
+    public Action OnSelect { get; set; }
+    public Action OnUnSelect { get; set; }
+    public bool isSelected { get; set; }
 
-    private bool isSelected = false;
-    private bool _placed;
-    private BuildingData _buildingData;
-    [SerializeField] private Transform _spawnPoint;
-    [SerializeField] private BuildingData buildingData;
 
-    private void Start()
+    public void InitalizeBuilding(BuildingData buildingData)
     {
-        Vector2Int tileToCheck = new Vector2Int((int)_spawnPoint.position.x, (int)_spawnPoint.position.y);
-
-        nextTargetTile = GridMapManager.Instance.GetStandingOnTile(tileToCheck);
-
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        this.buildingData = buildingData;
+        InitializeAreaSize();
     }
-
-    private void Update()
+    private void InitializeAreaSize()
     {
-        // Handling spawn point
-        if (Mouse.current.rightButton.wasPressedThisFrame && isSelected)
-        {
-            RaycastHit2D? hit = GetFocusedOnTile();
-            if (hit == null) return;
-
-            OverlayTile tile = hit.Value.collider.gameObject.GetComponent<OverlayTile>();
-            Debug.Log(tile.name, tile);
-            if (tile == null) return;
-
-            nextTargetPoint.position = tile.transform.position;
-            nextTargetTile = tile;
-            ProductionMenuHandler.Instance.SetProductCardList(buildingData.unitDatas, ProductType.Unit, this);
-        }
+        area.size = new Vector3Int(buildingData.cellSize.x, buildingData.cellSize.y, 1);
     }
-
-    private void InitializeAreaSize(BuildingData _buildingData)
-    {
-        this.buildingData = _buildingData;
-
-        area.size = new Vector3Int(
-            _buildingData.cellSize.x,
-            _buildingData.cellSize.y,
-            1);
-    }
-
-    public override void Selected() //Selecting Building
-    {
-        isSelected = true;
-        List<ProductInfoDatas> productInfoDatas = new List<ProductInfoDatas>();
-        productInfoDatas.Add(new ProductInfoDatas(buildingData, 1));
-        //Handling Panels
-        InformationPanelHandler.Instance.SetInformationList(productInfoDatas);
-
-        ProductionMenuHandler.Instance.SetProductCardList(buildingData.unitDatas, ProductType.Unit, this);
-
-        spriteRenderer.material = buildingData.outlineMat;
-
-        //Handling spawn point
-        SpriteRenderer newTargetPointRenderer = nextTargetPoint.GetComponentInChildren<SpriteRenderer>();
-        Color newColor = newTargetPointRenderer.material.color;
-        newColor.a = 1f;
-        newTargetPointRenderer.color = newColor;
-    }
-
-    public override void UnSelected()
-    {
-        isSelected = false;
-        spriteRenderer.material = buildingData.defaultMat;
-
-        //Handling spawn point
-        SpriteRenderer newTargetPointRenderer = nextTargetPoint.GetComponentInChildren<SpriteRenderer>();
-        Color newColor = newTargetPointRenderer.material.color;
-        newColor.a = 0f;
-        newTargetPointRenderer.color = newColor;
-    }
-
-    public void Place()//Placement
+    public void build()//Placement
     {
         Vector3Int positionInt = GridMapManager.Instance.GetNearestOnTile(transform.position).gridLocation;
         BoundsInt areaTemp = area;
         areaTemp.position = positionInt;
-        placed = true;
+        isPlaced = true;
     }
 
-    private RaycastHit2D? GetFocusedOnTile()
+    public virtual void Selected()
     {
-        Vector2 mousePos2D = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-
-        RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos2D, Vector2.zero);
-
-        if (hits.Length > 0)
-        {
-            return hits.OrderByDescending(i => i.collider.transform.position.z).First();
-        }
-        return null;
+        OnSelect?.Invoke();
+        isSelected = true;
     }
+
+    public virtual void UnSelected()
+    {
+        OnUnSelect?.Invoke();
+        isSelected = false;
+    }
+
 }

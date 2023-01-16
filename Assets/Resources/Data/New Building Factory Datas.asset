@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c303dd7c6f562f046873fdce9f46192f, type: 3}
+  m_Name: New Building Factory Datas
+  m_EditorClassIdentifier: 
+  buildingDatas:
+  - {fileID: 11400000, guid: 347eff86640da1c4487ae8d0e6ffd65e, type: 2}
+  - {fileID: 11400000, guid: 6c45cbf478eeac948a92363663efa82a, type: 2}

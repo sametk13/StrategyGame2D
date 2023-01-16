@@ -24,6 +24,7 @@ public class OverlayTile : MonoBehaviour
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        HideTile();
     }
 
     public void SetTileColor(Color _color)
@@ -33,12 +34,12 @@ public class OverlayTile : MonoBehaviour
 
     public void HideTile()
     {
-        _spriteRenderer.color = new Color(1, 1, 1, 0);
+        _spriteRenderer.enabled = false;
     }
 
     public void ShowTile()
     {
-        _spriteRenderer.color = new Color(1, 1, 1, 1);
+        _spriteRenderer.enabled =true;
     }
 }
 

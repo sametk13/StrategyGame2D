@@ -1,29 +1,30 @@
+using System;
 using UnityEngine;
 
-public class Unit : Product
+public abstract class Unit : MonoBehaviour, IProduct
 {
-    //Inheriting Unit from product
-    public UnitData unitData { get => _unitData; set => _unitData = value; }
-    public bool isSelected { get => _isSelected; set => _isSelected = value; }
+    public virtual UnitData unitData { get; private set; }
 
-    private UnitData _unitData;
-    private bool _isSelected;
+    //Implementing Unit from Iproduct
+    public Action OnSelect { get; set; }
+    public Action OnUnSelect { get; set; }
+    public bool isSelected { get; set; }
+    
 
-    public virtual void Start()
+    public void InitalizeUnit(UnitData unitData)
     {
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        this.unitData = unitData;
     }
-    public override void Selected()
+
+    public virtual void Selected()
     {
+        OnSelect?.Invoke();
         isSelected = true;
-
-        spriteRenderer.material = _unitData.outlineMat;
     }
 
-    public override void UnSelected()
+    public virtual void UnSelected()
     {
+        OnUnSelect?.Invoke();
         isSelected = false;
-
-        spriteRenderer.material = _unitData.defaultMat;
     }
 }
