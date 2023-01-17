@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SKUtils.Feedbacks;
+using System;
 using UnityEngine;
 
 public abstract class Building : MonoBehaviour, IProduct
@@ -12,6 +13,7 @@ public abstract class Building : MonoBehaviour, IProduct
     public Action OnUnSelect { get; set; }
     public bool isSelected { get; set; }
     public SpriteRenderer spriteRenderer { get; set; }
+    public PunchScaleFeedBack punchScaleFeedBack { get; set; }
 
     private Collider2D _collider;
 
@@ -20,6 +22,7 @@ public abstract class Building : MonoBehaviour, IProduct
         this.buildingData = buildingData;
         _collider = GetComponent<Collider2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        punchScaleFeedBack = GetComponentInChildren<PunchScaleFeedBack>();
         InitializeAreaSize();
     }
     private void InitializeAreaSize()
@@ -40,6 +43,7 @@ public abstract class Building : MonoBehaviour, IProduct
         OnSelect?.Invoke();
         isSelected = true;
         spriteRenderer.material = buildingData.outlineMat;
+        punchScaleFeedBack.PunchScale();
     }
 
     public virtual void UnSelected()

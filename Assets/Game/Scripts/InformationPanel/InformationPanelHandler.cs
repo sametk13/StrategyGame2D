@@ -24,7 +24,6 @@ public class InformationPanelHandler : MonoSingleton<InformationPanelHandler>
     //Setting Information list using object pooling
     public void SetInformationList(List<ProductInfoDatas> productInfoDatas)
     {
-
         ClearInformationList();
 
         for (int i = 0; i < productInfoDatas.Count; i++)
