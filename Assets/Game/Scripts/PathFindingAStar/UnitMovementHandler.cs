@@ -31,13 +31,19 @@ public class UnitMovementHandler : MonoBehaviour
         }
     }
 
-    public void MoveToTile(OverlayTile _targetTile)
+    public void RemovePreviousTile()
     {
         if (_previousEndTile != null)
         {
             _previousEndTile.isBlocked = false;
             _previousEndTile = null;
         }
+    }
+
+    public void MoveToTile(OverlayTile _targetTile)
+    {
+
+        RemovePreviousTile();
 
         _path = _pathFinder.FindPath(standingOnTile, _targetTile, ref _previousEndTile);
 

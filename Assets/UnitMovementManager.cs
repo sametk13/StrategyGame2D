@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,7 +11,7 @@ public class UnitMovementManager : MonoBehaviour
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {
             RaycastHit2D? hit = GetMouseRaycastHit();
-            if (hit == null) 
+            if (hit == null)
                 return;
 
             OverlayTile targetTile = hit.Value.collider.GetComponent<OverlayTile>();
@@ -27,10 +28,17 @@ public class UnitMovementManager : MonoBehaviour
     {
         var selectedUnits = ProductSelectManager.Instance.GetSelectedUnits();
 
+        List<UnitMovementHandler> unitPathFinderControllers = new List<UnitMovementHandler>();
         foreach (var unit in selectedUnits)
         {
-            UnitMovementHandler unitPathFinderController = unit.GetComponent<UnitMovementHandler>();
-            unitPathFinderController.MoveToTile(_overlayTile);
+            UnitMovementHandler unitMovement = unit.GetComponent<UnitMovementHandler>();
+            unitMovement.RemovePreviousTile();
+            unitPathFinderControllers.Add(unitMovement);
+        }
+
+        foreach (var unit in unitPathFinderControllers)
+        {
+            unit.MoveToTile(_overlayTile);
         }
     }
 

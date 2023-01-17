@@ -48,30 +48,21 @@ public class ProductSelectManager : MonoSingleton<ProductSelectManager>
     {
         if (selectedUnitList.Count == 0) return;
 
-        Debug.Log("testt");
         List<ProductInfoDatas> productInfoDatas = new List<ProductInfoDatas>();
 
         List<UnitCounts> unitCounts = new List<UnitCounts>();
 
         foreach (var unitData in _barrackData.unitDatas)
         {
-            Debug.Log("testt1");
-
             unitCounts.Add(new UnitCounts(unitData, 0));
         }
 
         foreach (var selectedUnit in selectedUnitList)
         {
-            Debug.Log("testt2");
-
             foreach (var _unitCounts in unitCounts)
             {
-                Debug.Log("testt3");
-
                 if ((UnitType)_unitCounts.unitData.type == (UnitType)selectedUnit.unitData.type)
                 {
-                    Debug.Log("testt4");
-
                     _unitCounts.count++;
                     break;
                 }
@@ -80,12 +71,8 @@ public class ProductSelectManager : MonoSingleton<ProductSelectManager>
 
         foreach (var _unitCount in unitCounts)
         {
-            Debug.Log("testt5");
-
             if (_unitCount.count > 0)
             {
-                Debug.Log("testt6");
-
                 productInfoDatas.Add(new ProductInfoDatas(_unitCount.unitData, _unitCount.count));
             }
         }
