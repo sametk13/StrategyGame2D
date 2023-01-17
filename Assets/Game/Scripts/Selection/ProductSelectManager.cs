@@ -61,11 +61,11 @@ public class ProductSelectManager : MonoSingleton<ProductSelectManager>
         {
             foreach (var _unitCounts in unitCounts)
             {
-                //if (_unitCounts.unitData.unitType == selectedUnit.unitData.unitType)
-                //{
-                //    _unitCounts.count++;
-                //    break;
-                //}
+                if (_unitCounts.unitData.type == selectedUnit.unitData.type)
+                {
+                    _unitCounts.count++;
+                    break;
+                }
             }
         }
 

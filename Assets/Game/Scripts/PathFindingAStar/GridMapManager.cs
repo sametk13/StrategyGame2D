@@ -32,8 +32,8 @@ public class GridMapManager : MonoSingleton<GridMapManager>
                 if (_usableTileMap.HasTile(new Vector3Int(x, y, 1)) && !map.ContainsKey(new Vector2Int(x, y)))
                 {
                     var overlayTile = Instantiate(overlayPrefab, overlayContainer.transform).GetComponent<OverlayTile>();
-                    var cellWorldPosition = _usableTileMap.GetCellCenterWorld(new Vector3Int(x, y, 1));
-                    overlayTile.transform.position = new Vector3(cellWorldPosition.x, cellWorldPosition.y, cellWorldPosition.z + 1);
+                    var cellWorldPosition = _usableTileMap.GetCellCenterWorld(new Vector3Int(x, y, 0));
+                    overlayTile.transform.position = new Vector3(cellWorldPosition.x, cellWorldPosition.y, cellWorldPosition.z);
                     overlayTile.GetComponent<SpriteRenderer>().sortingOrder = _usableTileMap.GetComponent<TilemapRenderer>().sortingOrder;
                     overlayTile.gridLocation = new Vector3Int(x, y, 1);
 

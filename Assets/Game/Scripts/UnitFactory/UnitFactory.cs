@@ -29,7 +29,7 @@ public class UnitFactory : IProductFactory
         {
             UnitData data = _unitDataPairs[_unitType];
 
-            GameObject newBuilding = Object.Instantiate(data.productPrefab, _barrack.spawnPointTransform.position,Quaternion.identity);
+            GameObject newBuilding = Object.Instantiate(data.productPrefab, _barrack.spawnTile.transform.position,Quaternion.identity);
 
             Unit unit = newBuilding.GetComponent<Unit>();
             unit.InitalizeUnit(data, _barrack);

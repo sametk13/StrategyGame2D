@@ -16,7 +16,7 @@ public class OverlayTile : MonoBehaviour
 
     private int _G;
     private int _H;
-    private bool _isBlocked = false;
+    [SerializeField]private bool _isBlocked = false;
     private OverlayTile _previous;
     private Vector3Int _gridLocation;
     private SpriteRenderer _spriteRenderer;

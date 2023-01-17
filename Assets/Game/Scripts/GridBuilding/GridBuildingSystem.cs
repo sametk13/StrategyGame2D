@@ -62,6 +62,7 @@ public class GridBuildingSystem : MonoSingleton<GridBuildingSystem>
     public void InitializeBuilding(Building building) 
     {
         _building = building;
+        _building.DissableCollider();
     }
     private void FollowBuilding(OverlayTile _targetTile)
     {

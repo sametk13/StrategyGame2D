@@ -20,6 +20,7 @@ public class UnitMovementHandler : MonoBehaviour
         _path = new List<OverlayTile>();
 
         Vector2Int tileToCheck = new Vector2Int((int)transform.position.x, (int)transform.position.y);
+        Debug.Log(tileToCheck,gameObject);
         standingOnTile = GridMapManager.Instance.GetStandingOnTile(tileToCheck);
     }
 
@@ -27,7 +28,7 @@ public class UnitMovementHandler : MonoBehaviour
     {
         if (_path != null && _path.Count > 0)
         {
-            MoveAlongPath(_path[0]);
+            MoveAlongPath();
         }
     }
 
@@ -48,7 +49,7 @@ public class UnitMovementHandler : MonoBehaviour
         }
     }
 
-    private void MoveAlongPath(OverlayTile targetTile)
+    private void MoveAlongPath()
     {
         var step = speed * Time.deltaTime;
 
