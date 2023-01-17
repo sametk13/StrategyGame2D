@@ -1,5 +1,6 @@
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PanAndZoom : MonoBehaviour
 {
@@ -29,22 +30,24 @@ public class PanAndZoom : MonoBehaviour
     private void Update()
     {
         float x = _inputProvider.GetAxisValue(0);
-        float y = _inputProvider.GetAxisValue (1);
-        float z = _inputProvider.GetAxisValue (2);
+        float y = _inputProvider.GetAxisValue(1);
+        float z = _inputProvider.GetAxisValue(2);
         if (x != 0 || y != 0)
         {
             PanScreen(x, y);
         }
-        if(z != 0)
+        if (z != 0 && !EventSystem.current.IsPointerOverGameObject())
         {
             ZoomScreen(z);
         }
+
+
     }
 
     public void ZoomScreen(float increment)
     {
         float fov = _virtualCamera.m_Lens.OrthographicSize;
-        float target = Mathf.Clamp(fov + increment,zoomInMax,zoomOutMax);
+        float target = Mathf.Clamp(fov + increment, zoomInMax, zoomOutMax);
         _virtualCamera.m_Lens.OrthographicSize = Mathf.MoveTowards(fov, target, zoomSpeed * Time.deltaTime);
     }
 
@@ -74,6 +77,6 @@ public class PanAndZoom : MonoBehaviour
     {
         Vector2 Direction = PanDirection(x, y);
         _cameraTransform.position = Vector3.Lerp(_cameraTransform.position,
-            _cameraTransform.position + (Vector3)Direction * panSpeed,Time.deltaTime);
+            _cameraTransform.position + (Vector3)Direction * panSpeed, Time.deltaTime);
     }
 }
