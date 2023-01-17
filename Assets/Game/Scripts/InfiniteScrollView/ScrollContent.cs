@@ -1,5 +1,4 @@
-﻿using Unity.Entities.UniversalDelegates;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ScrollContent : MonoBehaviour
 {
@@ -10,13 +9,9 @@ public class ScrollContent : MonoBehaviour
     public float childHeight { get { return _childHeight; } }
 
 
-
     private RectTransform _rectTransform;
-
     private RectTransform[] _rtChildren;
-
     private float _height;
-
     private float _childWidth, _childHeight;
 
     [SerializeField]
@@ -36,14 +31,13 @@ public class ScrollContent : MonoBehaviour
 
     private void Start()
     {
-
         InitializeContentVertical();
     }
 
     private void InitializeContentVertical()
     {
         _rectTransform = GetComponent<RectTransform>();
-
+        _rectTransform.localPosition = Vector2.zero;
         if (_rectTransform.childCount == 0) return;
 
         _rtChildren = new RectTransform[_rectTransform.childCount];
@@ -53,17 +47,17 @@ public class ScrollContent : MonoBehaviour
             _rtChildren[i] = _rectTransform.GetChild(i) as RectTransform;
         }
 
-        _height = _rectTransform.rect.height - (2 * verticalMargin);
+        _height = _rectTransform.rect.height - (2 * _verticalMargin);
 
         _childWidth = _rtChildren[0].rect.width;
         _childHeight = _rtChildren[0].rect.height;
 
-        float originY = 0 - (height * 0.5f);
-        float posOffset = childHeight * 0.5f;
+        float originY = 0 - (_height * 0.5f);
+        float posOffset = _childHeight * 0.5f;
         for (int i = 0; i < _rtChildren.Length; i++)
         {
             Vector2 childPos = _rtChildren[i].localPosition;
-            childPos.y = originY + posOffset + i * (childHeight + itemSpacing);
+            childPos.y = originY + posOffset + i * (_childHeight * _itemSpacing);
             childPos.x = 0;
             _rtChildren[i].localPosition = childPos;
         }

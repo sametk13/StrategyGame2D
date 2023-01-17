@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class InfiniteScroll : MonoBehaviour, IBeginDragHandler, IDragHandler, IScrollHandler
 {
-
     [SerializeField]
     private ScrollContent _scrollContent;
 
@@ -17,6 +16,7 @@ public class InfiniteScroll : MonoBehaviour, IBeginDragHandler, IDragHandler, IS
 
     private bool _positiveDrag;
 
+    private bool _scrolling;
 
     private void OnEnable()
     {
@@ -34,21 +34,32 @@ public class InfiniteScroll : MonoBehaviour, IBeginDragHandler, IDragHandler, IS
         _scrollRect.vertical = true;
         _scrollRect.movementType = ScrollRect.MovementType.Unrestricted;
     }
-    public void OnBeginDrag(PointerEventData eventData)
+
+    void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
     {
+        if (eventData == null)
+            return;
+
         _lastDragPosition = eventData.position;
     }
 
-    public void OnDrag(PointerEventData eventData)
+    void IDragHandler.OnDrag(PointerEventData eventData)
     {
+        if (eventData == null)
+            return;
+
         _positiveDrag = eventData.position.y > _lastDragPosition.y;
 
         _lastDragPosition = eventData.position;
     }
 
-    public void OnScroll(PointerEventData eventData)
+    void IScrollHandler.OnScroll(PointerEventData eventData)
     {
+        if (eventData == null)
+            return;
+
         _positiveDrag = eventData.scrollDelta.y > 0;
+        _scrolling = true;
     }
 
     public void StartIEOnViewScroll()
@@ -59,7 +70,11 @@ public class InfiniteScroll : MonoBehaviour, IBeginDragHandler, IDragHandler, IS
     IEnumerator IEOnViewScroll()
     {
         yield return new WaitForSeconds(0.1f);
-        OnViewScroll();
+        if (_scrolling)
+        {
+            OnViewScroll();
+            _scrolling = false;
+        }
     }
 
     public void OnViewScroll()
@@ -84,22 +99,21 @@ public class InfiniteScroll : MonoBehaviour, IBeginDragHandler, IDragHandler, IS
 
         if (_positiveDrag)
         {
-            newPos.y = endItem.position.y - _scrollContent.childHeight * 1.5f + _scrollContent.itemSpacing;
+            newPos.y = endItem.position.y - _scrollContent.childHeight * .7f + _scrollContent.itemSpacing;
         }
         else
         {
-            newPos.y = endItem.position.y + _scrollContent.childHeight * 1.5f - _scrollContent.itemSpacing;
+            newPos.y = endItem.position.y + _scrollContent.childHeight * .7f - _scrollContent.itemSpacing;
         }
 
         currItem.position = newPos;
         currItem.SetSiblingIndex(endItemIndex);
     }
-
     private bool ReachedThreshold(Transform item)
     {
-        float posYThreshold = transform.position.y + _scrollContent.height * 0.5f + _outOfBoundsThreshold;
-        float negYThreshold = transform.position.y - _scrollContent.height * 0.5f - _outOfBoundsThreshold;
-        return _positiveDrag ? item.position.y - _scrollContent.childWidth * 0.5f > posYThreshold :
-            item.position.y + _scrollContent.childWidth * 0.5f < negYThreshold;
+        float posYThreshold = transform.position.y + _scrollContent.height * -.035f + _outOfBoundsThreshold;
+        float negYThreshold = transform.position.y - _scrollContent.height * .55f - _outOfBoundsThreshold;
+        return _positiveDrag ? item.position.y - _scrollContent.childHeight * -.035f > posYThreshold :
+            item.position.y + _scrollContent.childHeight * .55f < negYThreshold;
     }
 }
