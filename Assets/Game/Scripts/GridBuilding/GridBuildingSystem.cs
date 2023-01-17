@@ -68,7 +68,9 @@ public class GridBuildingSystem : MonoSingleton<GridBuildingSystem>
     {
         ClearArea();
 
-        _building.transform.localPosition = _targetTile.transform.position;
+        Vector3 newPos = _targetTile.transform.position;
+        newPos.z = -1;
+        _building.transform.position = newPos;
 
         _building.area.position = _targetTile.gridLocation;
 
