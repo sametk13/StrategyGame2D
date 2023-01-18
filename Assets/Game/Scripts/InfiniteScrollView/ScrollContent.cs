@@ -29,14 +29,13 @@ public class ScrollContent : MonoBehaviour
         ProductionMenuHandler.OnProductionChange -= InitializeContentVertical;
     }
 
-    private void Start()
+    private void Awake()
     {
-        InitializeContentVertical();
+        _rectTransform = GetComponent<RectTransform>();
     }
 
     private void InitializeContentVertical()
     {
-        _rectTransform = GetComponent<RectTransform>();
         _rectTransform.localPosition = Vector2.zero;
         if (_rectTransform.childCount == 0) return;
 

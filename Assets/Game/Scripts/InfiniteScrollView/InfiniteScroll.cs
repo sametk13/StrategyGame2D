@@ -20,15 +20,15 @@ public class InfiniteScroll : MonoBehaviour, IBeginDragHandler, IDragHandler, IS
 
     private void OnEnable()
     {
-        ProductionMenuHandler.OnProductionChange += StartIEOnViewScroll;
+        ProductionMenuHandler.OnProductionChange += OnViewScroll;
     }
 
     private void OnDisable()
     {
-        ProductionMenuHandler.OnProductionChange -= StartIEOnViewScroll;
+        ProductionMenuHandler.OnProductionChange -= OnViewScroll;
     }
 
-    private void Start()
+    private void Awake()
     {
         _scrollRect = GetComponent<ScrollRect>();
         _scrollRect.vertical = true;
@@ -62,21 +62,6 @@ public class InfiniteScroll : MonoBehaviour, IBeginDragHandler, IDragHandler, IS
         _scrolling = true;
     }
 
-    public void StartIEOnViewScroll()
-    {
-        StartCoroutine(IEOnViewScroll());
-    }
-
-    IEnumerator IEOnViewScroll()
-    {
-        yield return new WaitForSeconds(0.1f);
-        if (_scrolling)
-        {
-            OnViewScroll();
-            _scrolling = false;
-        }
-    }
-
     public void OnViewScroll()
     {
         HandleVerticalScroll();
@@ -99,11 +84,11 @@ public class InfiniteScroll : MonoBehaviour, IBeginDragHandler, IDragHandler, IS
 
         if (_positiveDrag)
         {
-            newPos.y = endItem.position.y - _scrollContent.childHeight * .7f + _scrollContent.itemSpacing;
+            newPos.y = endItem.position.y - _scrollContent.childHeight * _scrollContent.itemSpacing;
         }
         else
         {
-            newPos.y = endItem.position.y + _scrollContent.childHeight * .7f - _scrollContent.itemSpacing;
+            newPos.y = endItem.position.y + _scrollContent.childHeight * _scrollContent.itemSpacing;
         }
 
         currItem.position = newPos;
