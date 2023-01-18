@@ -62,7 +62,17 @@ public class GridMapManager : MonoSingleton<GridMapManager>
 
     public OverlayTile GetNearestOnTile(Vector2 position)
     {
-        OverlayTile nearestTile = map.Values.OrderBy(v => Vector2.Distance(new Vector2(v.transform.position.x, v.transform.position.y), position)).First();
+        float _nearestDistance = float.MaxValue;
+        OverlayTile nearestTile = null;
+        foreach (var tile in map.Values)
+        {
+            float distance = Vector2.Distance(new Vector2(tile.transform.position.x, tile.transform.position.y), position);
+            if (distance < _nearestDistance)
+            {
+                _nearestDistance = distance;
+                nearestTile = tile;
+            }
+        }
         return nearestTile;
     }
 
