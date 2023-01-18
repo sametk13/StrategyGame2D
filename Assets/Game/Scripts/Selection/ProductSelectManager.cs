@@ -31,9 +31,9 @@ public class ProductSelectManager : MonoSingleton<ProductSelectManager>
                 ClearSelectedUnits();
                 _priorSelected.UnSelected();
                 _priorSelected = null;
-                InformationPanelHandler.Instance.ClearInformationList();
-                ProductionMenuHandler.Instance.ClearProducts();
-                ProductionMenuHandler.Instance.GetBuildingDatas();
+                InformationManager.Instance.ClearInformationList();
+                ProductionMenuManager.Instance.ClearProducts();
+                ProductionMenuManager.Instance.GetBuildingDatas();
             }
 
             if (selectable != null)
@@ -76,7 +76,7 @@ public class ProductSelectManager : MonoSingleton<ProductSelectManager>
                 productInfoDatas.Add(new ProductInfoDatas(_unitCount.unitData, _unitCount.count));
             }
         }
-        InformationPanelHandler.Instance.SetInformationList(productInfoDatas);
+        InformationManager.Instance.SetInformationList(productInfoDatas);
     }
 
     private bool UILeftClickDetector()
@@ -96,9 +96,9 @@ public class ProductSelectManager : MonoSingleton<ProductSelectManager>
         }
     }
 
-    public void AddSelectionUnit(Unit _unit)
+    public void AddSelectionUnit(Unit unit)
     {
-        selectedUnitList.Add(_unit);
+        selectedUnitList.Add(unit);
     }
     public void ClearSelectedUnits()
     {

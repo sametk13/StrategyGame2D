@@ -30,7 +30,7 @@ public class BuildingFactory : IProductFactory
             Building building = newBuilding.GetComponent<Building>();
 
             building.InitalizeBuilding(data);
-            GridBuildingSystem.Instance.InitializeBuilding(building);
+            GridBuildingManager.Instance.InitializeBuilding(building);
 
             return newBuilding;
         }

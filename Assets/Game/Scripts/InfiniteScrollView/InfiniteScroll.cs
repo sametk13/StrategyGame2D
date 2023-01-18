@@ -5,27 +5,22 @@ using UnityEngine.UI;
 
 public class InfiniteScroll : MonoBehaviour, IBeginDragHandler, IDragHandler, IScrollHandler
 {
-    [SerializeField]
-    private ScrollContent _scrollContent;
+    [SerializeField] private ScrollContent _scrollContent;
+    [SerializeField] private float _outOfBoundsThreshold;
 
-    [SerializeField]
-    private float _outOfBoundsThreshold;
     private ScrollRect _scrollRect;
-
     private Vector2 _lastDragPosition;
-
     private bool _positiveDrag;
-
     private bool _scrolling;
 
     private void OnEnable()
     {
-        ProductionMenuHandler.OnProductionChange += OnViewScroll;
+        ProductionMenuManager.OnProductionChange += OnViewScroll;
     }
 
     private void OnDisable()
     {
-        ProductionMenuHandler.OnProductionChange -= OnViewScroll;
+        ProductionMenuManager.OnProductionChange -= OnViewScroll;
     }
 
     private void Awake()
@@ -62,7 +57,7 @@ public class InfiniteScroll : MonoBehaviour, IBeginDragHandler, IDragHandler, IS
         _scrolling = true;
     }
 
-    public void OnViewScroll()
+    private void OnViewScroll()
     {
         HandleVerticalScroll();
     }
@@ -70,6 +65,7 @@ public class InfiniteScroll : MonoBehaviour, IBeginDragHandler, IDragHandler, IS
     private void HandleVerticalScroll()
     {
         if (_scrollRect.content.childCount == 0) return;
+
         int currItemIndex = _positiveDrag ? _scrollRect.content.childCount - 1 : 0;
         var currItem = _scrollRect.content.GetChild(currItemIndex);
 

@@ -1,9 +1,9 @@
 public class UnitCounts
 {
-    public UnitCounts(UnitData _unitData, int _count)
+    public UnitCounts(UnitData unitData, int count)
     {
-        this.unitData = _unitData;
-        this.count = _count;
+        this.unitData = unitData;
+        this.count = count;
     }
     public UnitData unitData;
     public int count;

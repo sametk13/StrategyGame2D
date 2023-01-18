@@ -54,7 +54,7 @@ public class Barrack : Building
         List<ProductInfoDatas> productInfoDatas = new List<ProductInfoDatas>();
         productInfoDatas.Add(new ProductInfoDatas(buildingData, 1));
         //Handling Panels
-        InformationPanelHandler.Instance.SetInformationList(productInfoDatas);
+        InformationManager.Instance.SetInformationList(productInfoDatas);
 
         List<ProductData> productDatas = new List<ProductData>();
 
@@ -63,7 +63,7 @@ public class Barrack : Building
             productDatas.Add(buildingData.unitDatas[i]);
         }
 
-        ProductionMenuHandler.Instance.SetProductCardList(productDatas,this);
+        ProductionMenuManager.Instance.SetProductCardList(productDatas,this);
 
         ShowDestinationSprite();
     }

@@ -21,12 +21,12 @@ public class ScrollContent : MonoBehaviour
 
     private void OnEnable()
     {
-        ProductionMenuHandler.OnProductionChange += InitializeContentVertical;
+        ProductionMenuManager.OnProductionChange += InitializeContentVertical;
     }
 
     private void OnDisable()
     {
-        ProductionMenuHandler.OnProductionChange -= InitializeContentVertical;
+        ProductionMenuManager.OnProductionChange -= InitializeContentVertical;
     }
 
     private void Awake()

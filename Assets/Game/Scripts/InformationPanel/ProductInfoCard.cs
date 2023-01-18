@@ -9,10 +9,10 @@ public class ProductInfoCard : MonoBehaviour
     [SerializeField] Image productImage;
 
     //Info Card Initialization
-    public void InitializeInfoCard(ProductData _productData, int count = 1)
+    public void InitializeInfoCard(ProductData productData, int count = 1)
     {
-        productNameText.SetText(_productData.productName);
+        productNameText.SetText(productData.productName);
         productCountText.SetText(count.ToString());
-        productImage.sprite = _productData.productSprite;
+        productImage.sprite = productData.productSprite;
     }
 }

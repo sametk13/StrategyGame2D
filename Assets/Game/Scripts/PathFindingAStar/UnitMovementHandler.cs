@@ -39,12 +39,12 @@ public class UnitMovementHandler : MonoBehaviour
         }
     }
 
-    public void MoveToTile(OverlayTile _targetTile)
+    public void MoveToTile(OverlayTile targetTile)
     {
 
         RemovePreviousTile();
 
-        _path = _pathFinder.FindPath(standingOnTile, _targetTile, ref _previousEndTile);
+        _path = _pathFinder.FindPath(standingOnTile, targetTile, ref _previousEndTile);
 
         for (int i = 0; i < _path.Count; i++)
         {

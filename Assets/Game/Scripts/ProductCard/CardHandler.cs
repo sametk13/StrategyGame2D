@@ -17,12 +17,12 @@ public class CardHandler : MonoBehaviour
     {
         if (_productType is UnitType)
         {
-            IProductFactory productFactory = new UnitFactory((UnitType)_productType, ProductionMenuHandler.Instance.unitFactoryDatas, (Barrack)_product);
+            IProductFactory productFactory = new UnitFactory((UnitType)_productType, ProductionMenuManager.Instance.unitFactoryDatas, (Barrack)_product);
             productFactory.CreateProduct();
         }
         else if (_productType is BuildingType)
         {
-            IProductFactory productFactory = new BuildingFactory((BuildingType)_productType, ProductionMenuHandler.Instance.buildingFactory);
+            IProductFactory productFactory = new BuildingFactory((BuildingType)_productType, ProductionMenuManager.Instance.buildingFactory);
             productFactory.CreateProduct();
         }
     }
