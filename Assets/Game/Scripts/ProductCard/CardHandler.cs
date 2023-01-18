@@ -15,6 +15,8 @@ public class CardHandler : MonoBehaviour
 
     public void Indicate()
     {
+        //Indicating card to production menu
+
         if (_productType is UnitType)
         {
             IProductFactory productFactory = new UnitFactory((UnitType)_productType, ProductionMenuManager.Instance.unitFactoryDatas, (Barrack)_product);

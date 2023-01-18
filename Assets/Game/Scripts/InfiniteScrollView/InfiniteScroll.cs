@@ -16,11 +16,13 @@ public class InfiniteScroll : MonoBehaviour, IBeginDragHandler, IDragHandler, IS
 
     private void OnEnable()
     {
+        // Subscribe to the OnProductionChange event
         ProductionMenuManager.OnProductionChange += OnViewScroll;
     }
 
     private void OnDisable()
     {
+        // Unsubscribe from the OnProductionChange event
         ProductionMenuManager.OnProductionChange -= OnViewScroll;
     }
 
@@ -28,9 +30,13 @@ public class InfiniteScroll : MonoBehaviour, IBeginDragHandler, IDragHandler, IS
     {
         _scrollRect = GetComponent<ScrollRect>();
         _scrollRect.vertical = true;
+
+        //set the movement type to unrestricted
         _scrollRect.movementType = ScrollRect.MovementType.Unrestricted;
     }
 
+
+    //Event called when dragging begins
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
     {
         if (eventData == null)
@@ -39,6 +45,8 @@ public class InfiniteScroll : MonoBehaviour, IBeginDragHandler, IDragHandler, IS
         _lastDragPosition = eventData.position;
     }
 
+
+    //Event called when dragging happens
     void IDragHandler.OnDrag(PointerEventData eventData)
     {
         if (eventData == null)
@@ -48,7 +56,7 @@ public class InfiniteScroll : MonoBehaviour, IBeginDragHandler, IDragHandler, IS
 
         _lastDragPosition = eventData.position;
     }
-
+    //Event called when scrolling happens
     void IScrollHandler.OnScroll(PointerEventData eventData)
     {
         if (eventData == null)
@@ -63,14 +71,16 @@ public class InfiniteScroll : MonoBehaviour, IBeginDragHandler, IDragHandler, IS
         HandleVerticalScroll();
     }
 
+    //Method to handle vertical scrolling
     private void HandleVerticalScroll()
     {
         if (_scrollRect.content.childCount == 0) return;
 
-        int currItemIndex = _positiveDrag ? _scrollRect.content.childCount - 1 : 0;
-        var currItem = _scrollRect.content.GetChild(currItemIndex);
+        int currItemIndex = _positiveDrag ? _scrollRect.content.childCount - 1 : 0;  //get the current item index
 
-        if (!ReachedThreshold(currItem))
+        var currItem = _scrollRect.content.GetChild(currItemIndex); //get the current item
+
+        if (!ReachedThreshold(currItem)) //if the threshold is not reached
         {
             return;
         }

@@ -7,9 +7,11 @@ using UnityEngine.InputSystem;
 
 public class GridBuildingManager : MonoSingleton<GridBuildingManager>
 {
+    // static events that can be subscribed to by other classes
     public static Action<Building> OnBuild;
     public static Action<Building> OnCancel;
 
+    // UnityEvents that can be subscribed to in the Unity editor
     public UnityEvent Builded;
     public UnityEvent Canceled;
 
@@ -19,22 +21,27 @@ public class GridBuildingManager : MonoSingleton<GridBuildingManager>
 
     private void Update()
     {
+        // Check if a building is currently being placed
         if (_building != null && !_building.isPlaced)
         {
+            // Get the tile that the mouse is currently over
             OverlayTile currentTile = GetTileToMousePos();
             if (currentTile == null) return;
 
+            // Check if the mouse has moved to a new tile
             if (currentTile && _prevTile != currentTile)
             {
                 _prevTile = currentTile;
                 FollowBuilding(currentTile);
             }
 
+            // Check if the left mouse button was pressed this frame
             if (Mouse.current.leftButton.wasPressedThisFrame && CanTakeArea(_building.area, GetTilesBlock(_building.area, currentTile).ToArray()))
             {
                 Place(currentTile);
             }
 
+            // Check if the right mouse button was pressed this frame
             else if (Mouse.current.rightButton.wasPressedThisFrame)
             {
                 CancelPlacing();
@@ -44,6 +51,7 @@ public class GridBuildingManager : MonoSingleton<GridBuildingManager>
 
     private OverlayTile GetTileToMousePos()
     {
+        // Use a raycast to get the tile that the mouse is currently over
         RaycastHit2D? hit = Raycaster.GetMouseRaycastHit();
         if (hit == null) return null;
 
@@ -54,11 +62,13 @@ public class GridBuildingManager : MonoSingleton<GridBuildingManager>
 
     private void Place(OverlayTile currentTile)
     {
+        // Get the tiles that the building will be placed on
         var placedTiles = GetTilesBlock(_building.area, currentTile);
         for (int i = 0; i < placedTiles.Count; i++)
         {
             placedTiles[i].isBlocked = true;
         }
+        // Finish placing the building
         _building.build();
         ClearArea();
         OnBuild?.Invoke(_building);
@@ -85,6 +95,8 @@ public class GridBuildingManager : MonoSingleton<GridBuildingManager>
 
         Vector3 newPos = targetTile.transform.position;
         newPos.z = -1;
+
+
         _building.transform.position = newPos;
 
         _building.area.position = targetTile.gridLocation;

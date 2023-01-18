@@ -102,14 +102,20 @@ public class ProductSelectManager : MonoSingleton<ProductSelectManager>
     }
     public void ClearSelectedUnits()
     {
-        if (_priorSelected != null) 
-            _priorSelected.UnSelected();
-
         foreach (var unit in selectedUnitList)
         {
             unit.UnSelected();
         }
         selectedUnitList.Clear();
+    }
+
+    public void ClearPriorSelected()
+    {
+        if (_priorSelected != null)
+        {
+            _priorSelected.UnSelected();
+            _priorSelected = null;
+        }
     }
 
     public List<Unit> GetSelectedUnits()

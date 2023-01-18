@@ -21,14 +21,19 @@ public class PanAndZoom : MonoBehaviour
 
     private void Awake()
     {
+        // Get references to the Cinemachine components
         _inputProvider = GetComponent<CinemachineInputProvider>();
         _virtualCamera = GetComponent<CinemachineVirtualCamera>();
         _cameraTransform = _virtualCamera.VirtualCameraGameObject.transform;
+
+        // Set the initial zoom level
         _virtualCamera.m_Lens.OrthographicSize = zoomOutMax;
     }
 
     private void Update()
     {
+        // Get the input axis values for panning and zooming
+
         float x = _inputProvider.GetAxisValue(0);
         float y = _inputProvider.GetAxisValue(1);
         float z = _inputProvider.GetAxisValue(2);
@@ -36,6 +41,8 @@ public class PanAndZoom : MonoBehaviour
         {
             PanScreen(x, y);
         }
+
+        // If the z axis is not 0 and the mouse is not over a UI element, zoom the screen
         if (z != 0 && !EventSystem.current.IsPointerOverGameObject())
         {
             ZoomScreen(z);
@@ -43,14 +50,18 @@ public class PanAndZoom : MonoBehaviour
 
 
     }
-
+    // Function to handle zooming the screen
     public void ZoomScreen(float increment)
     {
+        // Get the current field of view and calculate the target field of view
         float fov = _virtualCamera.m_Lens.OrthographicSize;
         float target = Mathf.Clamp(fov + increment, zoomInMax, zoomOutMax);
+
+        // Smoothly move towards the target field of view
         _virtualCamera.m_Lens.OrthographicSize = Mathf.MoveTowards(fov, target, zoomSpeed * Time.deltaTime);
     }
 
+    // Function to determine the direction to pan based on the mouse position
     public Vector2 PanDirection(float x, float y)
     {
         Vector2 direction = Vector2.zero;

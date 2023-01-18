@@ -34,7 +34,7 @@ public class Barrack : Building
         }
     }
 
-    public override void build()
+    public override void build() // placement
     {
         base.build();
 
