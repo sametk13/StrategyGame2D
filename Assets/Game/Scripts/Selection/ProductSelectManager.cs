@@ -28,7 +28,7 @@ public class ProductSelectManager : MonoSingleton<ProductSelectManager>
 
             if ( _priorSelected != null && !UILeftClickDetector())
             {
-                ClearSelectionUnitList();
+                ClearSelectedUnits();
                 _priorSelected.UnSelected();
                 _priorSelected = null;
                 InformationPanelHandler.Instance.ClearInformationList();
@@ -100,7 +100,7 @@ public class ProductSelectManager : MonoSingleton<ProductSelectManager>
     {
         selectedUnitList.Add(_unit);
     }
-    public void ClearSelectionUnitList()
+    public void ClearSelectedUnits()
     {
         foreach (var unit in selectedUnitList)
         {

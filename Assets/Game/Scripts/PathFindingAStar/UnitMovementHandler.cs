@@ -4,13 +4,12 @@ using UnityEngine;
 public class UnitMovementHandler : MonoBehaviour
 {
     public float speed { get => _speed; set => _speed = value; }
-    public OverlayTile standingOnTile;
+    public OverlayTile standingOnTile { get; set; }
+
 
     [SerializeField] private float _speed;
-
     private PathFinder _pathFinder;
     private List<OverlayTile> _path;
-
     private OverlayTile _previousEndTile;
 
     private void Awake()
@@ -71,7 +70,6 @@ public class UnitMovementHandler : MonoBehaviour
     private void PositionCharacterOnLine(OverlayTile tile)
     {
         standingOnTile = tile;
-        //standingOnTile.isBlocked = true;
     }
 
 

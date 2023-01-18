@@ -37,7 +37,7 @@ public class BoxSelection : MonoBehaviour
             _selectionAreaTransform.gameObject.SetActive(false);
             Collider2D[] collider2DArray = Physics2D.OverlapAreaAll(_startPosition, GetMouseWorldPosition());
 
-            ProductSelectManager.Instance.ClearSelectionUnitList();
+            ProductSelectManager.Instance.ClearSelectedUnits();
 
             foreach (Collider2D collider2D in collider2DArray)
             {

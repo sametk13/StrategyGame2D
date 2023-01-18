@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class CardHandler : MonoBehaviour
 {
-    public TextMeshProUGUI ProductNameText;
-    public Image ProductImage;
-    public Button ProductButton;
+    [SerializeField] private TextMeshProUGUI ProductNameText;
+    [SerializeField] private Image ProductImage;
+    [SerializeField] private Button ProductButton;
 
     Enum _productType;
 

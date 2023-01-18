@@ -6,7 +6,6 @@ public abstract class Building : MonoBehaviour, IProduct
 {
     public virtual BuildingData buildingData { get; private set; }
     public bool isPlaced { get; private set; }
-    public BoundsInt area;
 
     //Implementing Unit from Iproduct
     public Action OnSelect { get; set; }
@@ -14,6 +13,9 @@ public abstract class Building : MonoBehaviour, IProduct
     public bool isSelected { get; set; }
     public SpriteRenderer spriteRenderer { get; set; }
     public PunchScaleFeedBack punchScaleFeedBack { get; set; }
+
+    public BoundsInt area;
+
 
     private Collider2D _collider;
 

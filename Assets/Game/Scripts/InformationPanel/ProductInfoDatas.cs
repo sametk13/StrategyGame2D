@@ -1,9 +1,9 @@
 public class ProductInfoDatas 
 {
-    public ProductInfoDatas(ProductData _productData, int _count)
+    public ProductInfoDatas(ProductData productData, int count)
     {
-        this.productData = _productData;
-        this.count = _count;
+        this.productData = productData;
+        this.count = count;
     }
 
     public ProductData productData;

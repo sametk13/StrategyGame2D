@@ -1,24 +1,18 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class OverlayTile : MonoBehaviour
 {
     //Overlay Tile Property Definitor
-    public Vector3Int gridLocation { get => _gridLocation; set => _gridLocation = value; }
+    public Vector3Int gridLocation { get ; set; }
     public Vector2Int grid2DLocation { get { return new Vector2Int(gridLocation.x, gridLocation.y); } }
+    public bool isBlocked { get ; set ; }
+    public OverlayTile previous { get ; set ; }
 
-    public int G { get => _G; set => _G = value; }
-    public int H { get => _H; set => _H = value; }
+    public int G { get; set; }
+    public int H { get; set; }
     public int F { get { return G + H; } }
 
-    public bool isBlocked { get => _isBlocked; set => _isBlocked = value; }
-    public OverlayTile previous { get => _previous; set => _previous = value; }
 
-    private int _G;
-    private int _H;
-    [SerializeField]private bool _isBlocked = false;
-    private OverlayTile _previous;
-    private Vector3Int _gridLocation;
     private SpriteRenderer _spriteRenderer;
 
     private void Awake()
@@ -39,7 +33,7 @@ public class OverlayTile : MonoBehaviour
 
     public void ShowTile()
     {
-        _spriteRenderer.enabled =true;
+        _spriteRenderer.enabled = true;
     }
 }
 

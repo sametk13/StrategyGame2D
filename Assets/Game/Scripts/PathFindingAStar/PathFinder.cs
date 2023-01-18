@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
 
 public class PathFinder
 {
@@ -109,20 +108,6 @@ public class PathFinder
         //Calculating Manhattan
         return Mathf.Abs(start.gridLocation.x - tile.gridLocation.x) + Mathf.Abs(start.gridLocation.y - tile.gridLocation.y);
     }
-
-    //public OverlayTile GetUsableClosestNeightbourTile(OverlayTile tile)
-    //{
-    //    var sortedList = searchableTiles.Keys.OrderBy(p => Vector2.Distance(p, tile.grid2DLocation)).ToList();
-
-    //    for (int i = 0; i < sortedList.Count; i++)
-    //    {
-    //        var tilePosition = sortedList[i];
-    //        if (searchableTiles[tilePosition].isBlocked)
-    //            continue;
-    //        return searchableTiles[tilePosition];
-    //    }
-    //    return null;
-    //}
 
     public OverlayTile GetUsableClosestTile(OverlayTile currentOverlayTile)
     {

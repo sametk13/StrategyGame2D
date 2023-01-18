@@ -5,10 +5,8 @@ using UnityEngine.Tilemaps;
 
 public class GridMapManager : MonoSingleton<GridMapManager>
 {
-    public Dictionary<Vector2Int, OverlayTile> map;
-    public GameObject overlayPrefab { get => _overlayPrefab; }
-    public GameObject overlayContainer { get => _overlayContainer; set => _overlayContainer = value; }
-    public Tilemap usableTileMap { get => _usableTileMap; set => _usableTileMap = value; }
+    public Dictionary<Vector2Int, OverlayTile> map { get; private set; }
+
 
     [SerializeField] private GameObject _overlayPrefab;
     [SerializeField] private GameObject _overlayContainer;
@@ -31,7 +29,7 @@ public class GridMapManager : MonoSingleton<GridMapManager>
             {
                 if (_usableTileMap.HasTile(new Vector3Int(x, y, 1)) && !map.ContainsKey(new Vector2Int(x, y)))
                 {
-                    var overlayTile = Instantiate(overlayPrefab, overlayContainer.transform).GetComponent<OverlayTile>();
+                    var overlayTile = Instantiate(_overlayPrefab, _overlayContainer.transform).GetComponent<OverlayTile>();
                     var cellWorldPosition = _usableTileMap.GetCellCenterWorld(new Vector3Int(x, y, 0));
                     overlayTile.transform.position = new Vector3(cellWorldPosition.x, cellWorldPosition.y, cellWorldPosition.z);
                     overlayTile.GetComponent<SpriteRenderer>().sortingOrder = _usableTileMap.GetComponent<TilemapRenderer>().sortingOrder;
