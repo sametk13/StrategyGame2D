@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class InfiniteScroll : MonoBehaviour, IBeginDragHandler, IDragHandler, IScrollHandler
 {
     [SerializeField] private ScrollContent _scrollContent;
-    [SerializeField] private float _outOfBoundsThreshold;
+    [SerializeField] private float _outOfBoundsThresholdUp;
+    [SerializeField] private float _outOfBoundsThresholdDown;
 
     private ScrollRect _scrollRect;
     private Vector2 _lastDragPosition;
@@ -92,8 +93,8 @@ public class InfiniteScroll : MonoBehaviour, IBeginDragHandler, IDragHandler, IS
     }
     private bool ReachedThreshold(Transform item)
     {
-        float posYThreshold = transform.position.y + _scrollContent.height * -.035f + _outOfBoundsThreshold;
-        float negYThreshold = transform.position.y - _scrollContent.height * .55f - _outOfBoundsThreshold;
+        float posYThreshold = transform.position.y + _scrollContent.height * -.035f + _outOfBoundsThresholdUp;
+        float negYThreshold = transform.position.y - _scrollContent.height * .55f - _outOfBoundsThresholdDown;
         return _positiveDrag ? item.position.y - _scrollContent.childHeight * -.035f > posYThreshold :
             item.position.y + _scrollContent.childHeight * .55f < negYThreshold;
     }
