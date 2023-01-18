@@ -120,9 +120,9 @@ public class PathFinder
             if (!currentTile.isBlocked)
                 return currentTile;
             var currentTileNeighbours = GetNeightbourOverlayTiles(currentTile);
-            foreach (var neighbour in currentTileNeighbours)
+            for (int i = 0; i < currentTileNeighbours.Count; i++)
             {
-                queue.Enqueue(neighbour);
+                queue.Enqueue(currentTileNeighbours[i]);
             }
         }
         return null;
