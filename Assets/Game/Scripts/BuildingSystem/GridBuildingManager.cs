@@ -21,10 +21,7 @@ public class GridBuildingManager : MonoSingleton<GridBuildingManager>
     {
         if (_building != null && !_building.isPlaced)
         {
-            RaycastHit2D? hit = Raycaster.GetMouseRaycastHit();
-            if (hit == null) return;
-
-            OverlayTile currentTile = hit.Value.collider.GetComponent<OverlayTile>();
+            OverlayTile currentTile = GetTileToMousePos();
             if (currentTile == null) return;
 
             if (currentTile && _prevTile != currentTile)
@@ -35,31 +32,49 @@ public class GridBuildingManager : MonoSingleton<GridBuildingManager>
 
             if (Mouse.current.leftButton.wasPressedThisFrame && CanTakeArea(_building.area, GetTilesBlock(_building.area, currentTile).ToArray()))
             {
-                _building.build();
-
-                var placedTiles = GetTilesBlock(_building.area, currentTile);
-                for (int i = 0; i < placedTiles.Count; i++)
-                {
-                    placedTiles[i].isBlocked = true;
-                }
-                ClearArea();
-                OnBuild?.Invoke(_building);
-                Builded?.Invoke();
-                _building = null;
+                Place(currentTile);
             }
 
             else if (Mouse.current.rightButton.wasPressedThisFrame)
             {
-                OnCancel?.Invoke(_building);
-                Canceled?.Invoke();
-
-                ClearArea();
-                Destroy(_building.gameObject);
+                CancelPlacing();
             }
         }
     }
 
-    public void InitializeBuilding(Building building) 
+    private OverlayTile GetTileToMousePos()
+    {
+        RaycastHit2D? hit = Raycaster.GetMouseRaycastHit();
+        if (hit == null) return null;
+
+        OverlayTile currentTile = hit.Value.collider.GetComponent<OverlayTile>();
+
+        return currentTile;
+    }
+
+    private void Place(OverlayTile currentTile)
+    {
+        var placedTiles = GetTilesBlock(_building.area, currentTile);
+        for (int i = 0; i < placedTiles.Count; i++)
+        {
+            placedTiles[i].isBlocked = true;
+        }
+        _building.build();
+        ClearArea();
+        OnBuild?.Invoke(_building);
+        Builded?.Invoke();
+        _building = null;
+    }
+    private void CancelPlacing()
+    {
+        OnCancel?.Invoke(_building);
+        Canceled?.Invoke();
+
+        ClearArea();
+        Destroy(_building.gameObject);
+    }
+
+    public void InitializeBuilding(Building building)
     {
         _building = building;
         _building.DissableCollider();
@@ -86,9 +101,9 @@ public class GridBuildingManager : MonoSingleton<GridBuildingManager>
     {
         Color newColor = Color.green;
 
-        if (!CanTakeArea(area,tileArray))       
+        if (!CanTakeArea(area, tileArray))
             newColor = Color.red;
-        
+
         for (int i = 0; i < tileArray.Length; i++)
         {
             tileArray[i].ShowTile();
@@ -127,7 +142,7 @@ public class GridBuildingManager : MonoSingleton<GridBuildingManager>
 
     public bool CanTakeArea(BoundsInt area, OverlayTile[] tileArray)
     {
-        if (area.size.x * area.size.y > tileArray.Count()) 
+        if (area.size.x * area.size.y > tileArray.Count())
             return false;
 
         foreach (OverlayTile _tile in tileArray)
