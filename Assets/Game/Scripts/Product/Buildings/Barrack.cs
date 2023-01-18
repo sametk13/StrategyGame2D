@@ -38,8 +38,7 @@ public class Barrack : Building
     {
         base.build();
 
-        Vector2Int tileToCheck = new Vector2Int((int)_spawnPointTransform.position.x, (int)_spawnPointTransform.position.y);
-        spawnTile = GridMapManager.Instance.GetNearestOnTile(tileToCheck);
+        spawnTile = GridMapManager.Instance.GetNearestOnTile(_spawnPointTransform.position);
 
         _spawnPointTransform.position = spawnTile.transform.position;
         _destinationTransform.position = spawnTile.transform.position;

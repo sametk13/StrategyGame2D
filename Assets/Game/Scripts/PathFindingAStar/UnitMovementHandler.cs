@@ -18,8 +18,7 @@ public class UnitMovementHandler : MonoBehaviour
 
         _path = new List<OverlayTile>();
 
-        Vector2Int tileToCheck = new Vector2Int((int)transform.position.x, (int)transform.position.y);
-        standingOnTile = GridMapManager.Instance.GetStandingOnTile(tileToCheck);
+        standingOnTile = GridMapManager.Instance.GetNearestOnTile(transform.position);
     }
 
     void LateUpdate()
